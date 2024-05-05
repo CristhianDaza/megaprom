@@ -1,11 +1,9 @@
 <script setup>
-
+import Carousel from '@/components/home/Carousel.vue'
 </script>
 
 <template>
-  <div class="flex justify-center mt-10 font-extrabold text-2xl">
-    <h1>Home</h1>
-  </div>
+  <Carousel />
 </template>
 
 <style scoped>

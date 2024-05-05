@@ -13,10 +13,12 @@ const app = createApp(App)
 
 // PrimeVue components
 import Badge from 'primevue/badge'
+import Galleria  from 'primevue/galleria'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
 import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
+import Skeleton from 'primevue/skeleton'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -26,10 +28,12 @@ const pinia = createPinia()
 
 app.use(PrimeVue, { pt: Wind })
 app.component('Badge', Badge)
+app.component('Galleria', Galleria)
 app.component('IconField', IconField)
 app.component('InputIcon', InputIcon)
 app.component('InputText', InputText)
 app.component('Menubar', Menubar)
+app.component('Skeleton', Skeleton)
 app.use(router)
 app.use(pinia)
 app.mount('#megaprom')
