@@ -2,15 +2,15 @@
 import { onMounted } from 'vue'
 import { useMenuStore } from '@/store/menu'
 
-const menu = useMenuStore()
+const menuStore = useMenuStore()
 
 onMounted(() => {
-  menu.getMenu()
+  menuStore.getMenu()
 })
 </script>
 
 <template>
-  <Menubar :model="menu.items" breakpoint="956px" class="rounded-none">
+  <Menubar :model="menuStore.menu" breakpoint="956px" class="rounded-none">
     <template #start>
       <RouterLink :to="{ name: 'home' }">
         <img alt="Logo" class="size-10" src="https://megapromocionales.com.co/favicon.ico" />

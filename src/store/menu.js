@@ -5,7 +5,7 @@ import { collection, getDocs } from 'firebase/firestore'
 export const useMenuStore = defineStore('menu', {
     id: 'menu',
     state: () => ({
-        items: [],
+        menu: [],
     }),
     actions: {
         async getMenu() {
@@ -19,7 +19,7 @@ export const useMenuStore = defineStore('menu', {
                 const diffInHours = diffInMs / (1000 * 60 * 60);
 
                 if (diffInHours < 24) {
-                    this.items = JSON.parse(menuLocalStorage);
+                    this.menu = JSON.parse(menuLocalStorage);
                     return;
                 }
             }
@@ -37,7 +37,7 @@ export const useMenuStore = defineStore('menu', {
                 return orderA - orderB;
             });
 
-            this.items = items;
+            this.menu = items;
             localStorage.setItem('menu', JSON.stringify(items));
             localStorage.setItem('menuLastUpdate', new Date().toISOString());
         }
