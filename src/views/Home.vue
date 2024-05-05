@@ -1,9 +1,9 @@
 <script setup>
-import Carousel from '@/components/home/Carousel.vue'
+import MpCarousel from '@/components/home/MpCarousel.vue'
 </script>
 
 <template>
-  <Carousel />
+  <MpCarousel />
 </template>
 
 <style scoped>
