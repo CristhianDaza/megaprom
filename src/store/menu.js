@@ -15,11 +15,6 @@ export const useMenuStore = defineStore('menu', {
                 name: 'products',
             },
             {
-                label: 'Portafolio',
-                icon: 'pi pi-image',
-                name: 'portfolio',
-            },
-            {
                 label: 'Catálogos',
                 icon: 'pi pi-book',
                 name: 'catalogs',
