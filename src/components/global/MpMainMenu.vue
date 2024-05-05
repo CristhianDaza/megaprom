@@ -1,8 +1,12 @@
 <script setup>
+import { onMounted } from 'vue'
 import { useMenuStore } from '@/store/menu'
 
 const menu = useMenuStore()
 
+onMounted(() => {
+  menu.getMenu()
+})
 </script>
 
 <template>
