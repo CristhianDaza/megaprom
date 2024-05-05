@@ -1,10 +1,10 @@
 <script setup>
+import MpMainMenu from '@/components/global/MpMainMenu.vue'
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold text-center pt-10">
-    Mega
-  </h1>
+  <MpMainMenu />
+  <RouterView />
 </template>
 
 <style scoped>
