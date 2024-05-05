@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex gap-5 mt-5">
+  <div class="flex sm:gap-2 md:gap-4 sm:mt-2 md:mt-4 container mx-auto">
     <template
       v-for="{ id, src, alt } in images"
       :key="id"
@@ -17,8 +17,7 @@ const props = defineProps({
       <Image
         :src="src"
         :alt="alt"
-        width="100%"
-        height="100%"
+        width="1250"
       />
     </template>
   </div>
