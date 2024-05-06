@@ -8,6 +8,11 @@ const apiConfigMarpico = axios.create({
   },
 });
 
+const apiConfigPromos = axios.create({
+  baseURL: import.meta.env.VITE_BASE_API_PROMOS,
+});
+
 export {
-  apiConfigMarpico
+  apiConfigMarpico,
+  apiConfigPromos
 }
