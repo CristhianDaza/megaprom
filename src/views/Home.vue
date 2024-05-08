@@ -1,6 +1,7 @@
 <script setup>
 import MpCarousel from '@/components/home/MpCarousel.vue'
 import MpServicesImg from '@/components/home/MpServicesImg.vue'
+import MpHero from '@/components/home/MpHero.vue'
 
 const images = [
   {
@@ -17,6 +18,7 @@ const images = [
 </script>
 
 <template>
+  <MpHero />
   <MpCarousel />
   <MpServicesImg :images="images" />
 </template>
