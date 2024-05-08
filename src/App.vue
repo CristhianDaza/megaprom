@@ -4,7 +4,9 @@ import MpMainMenu from '@/components/global/MpMainMenu.vue'
 
 <template>
   <MpMainMenu />
-  <RouterView />
+  <div class="dark:bg-dark-mp min-h-screen-60">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>

@@ -1,10 +1,16 @@
 <script setup>
-import { useMenuStore } from '@/store/menu'
+import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
 
-const { items } = useMenuStore()
+const breadcrumbItems = [
+  {
+    icon: 'pi pi-info-circle',
+    label: 'Nosotros'
+  }
+]
 </script>
 
 <template>
+  <MpBreadcrumb :model="breadcrumbItems" />
   <div class="flex justify-center mt-10 font-extrabold text-2xl">
     <h1>About Us</h1>
   </div>

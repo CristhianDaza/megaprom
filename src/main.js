@@ -13,6 +13,7 @@ const app = createApp(App)
 
 // PrimeVue components
 import Badge from 'primevue/badge'
+import Breadcrumb from 'primevue/breadcrumb'
 import Button from 'primevue/button'
 import Galleria  from 'primevue/galleria'
 import IconField from 'primevue/iconfield'
@@ -30,6 +31,7 @@ const pinia = createPinia()
 
 app.use(PrimeVue, { pt: Wind })
 app.component('Badge', Badge)
+app.component('Breadcrumb', Breadcrumb)
 app.component('Button', Button)
 app.component('Galleria', Galleria)
 app.component('IconField', IconField)

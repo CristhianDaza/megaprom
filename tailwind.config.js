@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'dark-mp': 'rgb(17, 27, 39)',
         'primary-50': 'rgb(var(--primary-50))',
         'primary-100': 'rgb(var(--primary-100))',
         'primary-200': 'rgb(var(--primary-200))',
@@ -30,6 +31,9 @@ export default {
         'surface-800': 'rgb(var(--surface-800))',
         'surface-900': 'rgb(var(--surface-900))',
         'surface-950': 'rgb(var(--surface-950))'
+      },
+      minHeight: {
+        'screen-60': 'calc(100vh - 64px)',
       }
     }
   },
