@@ -13,7 +13,7 @@ onMounted(() => {
   <Menubar :model="menuStore.menu" breakpoint="956px" class="rounded-none">
     <template #start>
       <RouterLink :to="{ name: 'home' }">
-        <img alt="Logo" class="size-10" src="https://megapromocionales.com.co/favicon.ico" />
+        <img alt="Logo" class="size-7 md:size-10" src="https://megapromocionales.com.co/favicon.ico" />
       </RouterLink>
     </template>
     <template #item="{ item, props, hasSubmenu, root }">
