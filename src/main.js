@@ -15,6 +15,7 @@ const app = createApp(App)
 import Badge from 'primevue/badge'
 import Breadcrumb from 'primevue/breadcrumb'
 import Button from 'primevue/button'
+import Card from 'primevue/card'
 import Galleria  from 'primevue/galleria'
 import IconField from 'primevue/iconfield'
 import Image from 'primevue/image'
@@ -33,6 +34,7 @@ app.use(PrimeVue, { pt: Wind })
 app.component('Badge', Badge)
 app.component('Breadcrumb', Breadcrumb)
 app.component('Button', Button)
+app.component('Card', Card)
 app.component('Galleria', Galleria)
 app.component('IconField', IconField)
 app.component('Image', Image)

@@ -3,7 +3,6 @@ import { db } from '../../firebase.js'
 import { collection, getDocs } from 'firebase/firestore'
 
 export const useCarouselStore = defineStore('carousel', {
-    id: 'carousel',
     state: () => ({
         carousel: [],
         isLoading: true,
