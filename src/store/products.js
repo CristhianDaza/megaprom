@@ -1,14 +1,16 @@
-import { defineStore } from 'pinia'
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
-import { searchProduct } from '@/api/apiMarpico.js'
-import { getAllProducts } from '@/api/apiPromos.js'
-import { db } from '../../firebase.js'
+import {defineStore} from 'pinia'
+import {addDoc, collection, deleteDoc, doc, getDocs} from 'firebase/firestore'
+import {searchProduct} from '@/api/apiMarpico.js'
+import {getAllProducts} from '@/api/apiPromos.js'
+import {db} from '../../firebase.js'
 import {combineProducts, normalizeProductsCA, normalizeProductsMP} from '@/helpers'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
     products: [],
-    error: null
+    error: null,
+    categories: [],
+    isAdmin: false
   }),
   actions: {
     async setAllProductsPromosApi() {
@@ -68,6 +70,13 @@ export const useProductsStore = defineStore('products', {
         return
       }
       await Promise.all(deletePromises)
+    },
+    async getCategories() {
+      if (!this.products.length) {
+        await this._getProductsFirebase()
+      }
+      const categories = this.products.map(product => product.category)
+      this.categories = [...new Set(categories)]
     }
   }
 })
