@@ -1,99 +1,98 @@
 const _constructSizeMp = (size) => {
-  const parts = [];
+  const parts = []
   if (size?.medidas_largo) {
-    parts.push(`${Math.trunc(size.medidas_largo)}cm largo`);
+    parts.push(`${Math.trunc(size.medidas_largo)}cm largo`)
   }
   if (size?.medidas_ancho) {
-    parts.push(`${Math.trunc(size.medidas_ancho)}cm ancho`);
+    parts.push(`${Math.trunc(size.medidas_ancho)}cm ancho`)
   }
   if (size?.medidas_alto) {
-    parts.push(`${Math.trunc(size.medidas_alto)}cm alto`);
+    parts.push(`${Math.trunc(size.medidas_alto)}cm alto`)
   }
   if (size?.medidas_diametro) {
-    parts.push(`${size.medidas_diametro} de diámetro`);
+    parts.push(`${size.medidas_diametro} de diámetro`)
   }
   return parts.join(' x ')
 }
 
 const _constructPackagingCa = (packaging) => {
-  const parts = [];
+  const parts = []
   if (packaging?.alto) {
-    parts.push(`${packaging.alto} alto`);
+    parts.push(`${packaging.alto} alto`)
   }
   if (packaging?.largo) {
-    parts.push(`${packaging.largo} largo`);
+    parts.push(`${packaging.largo} largo`)
   }
   if (packaging?.ancho) {
-    parts.push(`${packaging.ancho} ancho`);
+    parts.push(`${packaging.ancho} ancho`)
   }
   if (packaging?.pesoBruto) {
-    parts.push(`${packaging.pesoBruto}${packaging.unidadPeso} peso bruto`);
+    parts.push(`${packaging.pesoBruto}${packaging.unidadPeso} peso bruto`)
   }
   if (packaging?.pesoNeto) {
-    parts.push(`${packaging.pesoNeto}${packaging.unidadPeso} peso neto`);
+    parts.push(`${packaging.pesoNeto}${packaging.unidadPeso} peso neto`)
   }
   if (packaging?.PiezasCaja) {
-    parts.push(`${packaging.PiezasCaja} piezas por caja`);
+    parts.push(`${packaging.PiezasCaja} piezas por caja`)
   }
   if (packaging?.cajaIndividual) {
-    parts.push(`Caga individual: ${packaging.cajaIndividual}`);
+    parts.push(`Caga individual: ${packaging.cajaIndividual}`)
   }
-  return parts.join(' - ');
+  return parts.join(' - ')
 }
 
 const _constructPackagingMp = (packaging) => {
   const parts = [];
   if (packaging?.empaque_unds_caja) {
-    parts.push(`${packaging.empaque_unds_caja} unidades por caja`);
+    parts.push(`${packaging.empaque_unds_caja} unidades por caja`)
   }
   if (packaging?.empaque_largo) {
-    parts.push(`${packaging.empaque_largo} largo`);
+    parts.push(`${packaging.empaque_largo} largo`)
   }
   if (packaging?.empaque_ancho) {
-    parts.push(`${packaging.empaque_ancho} ancho`);
+    parts.push(`${packaging.empaque_ancho} ancho`)
   }
   if (packaging?.empaque_alto) {
-    parts.push(`${packaging.empaque_alto} alto`);
+    parts.push(`${packaging.empaque_alto} alto`)
   }
   if (packaging?.empaque_peso_neto) {
-    parts.push(`${packaging.empaque_peso_neto}G peso neto`);
+    parts.push(`${packaging.empaque_peso_neto}G peso neto`)
   }
   if (packaging?.empaque_peso_bruto) {
-    parts.push(`${packaging.empaque_peso_bruto}G peso bruto`);
+    parts.push(`${packaging.empaque_peso_bruto}G peso bruto`)
   }
   if (packaging?.cajas_individuales) {
-    parts.push(`${packaging.cajas_individuales} cajas individuales`);
+    parts.push(`${packaging.cajas_individuales} cajas individuales`)
   }
-  return parts.join(' - ');
+  return parts.join(' - ')
 }
 
 const _constructCategoryMp = (product) => {
   const parts = [];
   if (product?.subcategoria_1) {
-    parts.push(product?.subcategoria_1?.nombre);
+    parts.push(product?.subcategoria_1?.nombre)
   }
   if (product?.subcategoria_2) {
-    parts.push(product.subcategoria_2?.nombre);
+    parts.push(product.subcategoria_2?.nombre)
   }
   if (product?.subcategoria_3) {
-    parts.push(product.subcategoria_3?.nombre);
+    parts.push(product.subcategoria_3?.nombre)
   }
-  return parts.join(' | ');
+  return parts.join(' | ')
 }
 
 const _constructLabelsMp = (product) => {
-  const parts = [];
+  const parts = []
   if (product?.etiquetas) {
     product.etiquetas.forEach(label => {
       parts.push({
         id: label.id,
         name: label.nombre,
         image: label.imagen
-      });
-    });
+      })
+    })
   }
-  return parts;
-
+  return parts
 }
 
 const _decodeHtmlEntities = (text) => {
@@ -110,16 +109,16 @@ const _decodeHtmlEntities = (text) => {
     '&uacute;': 'ú',
     '&Ntilde;': 'Ñ',
     '&ntilde;': 'ñ'
-  };
-  if (!text) return text;
-  return text.replace(/&[A-Za-z]+;/g, match => htmlEntities[match] || match);
-};
+  }
+  if (!text) return text
+  return text.replace(/&[A-Za-z]+;/g, match => htmlEntities[match] || match)
+}
 
 const _formatText = (text) => {
-  let decodedText = _decodeHtmlEntities(text);
-  if (!decodedText) return '';
-  return decodedText.charAt(0).toUpperCase() + decodedText.slice(1).toLowerCase();
-};
+  let decodedText = _decodeHtmlEntities(text)
+  if (!decodedText) return ''
+  return decodedText.charAt(0).toUpperCase() + decodedText.slice(1).toLowerCase()
+}
 
 export const normalizeProductsMP = (product) => {
   return {
@@ -135,7 +134,7 @@ export const normalizeProductsMP = (product) => {
     packaging: _constructPackagingMp(product),
     printing: _formatText(product?.tecnica_marca_tecnica),
     size: _constructSizeMp(product)
-  };
+  }
 }
 
 export const normalizeProductsCA = (product) => {
@@ -153,4 +152,19 @@ export const normalizeProductsCA = (product) => {
     printing: _formatText(product?.impresion.tecnicaImpresion),
     size: product?.medidas
   };
+}
+
+export const combineProducts = (docs) => {
+  const combinedProducts = []
+  
+  docs.forEach(doc => {
+    const products = doc.data().products
+    if (Array.isArray(products)) {
+      combinedProducts.push(...products)
+    } else {
+      console.warn('Without products:', doc)
+    }
+  })
+  
+  return combinedProducts
 }

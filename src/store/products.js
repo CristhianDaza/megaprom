@@ -1,9 +1,9 @@
-import {defineStore} from 'pinia'
-import { collection, addDoc, updateDoc, arrayUnion, getDocs, doc } from 'firebase/firestore'
-import {searchProduct} from '@/api/apiMarpico.js'
-import {getAllProducts} from '@/api/apiPromos.js'
+import { defineStore } from 'pinia'
+import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
+import { searchProduct } from '@/api/apiMarpico.js'
+import { getAllProducts } from '@/api/apiPromos.js'
 import { db } from '../../firebase.js'
-import { normalizeProductsCA, normalizeProductsMP } from '@/helpers'
+import {combineProducts, normalizeProductsCA, normalizeProductsMP} from '@/helpers'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -13,66 +13,61 @@ export const useProductsStore = defineStore('products', {
   actions: {
     async setAllProductsPromosApi() {
       try {
-        const lastUpdateLocalStorage = localStorage.getItem('productsLastUpdate');
+        const lastUpdateLocalStorage = localStorage.getItem('productsLastUpdate')
         if (lastUpdateLocalStorage) {
-          const lastUpdateDate = new Date(lastUpdateLocalStorage);
-          const now = new Date();
-          const diffInMs = now - lastUpdateDate;
-          const diffInHours = diffInMs / (1000 * 60 * 60);
+          const lastUpdateDate = new Date(lastUpdateLocalStorage)
+          const now = new Date()
+          const diffInMs = now - lastUpdateDate
+          const diffInHours = diffInMs / (1000 * 60 * 60)
           if (diffInHours < 24) {
             if (!this.products || this.products.length === 0) {
-              this.getProductsFirebase();
+              await this._getProductsFirebase()
             }
-            return;
+            return
           }
         }
         
-        // await this.deleteAllProducts(); TODO: Uncomment this line
+        await this._deleteAllProducts()
         
-        const [{ data: dataPromos }] = await Promise.all([getAllProducts()]);
-        const normalizedPromosResults = dataPromos.response.map(normalizeProductsCA);
-        const allNormalizedProducts = [...normalizedPromosResults];
-        this.products = allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name));
+        const { data } = await getAllProducts()
+        const normalizedPromosResults = data.response.map(normalizeProductsCA)
+        const allNormalizedProducts = [...normalizedPromosResults]
         
-        const docRef = await addDoc(collection(db, 'allProducts'), { products: this.products });
-        await this.setAllProductsMpApi();
+        await addDoc(collection(db, 'allProducts'), { products: allNormalizedProducts })
+        await this._setAllProductsMpApi()
       } catch (error) {
-        console.error("Error in getAllProductsPromosApi:", error);
-        this.error = error.message || error.code;
+        console.error('Error in getAllProductsPromosApi:', error)
+        this.error = error.message || error.code
       }
     },
-    async setAllProductsMpApi() {
+    async _setAllProductsMpApi() {
       try {
-        const [{ data: searchData }] = await Promise.all([searchProduct()]);
-        const normalizedSearchResults = searchData.results.map(normalizeProductsMP);
-        const allNormalizedProducts = [...normalizedSearchResults];
-        this.products.push(allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name)));
+        let products = [];
+        const { data } = await searchProduct()
+        const normalizedSearchResults = data.results.map(normalizeProductsMP)
+        products = [...normalizedSearchResults]
         
-        const docRef = await addDoc(collection(db, 'allProducts'), { products: this.products });
-        localStorage.setItem('productsLastUpdate', new Date().toISOString());
+        await addDoc(collection(db, 'allProducts'), { products })
+        localStorage.setItem('productsLastUpdate', new Date().toISOString())
+        await this._getProductsFirebase()
       } catch (error) {
-        console.error("Error in getAllProductsMpApi:", error);
-        this.error = error.message || error.code;
+        console.error('Error in getAllProductsMpApi:', error)
+        this.error = error.message || error.code
       }
     },
-    async getProductsFirebase() {
-      const docRef = await getDocs(collection(db, 'allProducts'));
-      const items = [];
-      
-      docRef.forEach(doc => {
-        items.push({ ...doc.data() });
-      });
-      // items.sort((a, b) => a.name.localeCompare(b.name));
-      this.products = items;
+    async _getProductsFirebase() {
+      const docRef = await getDocs(collection(db, 'allProducts'))
+      const allNormalizedProducts = combineProducts(docRef.docs)
+      this.products = allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name))
     },
-    async deleteAllProducts() {
-      // TODO: funtion incomplete
-      const collectionRef = collection(db, 'allProducts');
-      const querySnapshot = await getDocs(collectionRef);
+    async _deleteAllProducts() {
+      const docRef = await getDocs(collection(db, 'allProducts'))
       
-      const deletePromises = querySnapshot.docs.map(document => deleteDoc(doc(db, collectionName, document.id)));
-      
-      await Promise.all(deletePromises);
+      const deletePromises = docRef.docs.map(document => deleteDoc(doc(db, 'allProducts', document.id)))
+      if (!deletePromises.length) {
+        return
+      }
+      await Promise.all(deletePromises)
     }
   }
-});
+})
