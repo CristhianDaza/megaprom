@@ -1,3 +1,5 @@
+import { createRouter, createWebHistory } from 'vue-router';
+
 import AboutUs from '@/views/AboutUs.vue'
 import Catalogs from '@/views/Catalogs.vue'
 import Contact from '@/views/Contact.vue'
@@ -5,7 +7,7 @@ import Home from '@/views/Home.vue'
 import Portfolio from '@/views/Portfolio.vue'
 import Products from '@/views/Products.vue'
 
-export const routes = [
+const routes = [
     {
         path: '/',
         component: Home,
@@ -43,3 +45,17 @@ export const routes = [
         key: 'products',
     },
 ]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition;
+        } else {
+            return { left: 0, top: 0 };
+        }
+    },
+});
+
+export default router;

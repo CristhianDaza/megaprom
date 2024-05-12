@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
-import { createWebHistory, createRouter } from 'vue-router'
-import { routes } from '@/router'
+import router from '@/router'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
 import './style.css'
@@ -25,10 +24,6 @@ import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
 import Skeleton from 'primevue/skeleton'
 
-const router = createRouter({
-    history: createWebHistory(),
-    routes,
-})
 const pinia = createPinia()
 
 app.use(PrimeVue, { pt: Wind })
