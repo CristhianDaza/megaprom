@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useCarouselStore } from '@/store/carousel.js'
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Navigation } from 'vue3-carousel'
 
 const carouselStore = useCarouselStore()
 
@@ -10,19 +12,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <Galleria
+  <carousel
     v-if="!carouselStore.isLoading"
-    :value="carouselStore.carousel"
-    :circular="true"
-    :showItemNavigators="true"
-    :showThumbnails="false"
-    :autoPlay="true"
+    :items-to-show="1"
+    wrapAround
+    :autoplay="3000"
   >
-    <template #item="{ item : { itemImageSrc, alt }}">
-      <img :src="itemImageSrc" :alt="alt" style="width: 100%; display: block; max-height: 580px" />
+    <slide v-for="slide in carouselStore.carousel" :key="slide">
+      <img :src="slide.itemImageSrc" :alt="slide.title" style="width: 100%; display: block; max-height: 580px" />
+    </slide>
+    <template #addons>
+      <navigation />
     </template>
-  </Galleria>
-  <Skeleton v-else width="100%" height="580px"></Skeleton>
+  </carousel>
+  <Skeleton v-else width="100%" height="469px"></Skeleton>
 </template>
 
 <style scoped>
