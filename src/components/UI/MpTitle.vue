@@ -19,8 +19,8 @@ const mainTitle = computed(() => {
 
 <template>
   <div
-    class="bg-center bg-auto md:bg-cover bg-no-repeat bg-gray-800 bg-blend-multiply"
-    :class="`bg-[url('${image}')]`"
+    class="bg-center bg-auto md:bg-cover bg-no-repeat bg-gray-700 md:bg-gray-800 bg-blend-multiply"
+    :style="{ backgroundImage: `url('${image}')` }"
   >
     <h1
       class="flex justify-center font-extrabold text-3xl md:text-5xl text-white underline underline-offset-3 decoration-blue-600 py-20 my-2">
