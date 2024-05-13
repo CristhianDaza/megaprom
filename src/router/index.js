@@ -6,6 +6,7 @@ import Contact from '@/views/Contact.vue'
 import Home from '@/views/Home.vue'
 import Portfolio from '@/views/Portfolio.vue'
 import Products from '@/views/Products.vue'
+import Search from '@/views/Search.vue'
 
 const routes = [
     {
@@ -44,6 +45,19 @@ const routes = [
         name: 'products',
         key: 'products',
     },
+    {
+        path: '/productos/:id',
+        component: Products,
+        name: 'product',
+        key: 'product',
+    },
+    {
+        path: '/busqueda',
+        component: Search,
+        name: 'search',
+        key: 'search',
+        params: true,
+    }
 ]
 
 const router = createRouter({

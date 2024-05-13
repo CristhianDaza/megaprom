@@ -10,7 +10,8 @@ export const useProductsStore = defineStore('products', {
     products: [],
     error: null,
     categories: [],
-    isAdmin: false
+    isAdmin: false,
+    filteredProducts: []
   }),
   actions: {
     async setAllProductsPromosApi() {
@@ -77,6 +78,21 @@ export const useProductsStore = defineStore('products', {
       }
       const categories = this.products.map(product => product.category)
       this.categories = [...new Set(categories)]
+    },
+    async filterProductsByCategory(searchTerm) {
+      if (!this.products.length) {
+        await this._getProductsFirebase()
+      }
+      const keywords = searchTerm.toLowerCase().split('|').map(keyword => keyword.trim());
+
+      this.filteredProducts = this.products.filter(product => {
+        return keywords.some(keyword =>
+          product.name.toLowerCase().includes(keyword) ||
+          product.description.toLowerCase().includes(keyword) ||
+          product.material.toLowerCase().includes(keyword) ||
+          product.category?.toLowerCase().includes(keyword)
+        );
+      });
     }
   }
 })
