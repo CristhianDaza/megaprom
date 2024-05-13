@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router'
 import { useProductsStore } from '@/store/products.js'
 import MpCardProduct from '@/components/UI/MpCardProduct.vue'
 
-const { query: { category } } = useRoute()
+const { query: { categoria } } = useRoute()
 
 const products = useProductsStore()
 
@@ -21,14 +21,14 @@ const breadcrumbItems = [
 ]
 
 onMounted(async () => {
-  await products.filterProductsByCategory(category)
+  await products.filterProductsByCategory(categoria)
 })
 </script>
 
 <template>
   <MpBreadcrumb :model="breadcrumbItems" />
   <MpTitle
-    :title="category"
+    :title="categoria"
     image="https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/web1-06.jpg?alt=media&token=1522ffd6-f6d8-4151-b287-1b905fa58a2c"
   />
 
