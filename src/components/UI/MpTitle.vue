@@ -13,6 +13,7 @@ const props = defineProps({
 })
 
 const mainTitle = computed(() => {
+  if (!props.title) return 'Productos'
   return props.title.trim().charAt(0).toUpperCase() + props.title.slice(1).toLowerCase()
 })
 </script>
