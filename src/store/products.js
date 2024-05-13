@@ -3,12 +3,7 @@ import {addDoc, collection, deleteDoc, doc, getDocs} from 'firebase/firestore'
 import {searchProduct} from '@/api/apiMarpico.js'
 import {getAllProducts} from '@/api/apiPromos.js'
 import {db} from '../../firebase.js'
-import {
-  combineProducts,
-  normalizeAndFilterProducts,
-  normalizeProductsCA,
-  normalizeProductsMP
-} from '@/helpers'
+import {combineProducts, normalizeAndFilterProducts, normalizeProductsCA, normalizeProductsMP} from '@/helpers'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -17,7 +12,8 @@ export const useProductsStore = defineStore('products', {
     categories: [],
     isAdmin: false,
     filteredProducts: [],
-    productsInput: []
+    productsInput: [],
+    product: null
   }),
   actions: {
     async setAllProductsPromosApi() {
@@ -113,6 +109,13 @@ export const useProductsStore = defineStore('products', {
     
     resetProductsInput() {
       this.productsInput = []
+    },
+    
+    async getProductById(id) {
+      if (!this.products.length) {
+        await this._getProductsFirebase();
+      }
+      this.product = this.products.find(product => product.id === id)
     }
   }
 })

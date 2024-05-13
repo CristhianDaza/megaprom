@@ -5,6 +5,7 @@ import Catalogs from '@/views/Catalogs.vue'
 import Contact from '@/views/Contact.vue'
 import Home from '@/views/Home.vue'
 import Portfolio from '@/views/Portfolio.vue'
+import Product from '@/views/Product.vue'
 import Products from '@/views/Products.vue'
 import Search from '@/views/Search.vue'
 
@@ -47,7 +48,7 @@ const routes = [
     },
     {
         path: '/productos/:id',
-        component: Products,
+        component: Product,
         name: 'product',
         key: 'product',
     },
