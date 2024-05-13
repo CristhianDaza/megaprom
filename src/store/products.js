@@ -99,12 +99,14 @@ export const useProductsStore = defineStore('products', {
         const productDescription = normalizeString(product.description)
         const productMaterial = normalizeString(product.material)
         const productCategory = product.category ? normalizeString(product.category) : ''
+        const productId = normalizeString(product.id)
         
         return keywords.some(keyword =>
           productName.includes(keyword) ||
           productDescription.includes(keyword) ||
           productMaterial.includes(keyword) ||
-          productCategory.includes(keyword)
+          productCategory.includes(keyword) ||
+          productId.includes(keyword)
         )
       })
     }
