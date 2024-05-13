@@ -1,8 +1,21 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useMenuStore } from '@/store/menu'
+import { useRouter } from 'vue-router'
+
+const inputSearch = ref('')
 
 const menuStore = useMenuStore()
+const router = useRouter()
+
+const searchProduct = () => {
+  router.push({
+    name: 'search',
+    query: { q: inputSearch.value }
+  })
+
+  inputSearch.value = ''
+}
 
 onMounted(() => {
   menuStore.getMenu()
@@ -37,7 +50,7 @@ onMounted(() => {
           <InputIcon>
             <i class="pi pi-search" />
           </InputIcon>
-          <InputText placeholder="Buscar" />
+          <InputText v-model="inputSearch" placeholder="Buscar" v-on:keyup.enter="searchProduct"/>
         </IconField>
       </div>
     </template>

@@ -80,19 +80,33 @@ export const useProductsStore = defineStore('products', {
       this.categories = [...new Set(categories)]
     },
     async filterProductsByCategory(searchTerm) {
+      if (!searchTerm || searchTerm.trim().length === 0) {
+        return
+      }
+
       if (!this.products.length) {
         await this._getProductsFirebase()
       }
-      const keywords = searchTerm.toLowerCase().split('|').map(keyword => keyword.trim());
+
+      const normalizeString = (str) => {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
+      };
+
+      const keywords = normalizeString(searchTerm).split('|').map(keyword => keyword.trim())
 
       this.filteredProducts = this.products.filter(product => {
+        const productName = normalizeString(product.name)
+        const productDescription = normalizeString(product.description)
+        const productMaterial = normalizeString(product.material)
+        const productCategory = product.category ? normalizeString(product.category) : ''
+        
         return keywords.some(keyword =>
-          product.name.toLowerCase().includes(keyword) ||
-          product.description.toLowerCase().includes(keyword) ||
-          product.material.toLowerCase().includes(keyword) ||
-          product.category?.toLowerCase().includes(keyword)
-        );
-      });
+          productName.includes(keyword) ||
+          productDescription.includes(keyword) ||
+          productMaterial.includes(keyword) ||
+          productCategory.includes(keyword)
+        )
+      })
     }
   }
 })

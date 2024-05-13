@@ -26,7 +26,7 @@ onMounted(async () => {
   />
   <div class="container mx-auto justify-center md:justify-between flex flex-wrap text-gray-900 dark:text-white gap-2 mt-10">
     <RouterLink
-      :to="{ name: 'search', query: { category } }"
+      :to="{ name: 'search', query: { q: category } }"
       v-for="category in products.categories"
     >
       <Chip :label="category" v-if="category" />

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue'
+import {onMounted, watch} from 'vue'
 
 import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
 import MpTitle from '@/components/UI/MpTitle.vue'
@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router'
 import { useProductsStore } from '@/store/products.js'
 import MpCardProduct from '@/components/UI/MpCardProduct.vue'
 
-const { query: { categoria } } = useRoute()
+const route = useRoute()
 
 const products = useProductsStore()
 
@@ -20,15 +20,21 @@ const breadcrumbItems = [
   }
 ]
 
+watch(() => route.query.q, async (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    await products.filterProductsByCategory(route.query.q)
+  }
+})
+
 onMounted(async () => {
-  await products.filterProductsByCategory(categoria)
+  await products.filterProductsByCategory(route.query.q)
 })
 </script>
 
 <template>
   <MpBreadcrumb :model="breadcrumbItems" />
   <MpTitle
-    :title="categoria"
+    :title="route.query.q"
     image="https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/web1-06.jpg?alt=media&token=1522ffd6-f6d8-4151-b287-1b905fa58a2c"
   />
 
