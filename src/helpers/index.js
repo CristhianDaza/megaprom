@@ -128,17 +128,17 @@ const _decodeHtmlEntities = (text) => {
   return text.replace(/&[A-Za-z]+;/g, match => htmlEntities[match] || match)
 }
 
-const _formatText = (text) => {
+const _formatText = (text, isDescription = false) => {
   let decodedText = _decodeHtmlEntities(text)
   if (!decodedText) return ''
-  return decodedText.charAt(0).toUpperCase() + decodedText.slice(1).toLowerCase()
+  return isDescription ? decodedText : decodedText.charAt(0).toUpperCase() + decodedText.slice(1).toLowerCase()
 }
 
 export const normalizeProductsMP = (product) => {
   return {
     areaPrinting: product?.area_impresion,
     category: _constructCategoryMp(product),
-    description: _formatText(product?.descripcion_larga),
+    description: _formatText(product?.descripcion_larga, true),
     id: product?.familia,
     images: product?.imagenes,
     labels: _constructLabelsMp(product),
@@ -155,7 +155,7 @@ export const normalizeProductsCA = (product) => {
   return {
     areaPrinting: _formatText(product?.impresion.areaImpresion),
     category: null,
-    description: _formatText(product?.descripcion),
+    description: _formatText(product?.descripcion, true),
     id: product?.skuPadre,
     images: _constructImagesCa(product?.hijos),
     labels: null,
