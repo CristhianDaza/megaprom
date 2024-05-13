@@ -95,6 +95,20 @@ const _constructLabelsMp = (product) => {
   return parts
 }
 
+const _constructImagesCa = (children) => {
+  const images = []
+  if (children) {
+    children.forEach(child => {
+      if (child?.imagenesHijo) {
+        child?.imagenesHijo.forEach(image => {
+          images.push(image)
+        })
+      }
+    })
+  }
+  return images
+}
+
 const _decodeHtmlEntities = (text) => {
   const htmlEntities = {
     '&Aacute;': 'Á',
@@ -143,11 +157,11 @@ export const normalizeProductsCA = (product) => {
     category: null,
     description: _formatText(product?.descripcion),
     id: product?.skuPadre,
-    images: product?.hijos?.[0]?.imagenesHijo,
+    images: _constructImagesCa(product?.hijos),
     labels: null,
     mainImage: product?.imagenesPadre.length > 0 ? product?.imagenesPadre?.[0] : 'https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/Default%20Image.webp?alt=media&token=6f566cb0-8bfd-4090-b585-94fa330b9056',
     material: _formatText(product?.material),
-    name: `${_formatText(product?.nombrePadre)}${product?.capacidad !== '' ? `- ${product?.capacidad}` : ''}`,
+    name: `${_formatText(product?.nombrePadre)}${product?.capacidad !== '' ? ` - ${product?.capacidad}` : ''}`,
     packaging: _constructPackagingCa(product?.paquete),
     printing: _formatText(product?.impresion.tecnicaImpresion),
     size: product?.medidas
