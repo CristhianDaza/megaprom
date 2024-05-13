@@ -50,7 +50,7 @@ onMounted(() => {
           <InputIcon>
             <i class="pi pi-search" />
           </InputIcon>
-          <InputText v-model="inputSearch" placeholder="Buscar" v-on:keyup.enter="searchProduct"/>
+          <InputText v-model="inputSearch" placeholder="Buscar" v-on:keyup.enter="searchProduct" id="searchInput"/>
         </IconField>
       </div>
     </template>
