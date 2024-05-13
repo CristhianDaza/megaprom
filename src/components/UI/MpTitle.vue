@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
 
 const props = defineProps({
   title: {
@@ -11,6 +11,10 @@ const props = defineProps({
     required: false
   }
 })
+
+const mainTitle = computed(() => {
+  return props.title.trim().charAt(0).toUpperCase() + props.title.slice(1).toLowerCase()
+})
 </script>
 
 <template>
@@ -20,7 +24,7 @@ const props = defineProps({
   >
     <h1
       class="flex justify-center font-extrabold text-3xl md:text-5xl text-white underline underline-offset-3 decoration-blue-600 py-20 my-2">
-      {{ title }}
+      {{ mainTitle }}
     </h1>
   </div>
 </template>
