@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 import MpTitle from '@/components/UI/MpTitle.vue'
 import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
 import MpProductImages from '@/components/product/MpProductImages.vue'
+import MpProductDescription from '@/components/product/MpProductDescription.vue'
 
 import { useProductsStore } from '@/store/products.js'
 
@@ -40,12 +41,12 @@ onMounted(async () => {
     :title="productsStore.product?.name"
     :image="productsStore.product?.mainImage"
   />
-  <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 md:py-10 gap-3">
+  <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 md:py-10 gap-3">
     <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5">
       <MpProductImages :images="productsStore.product?.images" />
     </div>
     <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5">
-      <h1>Producto</h1>
+      <MpProductDescription :product="productsStore.product" />
     </div>
   </div>
 </template>
