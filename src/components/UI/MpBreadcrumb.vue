@@ -14,7 +14,7 @@ const home = ref({
 </script>
 
 <template>
-  <div class="flex justify-left pt-5 pl-5 md:pl-0 container mx-auto">
+  <div class="flex justify-left py-5 pl-5 md:pl-0 container mx-auto">
     <Breadcrumb :home="home" :model="model">
       <template #item="{ item, props }">
         <router-link v-slot="{ href, navigate }" :to="{ name: item.name }" custom>
