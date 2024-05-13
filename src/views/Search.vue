@@ -13,6 +13,8 @@ const route = useRoute()
 
 const products = useProductsStore()
 
+const input = document.querySelector('#searchInput')
+
 const breadcrumbItems = [
   {
     icon: 'pi pi-search',
@@ -22,6 +24,7 @@ const breadcrumbItems = [
 
 watch(() => route.query.q, async (newValue, oldValue) => {
   if (newValue !== oldValue) {
+    input.blur()
     await products.filterProductsByCategory(route.query.q)
   }
 })
