@@ -3,7 +3,12 @@ import {addDoc, collection, deleteDoc, doc, getDocs} from 'firebase/firestore'
 import {searchProduct} from '@/api/apiMarpico.js'
 import {getAllProducts} from '@/api/apiPromos.js'
 import {db} from '../../firebase.js'
-import {combineProducts, normalizeProductsCA, normalizeProductsMP} from '@/helpers'
+import {
+  combineProducts,
+  normalizeAndFilterProducts,
+  normalizeProductsCA,
+  normalizeProductsMP
+} from '@/helpers'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -11,7 +16,8 @@ export const useProductsStore = defineStore('products', {
     error: null,
     categories: [],
     isAdmin: false,
-    filteredProducts: []
+    filteredProducts: [],
+    productsInput: []
   }),
   actions: {
     async setAllProductsPromosApi() {
@@ -80,35 +86,33 @@ export const useProductsStore = defineStore('products', {
       this.categories = [...new Set(categories)]
     },
     async filterProductsByCategory(searchTerm) {
-      if (!searchTerm || searchTerm.trim().length === 0) {
-        return
+      if (!searchTerm || searchTerm.trim().length < 3) {
+        return;
       }
-
+      
       if (!this.products.length) {
-        await this._getProductsFirebase()
+        await this._getProductsFirebase();
       }
-
-      const normalizeString = (str) => {
-        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-      };
-
-      const keywords = normalizeString(searchTerm).split('|').map(keyword => keyword.trim())
-
-      this.filteredProducts = this.products.filter(product => {
-        const productName = normalizeString(product.name)
-        const productDescription = normalizeString(product.description)
-        const productMaterial = normalizeString(product.material)
-        const productCategory = product.category ? normalizeString(product.category) : ''
-        const productId = normalizeString(product.id)
-        
-        return keywords.some(keyword =>
-          productName.includes(keyword) ||
-          productDescription.includes(keyword) ||
-          productMaterial.includes(keyword) ||
-          productCategory.includes(keyword) ||
-          productId.includes(keyword)
-        )
-      })
+      
+      this.filteredProducts = normalizeAndFilterProducts(this.products, searchTerm);
+    },
+    
+    async searchProductsInput(searchTerm) {
+      if (!searchTerm || searchTerm.trim().length < 3) {
+        this.resetProductsInput();
+        return;
+      }
+      
+      if (!this.products.length) {
+        await this._getProductsFirebase();
+      }
+      
+      const searchResults = normalizeAndFilterProducts(this.products, searchTerm);
+      this.productsInput = searchResults.slice(0, 5);
+    },
+    
+    resetProductsInput() {
+      this.productsInput = []
     }
   }
 })

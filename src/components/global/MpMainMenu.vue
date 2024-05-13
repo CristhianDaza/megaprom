@@ -1,21 +1,9 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import MpSearchFilter from '@/components/global/MpSearchFilter.vue'
+import { onMounted } from 'vue'
 import { useMenuStore } from '@/store/menu'
-import { useRouter } from 'vue-router'
-
-const inputSearch = ref('')
 
 const menuStore = useMenuStore()
-const router = useRouter()
-
-const searchProduct = () => {
-  router.push({
-    name: 'search',
-    query: { q: inputSearch.value }
-  })
-
-  inputSearch.value = ''
-}
 
 onMounted(() => {
   menuStore.getMenu()
@@ -45,14 +33,7 @@ onMounted(() => {
       </div>
     </template>
     <template #end>
-      <div class="flex align-items-center gap-2">
-        <IconField iconPosition="left">
-          <InputIcon>
-            <i class="pi pi-search" />
-          </InputIcon>
-          <InputText v-model="inputSearch" placeholder="Buscar" v-on:keyup.enter="searchProduct" id="searchInput"/>
-        </IconField>
-      </div>
+      <MpSearchFilter />
     </template>
   </Menubar>
 </template>

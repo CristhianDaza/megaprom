@@ -168,3 +168,27 @@ export const combineProducts = (docs) => {
   
   return combinedProducts
 }
+
+export const normalizeAndFilterProducts = (products, searchTerm) => {
+  const normalizeString = (str) => {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  };
+  
+  const keywords = normalizeString(searchTerm).split('|').map(keyword => keyword.trim());
+  
+  return products.filter(product => {
+    const productName = normalizeString(product.name);
+    const productDescription = normalizeString(product.description);
+    const productMaterial = normalizeString(product.material);
+    const productCategory = product.category ? normalizeString(product.category) : '';
+    const productId = normalizeString(product.id);
+    
+    return keywords.some(keyword =>
+      productName.includes(keyword) ||
+      productDescription.includes(keyword) ||
+      productMaterial.includes(keyword) ||
+      productCategory.includes(keyword) ||
+      productId.includes(keyword)
+    );
+  });
+}
