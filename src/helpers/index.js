@@ -158,3 +158,45 @@ export const constructTotalProductsCa = (children, stockData) => {
   return totalProducts;
 }
 
+export const constructTableQuantityMp = (materials) => {
+  const quantity = [];
+  
+  materials.forEach(material => {
+    const item = {
+      color: material.color_nombre,
+      quantity: material.inventario_almacen?.[0]?.cantidad,
+      inTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].cantidad : null,
+      statusTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].estado : null,
+      dataTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].fecha : null,
+      lastUpdateTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].ultima_actualizacion : null,
+      idColorTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].material_id : null,
+    };
+    
+    Object.keys(item).forEach(key => {
+      if (item[key] == null) {
+        delete item[key];
+      }
+    });
+    
+    quantity.push(item);
+  });
+  
+  return quantity;
+};
+
+
+export const constructTableQuantityCA = (children, stockData) => {
+  const table = [];
+  if (children) {
+    children.forEach(child => {
+      const stockEntry = stockData.find(item => item.Material === child.skuHijo);
+      if (stockEntry) {
+        table.push({
+          color: child.skuHijo,
+          quantity: stockEntry.Stock
+        });
+      }
+    });
+  }
+  return table;
+}

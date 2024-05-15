@@ -5,6 +5,8 @@ import {
   constructPackagingCa,
   constructPackagingMp,
   constructSizeMp,
+  constructTableQuantityCA,
+  constructTableQuantityMp,
   constructTotalProductsCa,
   constructTotalProductsMp,
   formatText
@@ -72,6 +74,7 @@ export const normalizeProductsCA = (product, stock) => {
     packaging: constructPackagingCa(product?.paquete),
     printing: formatText(product?.impresion.tecnicaImpresion),
     size: product?.medidas,
+    tableQuantity: constructTableQuantityCA(product?.hijos, stock),
     totalProducts: constructTotalProductsCa(product?.hijos, stock)
   };
 }
@@ -91,6 +94,7 @@ export const normalizeProductsMP = (product) => {
     packaging: constructPackagingMp(product),
     printing: formatText(product?.tecnica_marca_tecnica),
     size: constructSizeMp(product),
+    tableQuantity: constructTableQuantityMp(product?.materiales),
     totalProducts: constructTotalProductsMp(product?.materiales)
   }
 }

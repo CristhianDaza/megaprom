@@ -50,13 +50,19 @@ export const useProductsStore = defineStore('products', {
     async _setAllProductsMpApi() {
       try {
         let products = [];
-        const { data } = await searchProduct()
-        const normalizedSearchResults = data.results.map(normalizeProductsMP)
-        products = [...normalizedSearchResults]
+        const { data } = await searchProduct();
+        const normalizedSearchResults = data.results.map(normalizeProductsMP);
+        products = [...normalizedSearchResults];
         
-        await addDoc(collection(db, 'allProducts'), { products })
+        const batchSize = 100;
+
+        for (let i = 0; i < products.length; i += batchSize) {
+          const batch = products.slice(i, i + batchSize)
+          await addDoc(collection(db, 'allProducts'), { products: batch })
+        }
+
         localStorage.setItem('productsLastUpdate', new Date().toISOString())
-        await this._getProductsFirebase()
+        await this._getProductsFirebase();
       } catch (error) {
         console.error('Error in getAllProductsMpApi:', error)
         this.error = error.message || error.code
