@@ -147,8 +147,6 @@ export const constructTotalProductsMp = (materials) => {
 
 export const constructTotalProductsCa = (children, stockData) => {
   let totalProducts = 0;
-  console.log('children', children)
-  console.log('stockData', stockData)
   if (children) {
     children?.forEach(child => {
       const stockEntry = stockData.find(item => item.Material === child.skuHijo);
