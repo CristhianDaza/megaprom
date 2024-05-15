@@ -3,7 +3,7 @@ import {addDoc, collection, deleteDoc, doc, getDocs} from 'firebase/firestore'
 import {searchProduct} from '@/api/apiMarpico.js'
 import {getAllProducts, getAllStock} from '@/api/apiPromos.js'
 import {db} from '../../firebase.js'
-import {combineProducts, normalizeAndFilterProducts, normalizeProductsCA, normalizeProductsMP} from '@/helpers'
+import {combineProducts, normalizeAndFilterProducts, normalizeProductsCA, normalizeProductsMP} from '@/utils'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({

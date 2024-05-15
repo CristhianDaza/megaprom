@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
-import { formatNumber } from '@/helpers/index.js'
+import { formatNumber } from '@/utils'
 
 const props = defineProps({
   product: {

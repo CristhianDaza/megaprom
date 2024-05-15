@@ -1,4 +1,4 @@
-const _constructSizeMp = (size) => {
+export const constructSizeMp = (size) => {
   const parts = []
   if (size?.medidas_largo) {
     parts.push(`${Math.trunc(size.medidas_largo)}cm largo`)
@@ -15,7 +15,7 @@ const _constructSizeMp = (size) => {
   return parts.join(' x ')
 }
 
-const _constructPackagingCa = (packaging) => {
+export const constructPackagingCa = (packaging) => {
   const parts = []
   if (packaging?.alto) {
     parts.push(`${packaging.alto} alto`)
@@ -41,7 +41,7 @@ const _constructPackagingCa = (packaging) => {
   return parts.join(' - ')
 }
 
-const _constructPackagingMp = (packaging) => {
+export const constructPackagingMp = (packaging) => {
   const parts = [];
   if (packaging?.empaque_unds_caja) {
     parts.push(`${packaging.empaque_unds_caja} unidades por caja`)
@@ -67,7 +67,7 @@ const _constructPackagingMp = (packaging) => {
   return parts.join(' - ')
 }
 
-const _constructCategoryMp = (product) => {
+export const constructCategoryMp = (product) => {
   const parts = [];
   if (product?.subcategoria_1) {
     parts.push(product?.subcategoria_1?.nombre)
@@ -81,7 +81,7 @@ const _constructCategoryMp = (product) => {
   return parts.join(' | ')
 }
 
-const _constructLabelsMp = (product) => {
+export const constructLabelsMp = (product) => {
   const parts = []
   if (product?.etiquetas) {
     product.etiquetas.forEach(label => {
@@ -95,7 +95,7 @@ const _constructLabelsMp = (product) => {
   return parts
 }
 
-const _constructImagesCa = (children, mainImage) => {
+export const constructImagesCa = (children, mainImage) => {
   const images = []
   if (children) {
     children.forEach(child => {
@@ -131,13 +131,13 @@ const _decodeHtmlEntities = (text) => {
   return text.replace(/&[A-Za-z]+;/g, match => htmlEntities[match] || match)
 }
 
-const _formatText = (text, isDescription = false) => {
+export const formatText = (text, isDescription = false) => {
   let decodedText = _decodeHtmlEntities(text)
   if (!decodedText) return ''
   return isDescription ? decodedText : decodedText.charAt(0).toUpperCase() + decodedText.slice(1).toLowerCase()
 }
 
-const _constructTotalProductsMp = (materials) => {
+export const constructTotalProductsMp = (materials) => {
   let totalProducts = 0
   materials.forEach(material => {
     totalProducts += material.inventario_almacen?.[0]?.cantidad
@@ -145,7 +145,7 @@ const _constructTotalProductsMp = (materials) => {
   return totalProducts
 }
 
-const _constructTotalProductsCa = (children, stockData) => {
+export const constructTotalProductsCa = (children, stockData) => {
   let totalProducts = 0;
   console.log('children', children)
   console.log('stockData', stockData)
@@ -160,86 +160,3 @@ const _constructTotalProductsCa = (children, stockData) => {
   return totalProducts;
 }
 
-export const normalizeProductsMP = (product) => {
-  return {
-    areaPrinting: product?.area_impresion,
-    category: _constructCategoryMp(product),
-    description: _formatText(product?.descripcion_larga, true),
-    id: product?.familia,
-    images: product?.imagenes,
-    labels: _constructLabelsMp(product),
-    mainImage: product?.imagen === '' ? 'https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/Default%20Image.webp?alt=media&token=6f566cb0-8bfd-4090-b585-94fa330b9056' : product?.imagen,
-    material: _formatText(product?.material),
-    name: _formatText(product?.descripcion_comercial),
-    packaging: _constructPackagingMp(product),
-    printing: _formatText(product?.tecnica_marca_tecnica),
-    size: _constructSizeMp(product),
-    totalProducts: _constructTotalProductsMp(product?.materiales)
-  }
-}
-
-export const normalizeProductsCA = (product, stock) => {
-  return {
-    areaPrinting: _formatText(product?.impresion.areaImpresion),
-    category: null,
-    description: _formatText(product?.descripcion, true),
-    id: product?.skuPadre,
-    images: _constructImagesCa(product?.hijos, product?.imagenesPadre),
-    labels: null,
-    mainImage: product?.imagenesPadre.length > 0 ? product?.imagenesPadre?.[0] : 'https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/Default%20Image.webp?alt=media&token=6f566cb0-8bfd-4090-b585-94fa330b9056',
-    material: _formatText(product?.material),
-    name: `${_formatText(product?.nombrePadre)}${product?.capacidad !== '' ? ` - ${product?.capacidad}` : ''}`,
-    packaging: _constructPackagingCa(product?.paquete),
-    printing: _formatText(product?.impresion.tecnicaImpresion),
-    size: product?.medidas,
-    totalProducts: _constructTotalProductsCa(product?.hijos, stock)
-  };
-}
-
-export const combineProducts = (docs) => {
-  const combinedProducts = []
-  
-  docs.forEach(doc => {
-    const products = doc.data().products
-    if (Array.isArray(products)) {
-      combinedProducts.push(...products)
-    } else {
-      console.warn('Without products:', doc)
-    }
-  })
-  
-  return combinedProducts
-}
-
-export const normalizeAndFilterProducts = (products, searchTerm) => {
-  const normalizeString = (str) => {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  };
-  
-  const keywords = normalizeString(searchTerm).split('|').map(keyword => keyword.trim());
-  
-  return products.filter(product => {
-    const productName = normalizeString(product.name);
-    const productDescription = normalizeString(product.description);
-    const productMaterial = normalizeString(product.material);
-    const productCategory = product.category ? normalizeString(product.category) : '';
-    const productId = normalizeString(product.id);
-    
-    return keywords.some(keyword =>
-      productName.includes(keyword) ||
-      productDescription.includes(keyword) ||
-      productMaterial.includes(keyword) ||
-      productCategory.includes(keyword) ||
-      productId.includes(keyword)
-    );
-  });
-}
-
-export const formatNumber = (value) => {
-  if (value == null) return '';
-  if (value < 0) return '0';
-  if (value > 10) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' unds.';
-  }
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
