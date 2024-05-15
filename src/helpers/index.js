@@ -95,7 +95,7 @@ const _constructLabelsMp = (product) => {
   return parts
 }
 
-const _constructImagesCa = (children) => {
+const _constructImagesCa = (children, mainImage) => {
   const images = []
   if (children) {
     children.forEach(child => {
@@ -105,6 +105,9 @@ const _constructImagesCa = (children) => {
         })
       }
     })
+  }
+  if (mainImage.length > 0) {
+    images.push(mainImage[0])
   }
   return images
 }
@@ -157,7 +160,7 @@ export const normalizeProductsCA = (product) => {
     category: null,
     description: _formatText(product?.descripcion, true),
     id: product?.skuPadre,
-    images: _constructImagesCa(product?.hijos),
+    images: _constructImagesCa(product?.hijos, product?.imagenesPadre),
     labels: null,
     mainImage: product?.imagenesPadre.length > 0 ? product?.imagenesPadre?.[0] : 'https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/Default%20Image.webp?alt=media&token=6f566cb0-8bfd-4090-b585-94fa330b9056',
     material: _formatText(product?.material),
