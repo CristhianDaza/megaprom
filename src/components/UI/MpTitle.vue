@@ -24,7 +24,7 @@ const mainTitle = computed(() => {
     :style="{ backgroundImage: `url('${image}')` }"
   >
     <h1
-      class="flex justify-center font-extrabold text-3xl md:text-5xl text-white underline underline-offset-3 decoration-blue-600 py-20">
+      class="flex justify-center font-extrabold text-3xl md:text-5xl text-white underline underline-offset-3 decoration-blue-600 py-20 px-5">
       {{ mainTitle }}
     </h1>
   </div>
