@@ -81,7 +81,9 @@ export const useProductsStore = defineStore('products', {
         await this._getProductsFirebase()
       }
       const categories = this.products.map(product => product.category)
-      this.categories = [...new Set(categories)]
+      const names = this.products.map(product => product.name.split(' ')[0])
+      const organizedCategories = [...new Set(categories), ...new Set(names)]
+      this.categories = organizedCategories.sort()
     },
     async filterProductsByCategory(searchTerm) {
       if (!searchTerm || searchTerm.trim().length < 3) {
