@@ -70,7 +70,7 @@ export const useProductsStore = defineStore('products', {
       const docRef = await getDocs(collection(db, 'allProducts'))
       
       const deletePromises = docRef.docs.map(document => deleteDoc(doc(db, 'allProducts', document.id)))
-      if (!deletePromises.length) {
+      if (!deletePromises || deletePromises.length === 0) {
         return
       }
       await Promise.all(deletePromises)
