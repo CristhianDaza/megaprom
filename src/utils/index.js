@@ -12,11 +12,11 @@ import {
   formatText
 } from '../helpers';
 
-export const formatNumber = (value) => {
+export const formatNumber = (value, isTable = false) => {
   if (value == null) return '';
   if (value < 0) return '0';
   if (value > 10) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' unds.';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + `${isTable ? '' : ' unds.'}`;
   }
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
@@ -97,4 +97,20 @@ export const normalizeProductsMP = (product) => {
     tableQuantity: constructTableQuantityMp(product?.materiales),
     totalProducts: constructTotalProductsMp(product?.materiales)
   }
+}
+
+export const formatDate = (dateToTransform) => {
+  if (!dateToTransform) return ''
+  const date = new Date(dateToTransform);
+
+  const day = date.getUTCDate()
+  const month = date.getUTCMonth()
+  const year = date.getUTCFullYear()
+
+  const months = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+  ]
+
+  return `${day} de ${months[month]} del ${year}`
 }

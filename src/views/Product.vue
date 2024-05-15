@@ -7,6 +7,7 @@ import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
 import MpProductImages from '@/components/product/MpProductImages.vue'
 import MpProductDescription from '@/components/product/MpProductDescription.vue'
 import MpProductSimilar from '@/components/product/MpProductSimilar.vue'
+import MpProductTableQuantity from '@/components/product/MpProductTableQuantity.vue'
 
 import { useProductsStore } from '@/store/products.js'
 
@@ -55,6 +56,9 @@ onBeforeMount(async () => {
     <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5">
       <MpProductDescription :product="productsStore.product" />
     </div>
+  </div>
+  <div class="container mx-auto grid grid-cols-1 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 my-3">
+    <MpProductTableQuantity :quantity="productsStore.product?.tableQuantity" />
   </div>
   <MpProductSimilar :similar="product" />
 </template>
