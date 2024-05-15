@@ -15,6 +15,7 @@ import Badge from 'primevue/badge'
 import Breadcrumb from 'primevue/breadcrumb'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
+import Carousel from 'primevue/carousel'
 import Chip from 'primevue/chip'
 import IconField from 'primevue/iconfield'
 import Image from 'primevue/image'
@@ -31,6 +32,7 @@ app.component('Breadcrumb', Breadcrumb)
 app.component('Button', Button)
 app.component('Card', Card)
 app.component('Chip', Chip)
+app.component('CarouselP', Carousel)
 app.component('IconField', IconField)
 app.component('Image', Image)
 app.component('InputIcon', InputIcon)

@@ -13,7 +13,8 @@ export const useProductsStore = defineStore('products', {
     isAdmin: false,
     filteredProducts: [],
     productsInput: [],
-    product: null
+    product: null,
+    similarProducts: []
   }),
   actions: {
     async setAllProductsPromosApi() {
@@ -116,6 +117,27 @@ export const useProductsStore = defineStore('products', {
         await this._getProductsFirebase();
       }
       this.product = this.products.find(product => product.id === id)
+    },
+    async getSimilarProduct(name) {
+      if (!this.products.length) {
+        await this._getProductsFirebase();
+      }
+      
+      const firstName = name?.split(' ')[0]
+      let similar = normalizeAndFilterProducts(this.products, firstName)
+      
+      if (similar.length <= 2) {
+        similar = []
+        while (similar.length < 10) {
+          const randomIndex = Math.floor(Math.random() * this.products.length)
+          const randomProduct = this.products[randomIndex]
+          if (!similar.includes(randomProduct)) {
+            similar.push(randomProduct)
+          }
+        }
+      }
+      
+      this.similarProducts = similar.slice(0, 10);
     }
   }
 })
