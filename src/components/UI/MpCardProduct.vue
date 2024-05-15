@@ -7,6 +7,15 @@ const props = defineProps({
     required: true
   },
 })
+
+const formatNumber = (value) => {
+  if (value == null) return '';
+  if (value < 0) return '0';
+  if (value > 10) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' unds.';
+  }
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
 </script>
 
 <template>
@@ -20,7 +29,8 @@ const props = defineProps({
         <h5 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ product.name }}</h5>
       </div>
       <div class="flex items-center justify-between">
-        <span class="text-md font-bold text-gray-900 dark:text-white mr-5">{{ product.id }}</span>
+        <span class="text-md text-gray-900 dark:text-white mr-5">{{ product.id }}</span>
+        <span class="text-md text-gray-900 dark:text-white"><span class="font-bold ">Stock:</span> {{ formatNumber(product.totalProducts) }} </span>
       </div>
     </div>
   </RouterLink>

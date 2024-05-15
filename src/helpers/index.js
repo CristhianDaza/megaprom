@@ -137,6 +137,29 @@ const _formatText = (text, isDescription = false) => {
   return isDescription ? decodedText : decodedText.charAt(0).toUpperCase() + decodedText.slice(1).toLowerCase()
 }
 
+const _constructTotalProductsMp = (materials) => {
+  let totalProducts = 0
+  materials.forEach(material => {
+    totalProducts += material.inventario_almacen?.[0]?.cantidad
+  })
+  return totalProducts
+}
+
+const _constructTotalProductsCa = (children, stockData) => {
+  let totalProducts = 0;
+  console.log('children', children)
+  console.log('stockData', stockData)
+  if (children) {
+    children?.forEach(child => {
+      const stockEntry = stockData.find(item => item.Material === child.skuHijo);
+      if (stockEntry) {
+        totalProducts += stockEntry.Stock;
+      }
+    });
+  }
+  return totalProducts;
+}
+
 export const normalizeProductsMP = (product) => {
   return {
     areaPrinting: product?.area_impresion,
@@ -150,11 +173,12 @@ export const normalizeProductsMP = (product) => {
     name: _formatText(product?.descripcion_comercial),
     packaging: _constructPackagingMp(product),
     printing: _formatText(product?.tecnica_marca_tecnica),
-    size: _constructSizeMp(product)
+    size: _constructSizeMp(product),
+    totalProducts: _constructTotalProductsMp(product?.materiales)
   }
 }
 
-export const normalizeProductsCA = (product) => {
+export const normalizeProductsCA = (product, stock) => {
   return {
     areaPrinting: _formatText(product?.impresion.areaImpresion),
     category: null,
@@ -167,7 +191,8 @@ export const normalizeProductsCA = (product) => {
     name: `${_formatText(product?.nombrePadre)}${product?.capacidad !== '' ? ` - ${product?.capacidad}` : ''}`,
     packaging: _constructPackagingCa(product?.paquete),
     printing: _formatText(product?.impresion.tecnicaImpresion),
-    size: product?.medidas
+    size: product?.medidas,
+    totalProducts: _constructTotalProductsCa(product?.hijos, stock)
   };
 }
 

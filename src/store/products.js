@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia'
 import {addDoc, collection, deleteDoc, doc, getDocs} from 'firebase/firestore'
 import {searchProduct} from '@/api/apiMarpico.js'
-import {getAllProducts} from '@/api/apiPromos.js'
+import {getAllProducts, getAllStock} from '@/api/apiPromos.js'
 import {db} from '../../firebase.js'
 import {combineProducts, normalizeAndFilterProducts, normalizeProductsCA, normalizeProductsMP} from '@/helpers'
 
@@ -36,7 +36,8 @@ export const useProductsStore = defineStore('products', {
         await this._deleteAllProducts()
         
         const { data } = await getAllProducts()
-        const normalizedPromosResults = data.response.map(normalizeProductsCA)
+        const { data: stock } = await getAllStock()
+        const normalizedPromosResults = data.response.map(product => normalizeProductsCA(product, stock?.Stocks))
         const allNormalizedProducts = [...normalizedPromosResults]
         
         await addDoc(collection(db, 'allProducts'), { products: allNormalizedProducts })
