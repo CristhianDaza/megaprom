@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
+import { formatNumber } from '@/helpers/index.js'
 
 const props = defineProps({
   product: {
@@ -31,8 +32,12 @@ const props = defineProps({
     <span class="text-lg font-normal text-gray-500 dark:text-gray-400">{{ product?.areaPrinting }}</span>
   </p>
   <p>
-<span class="text-lg font-bold text-gray-900 dark:text-white">Empaque: </span>
+    <span class="text-lg font-bold text-gray-900 dark:text-white">Empaque: </span>
     <span class="text-lg font-normal text-gray-500 dark:text-gray-400">{{ product?.packaging }}</span>
+  </p>
+  <p>
+    <span class="text-lg font-bold text-gray-900 dark:text-white">Stock: </span>
+    <span class="text-lg font-normal text-gray-500 dark:text-gray-400">{{ formatNumber(product?.totalProducts) }}</span>
   </p>
   <p v-if="product?.category">
     <span class="text-lg font-bold text-gray-900 dark:text-white">Categoria: </span>

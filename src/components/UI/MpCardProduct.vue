@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
+import { formatNumber } from '@/helpers/index.js'
 
 const props = defineProps({
   product: {
@@ -8,14 +9,6 @@ const props = defineProps({
   },
 })
 
-const formatNumber = (value) => {
-  if (value == null) return '';
-  if (value < 0) return '0';
-  if (value > 10) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' unds.';
-  }
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
 </script>
 
 <template>

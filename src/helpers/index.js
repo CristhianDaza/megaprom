@@ -234,3 +234,12 @@ export const normalizeAndFilterProducts = (products, searchTerm) => {
     );
   });
 }
+
+export const formatNumber = (value) => {
+  if (value == null) return '';
+  if (value < 0) return '0';
+  if (value > 10) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' unds.';
+  }
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
