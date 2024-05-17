@@ -1,9 +1,6 @@
-import {defineStore} from 'pinia'
-import {addDoc, collection, deleteDoc, doc, getDocs} from 'firebase/firestore'
-import {searchProduct} from '@/api/apiMarpico.js'
-import {getAllProducts, getAllStock} from '@/api/apiPromos.js'
-import {db} from '../../firebase.js'
-import {combineProducts, normalizeAndFilterProducts, normalizeProductsCA, normalizeProductsMP} from '@/utils'
+import { defineStore } from 'pinia'
+import { normalizeAndFilterProducts } from '@/utils'
+import { useProductHelpers } from '@/composables/useProduct.js'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -17,70 +14,23 @@ export const useProductsStore = defineStore('products', {
     similarProducts: []
   }),
   actions: {
-    async setAllProductsPromosApi() {
+    async initProducts() {
+      const { setAllProductsPromosApi } = useProductHelpers()
       try {
-        const lastUpdateLocalStorage = localStorage.getItem('productsLastUpdate')
-        if (lastUpdateLocalStorage) {
-          const lastUpdateDate = new Date(lastUpdateLocalStorage)
-          const now = new Date()
-          const diffInMs = now - lastUpdateDate
-          const diffInHours = diffInMs / (1000 * 60 * 60)
-          if (diffInHours < 24) {
-            if (!this.products || this.products.length === 0) {
-              await this._getProductsFirebase()
-            }
-            return
-          }
+        const isAdminStorage = localStorage.getItem('isAdmin')
+        if (isAdminStorage === 'true') {
+          this.products = await setAllProductsPromosApi(true)
+        } else {
+          this.products = await setAllProductsPromosApi(false)
         }
-        
-        await this._deleteAllProducts()
-        
-        const { data } = await getAllProducts()
-        const { data: stock } = await getAllStock()
-        const normalizedPromosResults = data.response.map(product => normalizeProductsCA(product, stock?.Stocks))
-        const allNormalizedProducts = [...normalizedPromosResults]
-        
-        await addDoc(collection(db, 'allProducts'), { products: allNormalizedProducts })
-        await this._setAllProductsMpApi()
       } catch (error) {
         console.error('Error in getAllProductsPromosApi:', error)
         this.error = error.message || error.code
       }
     },
-    async _setAllProductsMpApi() {
-      try {
-        let products = [];
-        const { data } = await searchProduct();
-        const normalizedSearchResults = data.results.map(normalizeProductsMP);
-        products = [...normalizedSearchResults];
-        
-        const batchSize = 100;
-
-        for (let i = 0; i < products.length; i += batchSize) {
-          const batch = products.slice(i, i + batchSize)
-          await addDoc(collection(db, 'allProducts'), { products: batch })
-        }
-
-        localStorage.setItem('productsLastUpdate', new Date().toISOString())
-        await this._getProductsFirebase();
-      } catch (error) {
-        console.error('Error in getAllProductsMpApi:', error)
-        this.error = error.message || error.code
-      }
-    },
     async _getProductsFirebase() {
-      const docRef = await getDocs(collection(db, 'allProducts'))
-      const allNormalizedProducts = combineProducts(docRef.docs)
-      this.products = allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name))
-    },
-    async _deleteAllProducts() {
-      const docRef = await getDocs(collection(db, 'allProducts'))
-      
-      const deletePromises = docRef.docs.map(document => deleteDoc(doc(db, 'allProducts', document.id)))
-      if (!deletePromises || deletePromises.length === 0) {
-        return
-      }
-      await Promise.all(deletePromises)
+      const { getProductsFirebase } = useProductHelpers()
+      this.products = await getProductsFirebase()
     },
     async getCategories() {
       if (!this.products.length) {
@@ -93,43 +43,40 @@ export const useProductsStore = defineStore('products', {
     },
     async filterProductsByCategory(searchTerm) {
       if (!searchTerm || searchTerm.trim().length < 3) {
-        return;
+        return
       }
       
       if (!this.products.length) {
-        await this._getProductsFirebase();
+        await this._getProductsFirebase()
       }
       
-      this.filteredProducts = normalizeAndFilterProducts(this.products, searchTerm);
+      this.filteredProducts = normalizeAndFilterProducts(this.products, searchTerm)
     },
-    
     async searchProductsInput(searchTerm) {
       if (!searchTerm || searchTerm.trim().length < 3) {
-        this.resetProductsInput();
-        return;
+        this.resetProductsInput()
+        return
       }
       
       if (!this.products.length) {
-        await this._getProductsFirebase();
+        await this._getProductsFirebase()
       }
       
-      const searchResults = normalizeAndFilterProducts(this.products, searchTerm);
-      this.productsInput = searchResults.slice(0, 5);
+      const searchResults = normalizeAndFilterProducts(this.products, searchTerm)
+      this.productsInput = searchResults.slice(0, 5)
     },
-    
     resetProductsInput() {
       this.productsInput = []
     },
-    
     async getProductById(id) {
       if (!this.products.length) {
-        await this._getProductsFirebase();
+        await this._getProductsFirebase()
       }
       this.product = this.products.find(product => product.id === id)
     },
     async getSimilarProduct(name) {
       if (!this.products.length) {
-        await this._getProductsFirebase();
+        await this._getProductsFirebase()
       }
       
       const firstName = name?.split(' ')[0]
@@ -146,7 +93,7 @@ export const useProductsStore = defineStore('products', {
         }
       }
       
-      this.similarProducts = similar.slice(0, 10);
+      this.similarProducts = similar.slice(0, 10)
     }
   }
 })

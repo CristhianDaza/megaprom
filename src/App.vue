@@ -6,7 +6,7 @@ import { useProductsStore } from '@/store/products.js'
 const products = useProductsStore()
 
 onMounted(async () => {
-  await products.setAllProductsPromosApi()
+  await products.initProducts()
 })
 </script>
 
