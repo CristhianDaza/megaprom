@@ -17,8 +17,6 @@ onMounted(() => {
   if (isAdminStorage) {
     isAdmin.value = JSON.parse(isAdminStorage)
   }
-
-  console.log('isAdmin', isAdmin.value)
 })
 </script>
 
