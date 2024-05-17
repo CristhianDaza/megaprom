@@ -1,5 +1,11 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
+
+const emit = defineEmits({openModal: null})
+
+const openModal = () => {
+  emit('openModal', true)
+}
 
 const props = defineProps({
   menu: Object
@@ -23,7 +29,10 @@ const props = defineProps({
                 {{ item.label }}
               </RouterLink>
             </li>
-            <li class="hover:underline cursor-pointer">
+            <li
+              class="hover:underline cursor-pointer"
+              @click="openModal"
+            >
               Login
             </li>
           </ul>

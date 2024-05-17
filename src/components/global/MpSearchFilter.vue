@@ -40,12 +40,12 @@ watch(() => route.path, async () => {
         <i class="pi pi-search" />
       </InputIcon>
       <InputText
-          v-model="inputSearch"
-          placeholder="Buscar..."
-          v-on:keyup.enter="searchProduct"
-          id="searchInput"
-          @input="searchToView"
-          autocomplete="off"
+        v-model="inputSearch"
+        placeholder="Buscar..."
+        v-on:keyup.enter="searchProduct"
+        id="searchInput"
+        @input="searchToView"
+        autocomplete="off"
       />
     </IconField>
     <ul
