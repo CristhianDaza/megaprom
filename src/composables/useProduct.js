@@ -74,7 +74,6 @@ export function useProductHelpers() {
   const _isUpdated = async () => {
     const docRef = await getDocs(collection(db, 'lastedUpdated'))
     if (!docRef.docs || docRef.docs.length === 0) {
-      console.log('No last update')
       return false
     }
     const { lastUpdate } = docRef.docs[0].data()
