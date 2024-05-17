@@ -1,13 +1,24 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, ref, onMounted } from 'vue'
 import { formatDate, formatNumber } from '@/utils'
 import { formatColor } from '@/helpers'
+
+const isAdmin = ref(false)
 
 const props = defineProps({
   quantity: {
     type: Array,
     required: true
   }
+})
+
+onMounted(() => {
+  const isAdminStorage = localStorage.getItem('isAdmin')
+  if (isAdminStorage) {
+    isAdmin.value = JSON.parse(isAdminStorage)
+  }
+
+  console.log('isAdmin', isAdmin.value)
 })
 </script>
 
@@ -16,7 +27,7 @@ const props = defineProps({
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div class="flex flex-wrap items-center justify-between gap-2 m-2">
         <span class="text-xl text-surface-900 dark:text-surface-0 font-bold"></span>
-        <Button icon="pi pi-refresh" rounded raised />
+        <Button v-if="isAdmin" icon="pi pi-refresh" rounded raised />
       </div>
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -42,7 +53,7 @@ const props = defineProps({
           <th scope="col" class="px-6 py-3">
             Última actualización
           </th>
-          <th scope="col" class="px-6 py-3">
+          <th v-if="isAdmin" scope="col" class="px-6 py-3">
             Precio
           </th>
         </tr>
@@ -76,7 +87,7 @@ const props = defineProps({
           <td class="px-6 py-4">
             {{ formatDate(item.lastUpdateTracking) }}
           </td>
-          <td class="px-6 py-4">
+          <td v-if="isAdmin" class="px-6 py-4">
             $ {{ formatNumber(Math.ceil(item.price), true) }} + iva
           </td>
         </tr>
