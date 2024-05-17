@@ -52,7 +52,7 @@ export function useProductHelpers() {
   
   const _setAllProductsMpApi = async () => {
     try {
-      let products = []
+      let products
       const { data } = await searchProduct()
       const normalizedSearchResults = data.results.map(normalizeProductsMP)
       products = [...normalizedSearchResults]
