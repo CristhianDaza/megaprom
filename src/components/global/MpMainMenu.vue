@@ -1,17 +1,14 @@
 <script setup>
+import { defineProps } from 'vue'
 import MpSearchFilter from '@/components/global/MpSearchFilter.vue'
-import { onMounted } from 'vue'
-import { useMenuStore } from '@/store/menu'
 
-const menuStore = useMenuStore()
-
-onMounted(() => {
-  menuStore.getMenu()
+const props = defineProps({
+  menu: Object
 })
 </script>
 
 <template>
-  <Menubar :model="menuStore.menu" breakpoint="956px" class="rounded-none">
+  <Menubar :model="menu" breakpoint="956px" class="rounded-none">
     <template #start>
       <RouterLink :to="{ name: 'home' }">
         <img alt="Logo" class="size-7 md:size-10" src="https://megapromocionales.com.co/favicon.ico" />
