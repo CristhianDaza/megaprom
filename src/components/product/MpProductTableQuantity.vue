@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
 import { formatDate, formatNumber } from '@/utils'
 import { formatColor } from '@/helpers'
 
@@ -12,6 +12,22 @@ const props = defineProps({
     type: Array,
     required: true
   }
+})
+
+const hasInTracking = computed(() => {
+  return props.quantity.some(item => item.inTracking != null)
+})
+
+const hasStatusTracking = computed(() => {
+  return props.quantity.some(item => item.statusTracking != null)
+})
+
+const hasDataTracking = computed(() => {
+  return props.quantity.some(item => item.dataTracking != null)
+})
+
+const hasLastUpdateTracking = computed(() => {
+  return props.quantity.some(item => item.lastUpdateTracking != null)
 })
 </script>
 
@@ -34,16 +50,16 @@ const props = defineProps({
           <th scope="col" class="px-6 py-3">
             Cantidad
           </th>
-          <th scope="col" class="px-6 py-3">
+          <th v-if="hasInTracking" scope="col" class="px-6 py-3">
             En tránsito
           </th>
-          <th scope="col" class="px-6 py-3">
+          <th v-if="hasStatusTracking" scope="col" class="px-6 py-3">
             Estado del tránsito
           </th>
-          <th scope="col" class="px-6 py-3">
+          <th v-if="hasDataTracking" scope="col" class="px-6 py-3">
             Fecha estimada
           </th>
-          <th scope="col" class="px-6 py-3">
+          <th v-if="hasLastUpdateTracking" scope="col" class="px-6 py-3">
             Última actualización
           </th>
           <th v-if="userStore.isLogged" scope="col" class="px-6 py-3">
@@ -53,8 +69,9 @@ const props = defineProps({
         </thead>
         <tbody>
         <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-          v-for="item in quantity"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            v-for="item in props.quantity"
+            :key="item.id"
         >
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             <div
@@ -68,26 +85,30 @@ const props = defineProps({
           <td class="px-6 py-4">
             {{ formatNumber(item.quantity, true) }}
           </td>
-          <td class="px-6 py-4">
+          <td v-if="hasInTracking" class="px-6 py-4">
             {{ formatNumber(item.inTracking, true) }}
           </td>
-          <td class="px-6 py-4">
+          <td v-if="hasStatusTracking" class="px-6 py-4">
             {{ item.statusTracking }}
           </td>
-          <td class="px-6 py-4">
+          <td v-if="hasDataTracking" class="px-6 py-4">
             {{ formatDate(item.dataTracking) }}
           </td>
-          <td class="px-6 py-4">
+          <td v-if="hasLastUpdateTracking" class="px-6 py-4">
             {{ formatDate(item.lastUpdateTracking) }}
           </td>
           <td v-if="userStore.isLogged" class="px-6 py-4">
             $ {{ formatNumber(Math.ceil(item.price), true) }} + iva
           </td>
         </tr>
+        <tr v-if="props.quantity.length === 0">
+          <td colspan="8" class="px-6 py-4 text-center text-gray-500">
+            Sin información.
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
-
   </div>
 </template>
 
