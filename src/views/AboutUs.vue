@@ -14,7 +14,7 @@ const breadcrumbItems = [
   <MpBreadcrumb :model="breadcrumbItems" />
   <MpTitle
     title="Nosotros"
-    image="https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/web1-03.jpg?alt=media&token=f9a16b61-c51c-41d8-bc5d-412e6ef38aae"
+    image="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-03.jpg?alt=media&token=8de1493c-514a-4a46-9099-07fe5c4872b8"
   />
   <section>
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">

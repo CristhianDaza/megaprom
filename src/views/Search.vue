@@ -38,7 +38,7 @@ onMounted(async () => {
   <MpBreadcrumb :model="breadcrumbItems" />
   <MpTitle
     :title="route.query.q ? route.query.q : 'Productos'"
-    image="https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/web1-06.jpg?alt=media&token=1522ffd6-f6d8-4151-b287-1b905fa58a2c"
+    image="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-06.jpg?alt=media&token=9215aac9-b073-4482-ae77-b1d17a3f662a"
   />
   <div v-if="products.isLoading" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
     <template v-for="loader in 12">
