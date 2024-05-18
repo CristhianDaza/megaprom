@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps } from 'vue'
 import { formatNumber } from '@/utils'
+import MpBadgeDiscount from '@/components/UI/MpBadgeDiscount.vue'
 
 const props = defineProps({
   product: {
@@ -21,13 +22,15 @@ const props = defineProps({
       <div class="mb-5">
         <h5 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ product.name }}</h5>
       </div>
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between mb-3">
         <span class="text-md text-gray-900 dark:text-white mr-5">{{ product.id }}</span>
-        <span class="text-md text-gray-900 dark:text-white"><span class="font-bold ">Stock:</span> {{ formatNumber(product.totalProducts) }} </span>
+        <span class="text-md text-gray-900 dark:text-white"><span class="font-bold">Stock:</span> {{ formatNumber(product.totalProducts) }} </span>
       </div>
+      <template v-if="product?.discount">
+        <MpBadgeDiscount :discount="product?.discount"/>
+      </template>
     </div>
   </RouterLink>
-
 </template>
 
 <style scoped>

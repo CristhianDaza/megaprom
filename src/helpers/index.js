@@ -315,3 +315,12 @@ export const formatColor = (color) => {
   
   return colors[foundColor] || null;
 }
+
+export const getDiscounts = (materials) => {
+  const discounts = materials
+    .filter(material => material.descuento !== 0)
+    .map(material => material.descuento);
+  
+  return discounts.length > 0 ? discounts[0] : null;
+}
+

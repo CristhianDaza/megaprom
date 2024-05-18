@@ -2,6 +2,8 @@
 import { defineProps } from 'vue'
 import { formatNumber } from '@/utils'
 
+import MpBadgeDiscount from '@/components/UI/MpBadgeDiscount.vue'
+
 const props = defineProps({
   product: {
     type: Object,
@@ -45,6 +47,9 @@ const props = defineProps({
       <RouterLink :to="{ name: 'search', query: { q: product?.category } }" class="text-emerald-600 dark:text-sky-400">{{ product?.category }}</RouterLink>
     </span>
   </p>
+  <template v-if="product?.discount">
+    <MpBadgeDiscount :discount="product?.discount"/>
+  </template>
 </template>
 
 <style scoped>

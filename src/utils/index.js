@@ -9,7 +9,8 @@ import {
   constructTableQuantityMp,
   constructTotalProductsCa,
   constructTotalProductsMp,
-  formatText
+  formatText,
+  getDiscounts
 } from '../helpers';
 
 export const formatNumber = (value, isTable = false) => {
@@ -82,6 +83,7 @@ export const normalizeProductsCA = (product, stock) => {
     areaPrinting: formatText(product?.impresion.areaImpresion),
     category: null,
     description: formatText(product?.descripcion, true),
+    discount: null,
     id: product?.skuPadre,
     images: constructImagesCa(product?.hijos, product?.imagenesPadre),
     labels: null,
@@ -102,6 +104,7 @@ export const normalizeProductsMP = (product) => {
     areaPrinting: product?.area_impresion,
     category: constructCategoryMp(product),
     description: formatText(product?.descripcion_larga, true),
+    discount: getDiscounts(product?.materiales),
     id: product?.familia,
     images: product?.imagenes,
     labels: constructLabelsMp(product),
