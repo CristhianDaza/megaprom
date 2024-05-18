@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { normalizeAndFilterProducts } from '@/utils'
 import { useProductHelpers } from '@/composables/useProduct.js'
+import { useUserStore } from '@/store/user.js'
+
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -16,10 +18,11 @@ export const useProductsStore = defineStore('products', {
   }),
   actions: {
     async initProducts() {
+      const userStore = useUserStore()
+      const isLogin = userStore.isLogged
       const { setAllProductsPromosApi } = useProductHelpers()
       try {
-        const isAdminStorage = localStorage.getItem('isAdmin')
-        if (isAdminStorage === 'true') {
+        if (isLogin) {
           this.products = await setAllProductsPromosApi(true)
         } else {
           this.products = await setAllProductsPromosApi(false)
