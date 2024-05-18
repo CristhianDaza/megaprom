@@ -6,12 +6,12 @@ import MpHero from '@/components/home/MpHero.vue'
 const images = [
   {
     id: 1,
-    src: 'https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/web1-08.jpg?alt=media&token=ca703b3f-2e2b-488d-9287-b439ec7feacf',
+    src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-08.jpg?alt=media&token=8ba599c0-a6ca-4f5b-b5f8-088c2738e715',
     alt: 'Marcación promocionales',
   },
   {
     id: 2,
-    src: 'https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/web1-02.jpg?alt=media&token=2a64a16a-1254-437f-bbc7-1d43c88c74ed',
+    src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-02.jpg?alt=media&token=43bc7305-f41f-45e2-be52-e3a065bf2cef',
     alt: 'Offset impresión 5 colores',
   },
 ]

@@ -22,7 +22,7 @@ onMounted(async () => {
   <MpBreadcrumb :model="breadcrumbItems" />
   <MpTitle
     title="Productos"
-    image="https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/web1-05.jpg?alt=media&token=33737c86-ee5f-4931-9f15-9be8e028f006"
+    image="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-05.jpg?alt=media&token=87301a0d-ae85-49da-b8f3-c4c6be101f59"
   />
   <div class="container mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
     <template v-if="products.isLoading" v-for="loader in 52" >
