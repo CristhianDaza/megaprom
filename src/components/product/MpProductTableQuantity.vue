@@ -23,18 +23,22 @@ const toggleIva = () => {
 }
 
 const hasInTracking = computed(() => {
+  if (!props.quantity) return false
   return props.quantity.some(item => item.inTracking != null)
 })
 
 const hasStatusTracking = computed(() => {
+  if (!props.quantity) return false
   return props.quantity.some(item => item.statusTracking != null)
 })
 
 const hasDataTracking = computed(() => {
+  if (!props.quantity) return false
   return props.quantity.some(item => item.dataTracking != null)
 })
 
 const hasLastUpdateTracking = computed(() => {
+  if (!props.quantity) return false
   return props.quantity.some(item => item.lastUpdateTracking != null)
 })
 </script>
@@ -109,7 +113,7 @@ const hasLastUpdateTracking = computed(() => {
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
           </td>
         </tr>
-        <tr v-if="props.quantity.length === 0">
+        <tr v-if="props?.quantity?.length === 0">
           <td colspan="8" class="px-6 py-4 text-center text-gray-500">
             Sin información.
           </td>
