@@ -51,16 +51,40 @@ onBeforeMount(async () => {
   />
   <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 md:pt-5 md:mb-3 gap-3">
     <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5">
-      <MpProductImages :images="productsStore.product?.images" />
+      <template v-if="productsStore.isLoading">
+        <Skeleton height="100%"/>
+      </template>
+      <MpProductImages
+        v-else
+        :images="productsStore.product?.images"
+      />
     </div>
     <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5">
-      <MpProductDescription :product="productsStore.product" />
+      <template v-if="productsStore.isLoading">
+        <Skeleton height="25rem"/>
+      </template>
+      <MpProductDescription
+        v-else
+        :product="productsStore.product"
+      />
     </div>
   </div>
   <div class="container mx-auto grid grid-cols-1 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 my-3">
-    <MpProductTableQuantity :quantity="productsStore.product?.tableQuantity" />
+    <template v-if="productsStore.isLoading">
+      <Skeleton height="18rem"/>
+    </template>
+    <MpProductTableQuantity
+      v-else
+      :quantity="productsStore.product?.tableQuantity"
+    />
   </div>
-  <MpProductSimilar :similar="product" />
+  <template v-if="productsStore.isLoading">
+    <Skeleton height="28rem" class="px-9"/>
+  </template>
+  <MpProductSimilar
+    v-else
+    :similar="product"
+  />
 </template>
 
 <style scoped>

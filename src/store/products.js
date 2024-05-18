@@ -11,7 +11,8 @@ export const useProductsStore = defineStore('products', {
     filteredProducts: [],
     productsInput: [],
     product: null,
-    similarProducts: []
+    similarProducts: [],
+    isLoading: false
   }),
   actions: {
     async initProducts() {
@@ -31,8 +32,10 @@ export const useProductsStore = defineStore('products', {
     async _getProductsFirebase() {
       const { getProductsFirebase } = useProductHelpers()
       this.products = await getProductsFirebase()
+      this.isLoading = false
     },
     async getCategories() {
+      this.isLoading = true
       if (!this.products.length) {
         await this._getProductsFirebase()
       }
@@ -40,8 +43,10 @@ export const useProductsStore = defineStore('products', {
       const names = this.products.map(product => product.name.split(' ')[0])
       const organizedCategories = [...new Set(categories), ...new Set(names)]
       this.categories = organizedCategories.sort()
+      this.isLoading = false
     },
     async filterProductsByCategory(searchTerm) {
+      this.isLoading = true
       if (!searchTerm || searchTerm.trim().length < 3) {
         return
       }
@@ -51,6 +56,7 @@ export const useProductsStore = defineStore('products', {
       }
       
       this.filteredProducts = normalizeAndFilterProducts(this.products, searchTerm)
+      this.isLoading = false
     },
     async searchProductsInput(searchTerm) {
       if (!searchTerm || searchTerm.trim().length < 3) {
@@ -68,10 +74,12 @@ export const useProductsStore = defineStore('products', {
       this.productsInput = []
     },
     async getProductById(id) {
+      this.isLoading = true
       if (!this.products.length) {
         await this._getProductsFirebase()
       }
       this.product = this.products.find(product => product.id === id)
+      this.isLoading = false
     },
     async getSimilarProduct(name) {
       if (!this.products.length) {
