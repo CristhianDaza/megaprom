@@ -162,6 +162,9 @@ export const constructTableQuantityMp = (materials) => {
   const quantity = [];
   
   materials.forEach(material => {
+    const discountFactor = material.descuento / 100
+    const discountedPrice = material.precio + (material.precio * discountFactor)
+    
     const item = {
       color: material.color_nombre,
       quantity: material.inventario_almacen?.[0]?.cantidad,
@@ -170,20 +173,20 @@ export const constructTableQuantityMp = (materials) => {
       dataTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].fecha : null,
       lastUpdateTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].ultima_actualizacion : null,
       idColorTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].material_id : null,
-      price: material.precio
+      price: discountedPrice
     };
     
     Object.keys(item).forEach(key => {
       if (item[key] == null) {
-        delete item[key];
+        delete item[key]
       }
-    });
+    })
     
-    quantity.push(item);
+    quantity.push(item)
   });
   
-  return quantity;
-};
+  return quantity
+}
 
 
 export const constructTableQuantityCA = (children, stockData) => {
