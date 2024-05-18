@@ -15,7 +15,7 @@ const props = defineProps({
 })
 
 const priceLocalStorage = localStorage.getItem('includeIva')
-const includeIva = ref(priceLocalStorage ? JSON.parse(priceLocalStorage) : true)
+const includeIva = ref(priceLocalStorage ? JSON.parse(priceLocalStorage) : false)
 
 const toggleIva = () => {
   includeIva.value = !includeIva.value
