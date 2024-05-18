@@ -1,5 +1,6 @@
 <script setup>
 import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
+import MpTitle from '@/components/UI/MpTitle.vue'
 
 const breadcrumbItems = [
   {
@@ -11,8 +12,10 @@ const breadcrumbItems = [
 
 <template>
   <MpBreadcrumb :model="breadcrumbItems" />
-
-
+  <MpTitle
+    title="Nosotros"
+    image="https://firebasestorage.googleapis.com/v0/b/megaprom-dev.appspot.com/o/web1-03.jpg?alt=media&token=f9a16b61-c51c-41d8-bc5d-412e6ef38aae"
+  />
   <section>
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
       <div class="grid md:grid-cols-2 gap-8">
