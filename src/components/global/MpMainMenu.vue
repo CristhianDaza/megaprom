@@ -30,7 +30,9 @@ const props = defineProps({
       </div>
     </template>
     <template #end>
-      <MpSearchFilter />
+      <div class="md:w-[20rem]">
+        <MpSearchFilter />
+      </div>
     </template>
   </Menubar>
 </template>

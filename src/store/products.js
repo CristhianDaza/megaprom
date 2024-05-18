@@ -61,9 +61,8 @@ export const useProductsStore = defineStore('products', {
       if (!this.products.length) {
         await this._getProductsFirebase()
       }
-      
-      const searchResults = normalizeAndFilterProducts(this.products, searchTerm)
-      this.productsInput = searchResults.slice(0, 5)
+
+      this.productsInput = normalizeAndFilterProducts(this.products, searchTerm)
     },
     resetProductsInput() {
       this.productsInput = []
