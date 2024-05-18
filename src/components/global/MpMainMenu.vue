@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import MpSearchFilter from '@/components/global/MpSearchFilter.vue'
 
 const props = defineProps({

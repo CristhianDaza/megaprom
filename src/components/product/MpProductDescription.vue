@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import { formatNumber } from '@/utils'
 
 import MpBadgeDiscount from '@/components/UI/MpBadgeDiscount.vue'

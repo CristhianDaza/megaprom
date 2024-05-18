@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, onMounted, watch, ref } from 'vue'
+import { onMounted, watch, ref } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 import { useRoute } from 'vue-router'
 
