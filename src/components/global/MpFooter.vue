@@ -1,6 +1,10 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
 
+import { useUserStore } from '@/store/user.js'
+
+const userStore = useUserStore()
+
 const emit = defineEmits({openModal: null})
 
 const openModal = () => {
@@ -30,6 +34,7 @@ const props = defineProps({
               </RouterLink>
             </li>
             <li
+              v-if="!userStore.isLogged"
               class="hover:underline cursor-pointer"
               @click="openModal"
             >

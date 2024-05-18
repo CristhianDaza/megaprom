@@ -1,5 +1,8 @@
 <script setup>
 import { defineProps, ref, watch, defineEmits } from 'vue'
+import { useUserStore } from '@/store/user.js'
+
+const userStore = useUserStore()
 
 const emit = defineEmits({ manageModal: null })
 
@@ -8,6 +11,12 @@ const props = defineProps({
 })
 
 const isVisible = ref(props.visible)
+const user = ref({})
+
+const login = () => {
+  userStore.login(user.value)
+  valueModal(false)
+}
 
 const valueModal = (value) => {
   emit('manageModal', value)
@@ -28,15 +37,15 @@ watch(() => props.visible, (value) => {
       />
       <div class="flex items-center gap-3 mb-3">
         <label for="username" class="font-semibold w-[6rem]">Usuario</label>
-        <InputText id="username" class="flex-auto" autocomplete="off" />
+        <InputText v-model="user.name" id="username" class="flex-auto" autocomplete="off" />
       </div>
       <div class="flex items-center gap-3 mb-5">
         <label for="password" class="font-semibold w-[6rem]">Contraseña</label>
-        <InputText id="password" class="flex-auto" autocomplete="off" />
+        <InputText v-model="user.password" id="password" class="flex-auto" autocomplete="off" />
       </div>
       <div class="flex justify-end gap-2">
         <Button type="button" label="Cancelar" severity="secondary" @click="() => { valueModal(false) }"></Button>
-        <Button type="button" label="Iniciar Sesión" @click="() => { valueModal(false) }"></Button>
+        <Button type="button" label="Iniciar Sesión" @click="login"></Button>
       </div>
     </Dialog>
   </div>

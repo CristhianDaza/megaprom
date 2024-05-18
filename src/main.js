@@ -8,7 +8,30 @@ import Wind from '@/presets/wind'
 import 'primeicons/primeicons.css';
 const app = createApp(App)
 
+import { useUserStore } from '@/store/user.js'
+
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+
+const pinia = createPinia()
+app.use(pinia)
+
 // import 'primevue/resources/themes/saga-blue/theme.css'       // theme
+
+
+const userStore = useUserStore()
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = {
+      uid: user.uid,
+      email: user.email
+    }
+    userStore.hasUser(uid)
+  } else {
+    userStore.hasUser(null)
+  }
+});
+
 
 // PrimeVue components
 import Badge from 'primevue/badge'
@@ -25,8 +48,6 @@ import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
 import Skeleton from 'primevue/skeleton'
 
-const pinia = createPinia()
-
 app.use(PrimeVue, { pt: Wind })
 app.component('Badge', Badge)
 app.component('Breadcrumb', Breadcrumb)
@@ -42,5 +63,4 @@ app.component('InputText', InputText)
 app.component('Menubar', Menubar)
 app.component('Skeleton', Skeleton)
 app.use(router)
-app.use(pinia)
 app.mount('#megaprom')
