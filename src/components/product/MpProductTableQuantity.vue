@@ -14,10 +14,12 @@ const props = defineProps({
   }
 })
 
-const includeIva = ref(false)
+const priceLocalStorage = localStorage.getItem('includeIva')
+const includeIva = ref(priceLocalStorage ? JSON.parse(priceLocalStorage) : true)
 
 const toggleIva = () => {
   includeIva.value = !includeIva.value
+  localStorage.setItem('includeIva', includeIva.value)
 }
 
 const hasInTracking = computed(() => {
