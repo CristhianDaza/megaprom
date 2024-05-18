@@ -3,7 +3,7 @@ import { defineProps } from 'vue'
 
 const props = defineProps({
   discount: {
-    type: Object,
+    type: Number,
     required: true
   }
 })
