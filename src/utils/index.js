@@ -21,6 +21,23 @@ export const formatNumber = (value, isTable = false) => {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
+export const formatPrice = (value, includeIva) => {
+  if (value == null) return '';
+  if (value < 0) return '0';
+  
+  const formattedValue = includeIva ? value * 1.19 : value;
+
+  const roundedValue = Math.round(formattedValue * 100) / 100;
+  
+  const roundValue = Math.ceil(roundedValue);
+  
+  if (includeIva) {
+    return `$ ${formatNumber(roundValue, true)} con iva`;
+  }
+  return `$ ${formatNumber(roundValue, true)} + iva`;
+}
+
+
 export const combineProducts = (docs) => {
   const combinedProducts = []
   

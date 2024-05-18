@@ -1,6 +1,6 @@
 <script setup>
-import { computed, defineProps } from 'vue'
-import { formatDate, formatNumber } from '@/utils'
+import { computed, defineProps, ref } from 'vue'
+import { formatDate, formatNumber, formatPrice } from '@/utils'
 import { formatColor } from '@/helpers'
 
 import { useUserStore } from '@/store/user.js'
@@ -13,6 +13,12 @@ const props = defineProps({
     required: true
   }
 })
+
+const includeIva = ref(false)
+
+const toggleIva = () => {
+  includeIva.value = !includeIva.value
+}
 
 const hasInTracking = computed(() => {
   return props.quantity.some(item => item.inTracking != null)
@@ -34,9 +40,9 @@ const hasLastUpdateTracking = computed(() => {
 <template>
   <div class="container mx-auto">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div class="flex flex-wrap items-center justify-between gap-2 m-2">
-        <span class="text-xl text-surface-900 dark:text-surface-0 font-bold"></span>
-        <Button v-if="userStore.isLogged" icon="pi pi-refresh" rounded raised />
+      <div v-if="userStore.isLogged" class="flex flex-wrap items-center justify-between gap-2 m-2">
+        <Button icon="pi pi-refresh" rounded raised />
+        <Button :label="`${includeIva ? '+ iva' : 'Con iva'}`" @click="toggleIva" raised />
       </div>
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -98,7 +104,7 @@ const hasLastUpdateTracking = computed(() => {
             {{ formatDate(item.lastUpdateTracking) }}
           </td>
           <td v-if="userStore.isLogged" class="px-6 py-4">
-            $ {{ formatNumber(Math.ceil(item.price), true) }} + iva
+            {{ formatPrice(Math.ceil(item.price), includeIva) }}
           </td>
         </tr>
         <tr v-if="props.quantity.length === 0">
