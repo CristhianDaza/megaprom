@@ -79,9 +79,10 @@ export function useProductHelpers() {
     const { lastUpdate } = docRef.docs[0].data()
     const lastUpdateDate = new Date(lastUpdate)
     const now = new Date()
-    const diffInMs = now - lastUpdateDate
-    const diffInHours = diffInMs / (1000 * 60 * 60)
-    return diffInHours < 24
+    const lastUpdateDay = lastUpdateDate.getDate()
+    const nowDay = now.getDate()
+
+    return lastUpdateDay === nowDay
   }
   
   return {
