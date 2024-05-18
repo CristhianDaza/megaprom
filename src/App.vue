@@ -1,10 +1,39 @@
 <script setup>
+import { onMounted, ref } from 'vue'
+import MpMainMenu from '@/components/global/MpMainMenu.vue'
+import MpFooter from '@/components/global/MpFooter.vue'
+import MpModalLogin from '@/components/global/MpModalLogin.vue'
+import { useProductsStore } from '@/store/products.js'
+import { useMenuStore } from "@/store/menu.js";
+
+const products = useProductsStore()
+const menuStore = useMenuStore()
+
+const isOpen = ref(false)
+
+const manageValueModal = (value) => {
+  isOpen.value = value
+}
+
+onMounted(async () => {
+  await products.initProducts()
+  await menuStore.getMenu()
+})
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold text-center pt-10">
-    Mega
-  </h1>
+  <MpMainMenu :menu="menuStore.menu" />
+  <div class="dark:bg-dark-mp min-h-screen-60 pb-10">
+    <RouterView />
+  </div>
+  <MpFooter
+    :menu="menuStore.menu"
+    @openModal="manageValueModal"
+  />
+  <MpModalLogin
+    :visible="isOpen"
+    @manageModal="manageValueModal"
+  />
 </template>
 
 <style scoped>
