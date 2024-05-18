@@ -42,9 +42,13 @@ export const useProductsStore = defineStore('products', {
       if (!this.products.length) {
         await this._getProductsFirebase()
       }
-      const categories = this.products.map(product => product.category)
-      const names = this.products.map(product => product.name.split(' ')[0])
-      const organizedCategories = [...new Set(categories), ...new Set(names)]
+      const categories = this.products.flatMap(product => {
+        if (product?.category) {
+          return product.category.split('|').map(category => category.trim());
+        }
+        return []
+      })
+      const organizedCategories = [...new Set(categories)]
       this.categories = organizedCategories.sort()
       this.isLoading = false
     },
