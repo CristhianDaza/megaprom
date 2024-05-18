@@ -35,7 +35,7 @@ const props = defineProps({
             </li>
             <li
               v-if="!userStore.isLogged"
-              class="hover:underline cursor-pointer"
+              class="hover:underline cursor-pointer ms-4 md:ms-6"
               @click="openModal"
             >
               Login
