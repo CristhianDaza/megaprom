@@ -29,7 +29,7 @@ const props = defineProps({
               v-for="item in menu"
               :key="item.id"
             >
-              <RouterLink :to="{ name: item.name }" class="hover:underline me-4 md:me-6">
+              <RouterLink :to="{ name: item.name }" class="hover:underline ms-4 md:ms-6">
                 {{ item.label }}
               </RouterLink>
             </li>
