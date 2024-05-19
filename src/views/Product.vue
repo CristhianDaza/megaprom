@@ -1,13 +1,13 @@
 <script setup>
-import { ref, watch, onBeforeMount } from 'vue'
+import { ref, watch, onBeforeMount, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 
-import MpTitle from '@/components/UI/MpTitle.vue'
-import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
-import MpProductImages from '@/components/product/MpProductImages.vue'
-import MpProductDescription from '@/components/product/MpProductDescription.vue'
-import MpProductSimilar from '@/components/product/MpProductSimilar.vue'
-import MpProductTableQuantity from '@/components/product/MpProductTableQuantity.vue'
+const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
+const MpProductDescription = defineAsyncComponent(/* webpackChunkName: "mpProductDescription" */() => import('@/components/product/MpProductDescription.vue'))
+const MpProductImages = defineAsyncComponent(/* webpackChunkName: "mpProductImages" */() => import('@/components/product/MpProductImages.vue'))
+const MpProductSimilar = defineAsyncComponent(/* webpackChunkName: "mpProductSimilar" */() => import('@/components/product/MpProductSimilar.vue'))
+const MpProductTableQuantity = defineAsyncComponent(/* webpackChunkName: "mpProductTableQuantity" */() => import('@/components/product/MpProductTableQuantity.vue'))
+const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
 
 import { useProductsStore } from '@/store/products.js'
 

@@ -1,7 +1,8 @@
 <script setup>
+import { defineAsyncComponent } from 'vue'
 import { formatNumber } from '@/utils'
 
-import MpBadgeDiscount from '@/components/UI/MpBadgeDiscount.vue'
+const MpBadgeDiscount = defineAsyncComponent(/* webpackChunkName: "mpBadgeDiscount" */() => import('@/components/UI/MpBadgeDiscount.vue'))
 
 const props = defineProps({
   product: {

@@ -1,7 +1,9 @@
 <script setup>
-import { onMounted } from 'vue'
-import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
-import MpTitle from '@/components/UI/MpTitle.vue'
+import { onMounted, defineAsyncComponent } from 'vue'
+
+const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
+const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
+
 import { useProductsStore } from '@/store/products.js'
 
 const products = useProductsStore()

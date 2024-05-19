@@ -1,10 +1,11 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import MpMainMenu from '@/components/global/MpMainMenu.vue'
-import MpFooter from '@/components/global/MpFooter.vue'
-import MpModalLogin from '@/components/global/MpModalLogin.vue'
+import { onMounted, ref, defineAsyncComponent } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 import { useMenuStore } from "@/store/menu.js";
+
+const MpMainMenu = defineAsyncComponent(/* webpackChunkName: "mpMainMenu" */() => import('@/components/global/MpMainMenu.vue'))
+const MpFooter = defineAsyncComponent(/* webpackChunkName: "mpFooter" */() => import('@/components/global/MpFooter.vue'))
+const MpModalLogin = defineAsyncComponent(/* webpackChunkName: "mpModalLogin" */() => import('@/components/global/MpModalLogin.vue'))
 
 const products = useProductsStore()
 const menuStore = useMenuStore()
