@@ -54,7 +54,6 @@ onMounted(async () => {
       :num-visible="products.similarProducts.length === 3 ? 3 : 5"
       :num-scroll="3"
       circular
-      :autoplayInterval="4000"
       :responsiveOptions="responsiveOptions"
     >
       <template #item="slotProps">
