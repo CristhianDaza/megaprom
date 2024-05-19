@@ -9,6 +9,7 @@ const MpMainMenu = defineAsyncComponent(/* webpackChunkName: "mpMainMenu" */() =
 const MpModalLogin = defineAsyncComponent(/* webpackChunkName: "mpModalLogin" */() => import('@/components/global/MpModalLogin.vue'))
 const MpSpeedDial = defineAsyncComponent(/* webpackChunkName: "mpSpeedDial" */() => import('@/components/global/MpSpeedDial.vue'))
 const MpWhatsApp = defineAsyncComponent(/* webpackChunkName: "mpWhatsApp" */() => import('@/components/global/MpWhatsApp.vue'))
+const MpModalLoading = defineAsyncComponent(/* webpackChunkName: "mpModalLoading" */() => import('@/components/global/MpModalLoading.vue'))
 
 const products = useProductsStore()
 const menuStore = useMenuStore()
@@ -39,6 +40,7 @@ onMounted(async () => {
     :visible="isOpen"
     @manageModal="manageValueModal"
   />
+  <MpModalLoading />
   <MpSpeedDial />
   <MpWhatsApp v-if="!userStore.isLogged" />
 </template>

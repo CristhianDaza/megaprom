@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
 import { searchProduct } from '@/api/apiMarpico.js'
 import { getAllProducts, getAllStock } from '@/api/apiPromos.js'
@@ -5,9 +6,14 @@ import { db } from '../../firebase.js'
 import { combineProducts, normalizeProductsCA, normalizeProductsMP } from '@/utils'
 
 export function useProductHelpers() {
+  const isLoadingMp = ref(true)
+  const isLoadingPromos = ref(true)
+  const isLoadingAllProducts = ref(false)
+  
   const getProductsFirebase = async () => {
     const docRef = await getDocs(collection(db, 'allProducts'))
     const allNormalizedProducts = combineProducts(docRef.docs)
+    isLoadingAllProducts.value = false
     return allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name))
   }
   
@@ -31,7 +37,7 @@ export function useProductHelpers() {
         if (isUpdated) {
           return await getProductsFirebase()
         }
-        
+        isLoadingAllProducts.value = true
         await _deleteAllProducts()
         
         const { data } = await getAllProducts()
@@ -40,6 +46,7 @@ export function useProductHelpers() {
         const allNormalizedProducts = [...normalizedPromosResults]
         
         await addDoc(collection(db, 'allProducts'), { products: allNormalizedProducts })
+        isLoadingPromos.value = false
         return await _setAllProductsMpApi()
       } else {
         return await getProductsFirebase()
@@ -64,6 +71,7 @@ export function useProductHelpers() {
       }
       
       await addDoc(collection(db, 'lastedUpdated'), { lastUpdate: new Date().toISOString() })
+      isLoadingMp.value = false
       return await getProductsFirebase()
     } catch (error) {
       console.error('Error in getAllProductsMpApi:', error)
@@ -88,5 +96,8 @@ export function useProductHelpers() {
   return {
     getProductsFirebase,
     setAllProductsPromosApi,
+    isLoadingAllProducts,
+    isLoadingMp,
+    isLoadingPromos,
   }
 }

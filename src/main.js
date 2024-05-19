@@ -41,11 +41,13 @@ import Card from 'primevue/card'
 import Carousel from 'primevue/carousel'
 import Chip from 'primevue/chip'
 import Dialog from 'primevue/dialog'
+import Divider from 'primevue/divider'
 import IconField from 'primevue/iconfield'
 import Image from 'primevue/image'
 import InputIcon from 'primevue/inputicon'
 import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
+import ProgressSpinner from 'primevue/progressspinner'
 import Skeleton from 'primevue/skeleton'
 
 app.use(PrimeVue, { pt: Wind })
@@ -56,11 +58,13 @@ app.component('Card', Card)
 app.component('Chip', Chip)
 app.component('CarouselP', Carousel)
 app.component('Dialog', Dialog)
+app.component('Divider', Divider)
 app.component('IconField', IconField)
 app.component('Image', Image)
 app.component('InputIcon', InputIcon)
 app.component('InputText', InputText)
 app.component('Menubar', Menubar)
+app.component('ProgressSpinner', ProgressSpinner)
 app.component('Skeleton', Skeleton)
 app.use(router)
 app.mount('#megaprom')

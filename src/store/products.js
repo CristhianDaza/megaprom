@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { normalizeAndFilterProducts } from '@/utils'
 import { useProductHelpers } from '@/composables/useProduct.js'
@@ -14,15 +15,26 @@ export const useProductsStore = defineStore('products', {
     productsInput: [],
     product: null,
     similarProducts: [],
-    isLoading: false
+    isLoading: false,
+    isLoadingAllProducts: false,
+    isLoadingMp: false,
+    isLoadingPromos: false,
   }),
   actions: {
     async initProducts() {
       const userStore = useUserStore()
-      const isLogin = userStore.isLogged
-      const { setAllProductsPromosApi } = useProductHelpers()
+      const isLogin = ref(userStore.isLogged)
+      const {
+        setAllProductsPromosApi,
+        isLoadingAllProducts,
+        isLoadingMp,
+        isLoadingPromos
+      } = useProductHelpers()
       try {
         if (isLogin) {
+          this.isLoadingAllProducts = isLoadingAllProducts
+          this.isLoadingMp = isLoadingMp
+          this.isLoadingPromos = isLoadingPromos
           this.products = await setAllProductsPromosApi(true)
         } else {
           this.products = await setAllProductsPromosApi(false)
