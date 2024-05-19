@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
-
 import { useUserStore } from '@/store/user.js'
 
 const userStore = useUserStore()
@@ -38,7 +36,14 @@ const props = defineProps({
               class="hover:underline cursor-pointer ms-4 md:ms-6"
               @click="openModal"
             >
-              Login
+              Iniciar sesión
+            </li>
+            <li
+              v-else
+              class="hover:underline cursor-pointer ms-4 md:ms-6"
+              @click="userStore.logout"
+            >
+              Cerrar sesión
             </li>
           </ul>
         </div>

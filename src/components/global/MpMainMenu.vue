@@ -1,14 +1,14 @@
 <script setup>
-import { defineProps } from 'vue'
-import MpSearchFilter from '@/components/global/MpSearchFilter.vue'
+import { defineAsyncComponent } from 'vue'
 
+const MpSearchFilter = defineAsyncComponent(/* webpackChunkName: "mpSearchFilter" */ () => import('@/components/global/MpSearchFilter.vue'))
 const props = defineProps({
   menu: Object
 })
 </script>
 
 <template>
-  <Menubar :model="menu" breakpoint="956px" class="rounded-none">
+  <Menubar :model="menu ? menu : []" breakpoint="956px" class="rounded-none">
     <template #start>
       <RouterLink :to="{ name: 'home' }">
         <img alt="Logo" class="size-7 md:size-10" src="https://megapromocionales.com.co/favicon.ico" />

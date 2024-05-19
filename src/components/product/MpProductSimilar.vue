@@ -1,10 +1,9 @@
 <script setup>
-import { defineProps, onMounted, watch, ref } from 'vue'
+import { onMounted, watch, ref, defineAsyncComponent } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 import { useRoute } from 'vue-router'
 
-import MpCardProduct from '@/components/UI/MpCardProduct.vue'
-
+const MpCardProduct = defineAsyncComponent(/* webpackChunkName: "mpCardProduct" */() => import('@/components/UI/MpCardProduct.vue'))
 const products = useProductsStore()
 const route = useRoute()
 
@@ -55,7 +54,6 @@ onMounted(async () => {
       :num-visible="products.similarProducts.length === 3 ? 3 : 5"
       :num-scroll="3"
       circular
-      :autoplayInterval="4000"
       :responsiveOptions="responsiveOptions"
     >
       <template #item="slotProps">

@@ -1,8 +1,8 @@
 <script setup>
-import {onMounted, watch} from 'vue'
+import {onMounted, watch, defineAsyncComponent} from 'vue'
 
-import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
-import MpTitle from '@/components/UI/MpTitle.vue'
+const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
+const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
 
 import { useRoute } from 'vue-router'
 

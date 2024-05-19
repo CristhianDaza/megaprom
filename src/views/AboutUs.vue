@@ -1,6 +1,8 @@
 <script setup>
-import MpBreadcrumb from '@/components/UI/MpBreadcrumb.vue'
-import MpTitle from '@/components/UI/MpTitle.vue'
+import { defineAsyncComponent } from 'vue'
+
+const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
+const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
 
 const breadcrumbItems = [
   {
