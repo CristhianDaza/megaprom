@@ -3,9 +3,10 @@ import { onMounted, ref, defineAsyncComponent } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 import { useMenuStore } from "@/store/menu.js";
 
-const MpMainMenu = defineAsyncComponent(/* webpackChunkName: "mpMainMenu" */() => import('@/components/global/MpMainMenu.vue'))
 const MpFooter = defineAsyncComponent(/* webpackChunkName: "mpFooter" */() => import('@/components/global/MpFooter.vue'))
+const MpMainMenu = defineAsyncComponent(/* webpackChunkName: "mpMainMenu" */() => import('@/components/global/MpMainMenu.vue'))
 const MpModalLogin = defineAsyncComponent(/* webpackChunkName: "mpModalLogin" */() => import('@/components/global/MpModalLogin.vue'))
+const MpSpeedDial = defineAsyncComponent(/* webpackChunkName: "mpSpeedDial" */() => import('@/components/global/MpSpeedDial.vue'))
 
 const products = useProductsStore()
 const menuStore = useMenuStore()
@@ -35,6 +36,7 @@ onMounted(async () => {
     :visible="isOpen"
     @manageModal="manageValueModal"
   />
+  <MpSpeedDial />
 </template>
 
 <style scoped>
