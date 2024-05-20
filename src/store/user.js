@@ -11,6 +11,7 @@ export const useUserStore = defineStore('user', {
         const auth = getAuth()
         const userCredential = await signInWithEmailAndPassword (auth, name, password)
         this.user = userCredential.user
+        localStorage.setItem('isLogin', 'true')
       } catch (error) {
         this.user = null
         console.error(error)
@@ -25,6 +26,7 @@ export const useUserStore = defineStore('user', {
       const auth = getAuth()
       signOut(auth).then(() => {
         this.user = null
+        localStorage.setItem('isLogin', 'false')
       }).catch((error) => {
         console.error(error)
       })

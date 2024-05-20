@@ -22,8 +22,7 @@ export const useProductsStore = defineStore('products', {
   }),
   actions: {
     async initProducts() {
-      const userStore = useUserStore()
-      const isLogin = ref(userStore.isLogged)
+      const isLogin = localStorage.getItem('isLogin')
       const {
         setAllProductsPromosApi,
         isLoadingAllProducts,
@@ -31,7 +30,7 @@ export const useProductsStore = defineStore('products', {
         isLoadingPromos
       } = useProductHelpers()
       try {
-        if (isLogin) {
+        if (isLogin === 'true') {
           this.isLoadingAllProducts = isLoadingAllProducts
           this.isLoadingMp = isLoadingMp
           this.isLoadingPromos = isLoadingPromos
