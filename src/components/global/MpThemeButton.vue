@@ -14,7 +14,6 @@ const setTheme = (themeName) => {
 }
 
 const toggleTheme = () => {
-  console.log(checkbox.value)
   if (checkbox.value) {
     setTheme('theme-dark')
   } else {
