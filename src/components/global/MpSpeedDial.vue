@@ -1,19 +1,19 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
-const showButton = ref(false);
+const showButton = ref(false)
 
 const handleScroll = () => {
-  showButton.value = window.scrollY > 300;
+  showButton.value = window.scrollY > 300
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
+  window.addEventListener('scroll', handleScroll)
+})
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-};
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
 
 <template>

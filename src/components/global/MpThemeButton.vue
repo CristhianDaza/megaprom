@@ -1,37 +1,37 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref } from 'vue'
 
-const checkbox = ref(false);
+const checkbox = ref(false)
 
 const setTheme = (themeName) => {
   localStorage.setItem('theme', themeName);
 
   if (themeName === 'theme-dark') {
-    document.documentElement.classList.add('dark');
+    document.documentElement.classList.add('dark')
   } else {
-    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.remove('dark')
   }
 }
 
 const toggleTheme = () => {
   console.log(checkbox.value)
   if (checkbox.value) {
-    setTheme('theme-dark');
+    setTheme('theme-dark')
   } else {
-    setTheme('theme-light');
+    setTheme('theme-light')
   }
 }
 
 onMounted(() => {
   const storedTheme = localStorage.getItem('theme');
   if (storedTheme === 'theme-dark') {
-    setTheme(storedTheme);
+    setTheme(storedTheme)
     checkbox.value = true
   } else {
-    setTheme('theme-light');
+    setTheme('theme-light')
     checkbox.value = false
   }
-});
+})
 </script>
 
 <template>

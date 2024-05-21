@@ -9,7 +9,7 @@ const props = defineProps({
   product: {
     type: Object,
     required: true
-  },
+  }
 })
 
 </script>

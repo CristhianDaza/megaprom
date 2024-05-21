@@ -8,7 +8,7 @@ const props = defineProps({
     required: true
   },
   quantity: {
-    type: Number,
+    type: Number
   }
 })
 </script>

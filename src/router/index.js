@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
@@ -48,11 +48,11 @@ const router = createRouter({
     routes,
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
-            return savedPosition;
+            return savedPosition
         } else {
-            return { left: 0, top: 0 };
+            return { left: 0, top: 0 }
         }
-    },
-});
+    }
+})
 
-export default router;
+export default router
