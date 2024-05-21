@@ -1,55 +1,45 @@
-import { defineAsyncComponent } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
     {
         path: '/',
-        component: defineAsyncComponent(/* webpackChunkName: "home" */() => import('@/views/Home.vue')),
-        name: 'home',
-        key: 'home',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+        name: 'home'
     },
     {
         path: '/nosotros',
-        component: defineAsyncComponent(/* webpackChunkName: "about-us" */() => import('@/views/AboutUs.vue')),
-        name: 'about-us',
-        key: 'about-us',
+        component: () => import(/* webpackChunkName: "about-us" */ '@/views/AboutUs.vue'),
+        name: 'about-us'
     },
     {
         path: '/catalogos',
-        component: defineAsyncComponent(/* webpackChunkName: "catalogs" */() => import('@/views/Catalogs.vue')),
-        name: 'catalogs',
-        key: 'catalogs',
+        component: () => import(/* webpackChunkName: "catalogs" */ '@/views/Catalogs.vue'),
+        name: 'catalogs'
     },
     {
         path: '/contacto',
-        component: defineAsyncComponent(/* webpackChunkName: "contact" */() => import('@/views/Contact.vue')),
-        name: 'contact',
-        key: 'contact',
+        component: () => import(/* webpackChunkName: "contact" */ '@/views/Contact.vue'),
+        name: 'contact'
     },
     {
         path: '/portafolio',
-        component: defineAsyncComponent(/* webpackChunkName: "portfolio" */() => import('@/views/Portfolio.vue')),
-        name: 'portfolio',
-        key: 'portfolio',
+        component: () => import(/* webpackChunkName: "portfolio" */ '@/views/Portfolio.vue'),
+        name: 'portfolio'
     },
     {
         path: '/productos',
-        component: defineAsyncComponent(/* webpackChunkName: "products" */() => import('@/views/Products.vue')),
-        name: 'products',
-        key: 'products',
+        component: () => import(/* webpackChunkName: "products" */ '@/views/Products.vue'),
+        name: 'products'
     },
     {
         path: '/productos/:id',
-        component: defineAsyncComponent(/* webpackChunkName: "product" */() => import('@/views/Product.vue')),
-        name: 'product',
-        key: 'product',
+        component: () => import(/* webpackChunkName: "product" */ '@/views/Product.vue'),
+        name: 'product'
     },
     {
         path: '/busqueda',
-        component: defineAsyncComponent(/* webpackChunkName: "search" */() => import('@/views/Search.vue')),
-        name: 'search',
-        key: 'search',
-        params: true,
+        component: () => import(/* webpackChunkName: "search" */ '@/views/Search.vue'),
+        name: 'search'
     }
 ]
 
