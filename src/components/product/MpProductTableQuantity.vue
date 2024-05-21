@@ -1,7 +1,8 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, defineAsyncComponent } from 'vue'
 import { formatDate, formatNumber, formatPrice } from '@/utils'
-import { formatColor } from '@/helpers'
+
+const MpColor = defineAsyncComponent(/* webpackChunkName: "mpColor" */() => import('@/components/UI/MpColor.vue'))
 
 import { useUserStore } from '@/store/user.js'
 
@@ -87,10 +88,7 @@ const hasLastUpdateTracking = computed(() => {
             :key="item.id"
         >
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            <div
-              :style="{ backgroundColor: formatColor(item.color) }"
-              class="w-5 h-5 rounded-full border dark:border-gray-700 border-gray-200 shadow-sm"
-            ></div>
+            <MpColor :color="item.color" />
           </th>
           <td class="px-6 py-4">
             {{ item.color }}

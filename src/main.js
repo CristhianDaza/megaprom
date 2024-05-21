@@ -49,6 +49,7 @@ import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
 import ProgressSpinner from 'primevue/progressspinner'
 import Skeleton from 'primevue/skeleton'
+import Tooltip from 'primevue/tooltip';
 
 app.use(PrimeVue, { pt: Wind })
 app.component('Badge', Badge)
@@ -67,4 +68,5 @@ app.component('Menubar', Menubar)
 app.component('ProgressSpinner', ProgressSpinner)
 app.component('Skeleton', Skeleton)
 app.use(router)
+app.directive('tooltip', Tooltip);
 app.mount('#megaprom')
