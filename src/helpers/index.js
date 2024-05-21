@@ -332,6 +332,6 @@ export const getDiscounts = (materials) => {
     .filter(material => material.descuento !== 0)
     .map(material => material.descuento)
   
-  return discounts.length > 0 ? discounts[0] : nul
+  return discounts.length > 0 ? discounts[0] : null
 }
 
