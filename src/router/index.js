@@ -1,63 +1,45 @@
-import { createRouter, createWebHistory } from 'vue-router';
-
-import AboutUs from '@/views/AboutUs.vue'
-import Catalogs from '@/views/Catalogs.vue'
-import Contact from '@/views/Contact.vue'
-import Home from '@/views/Home.vue'
-import Portfolio from '@/views/Portfolio.vue'
-import Product from '@/views/Product.vue'
-import Products from '@/views/Products.vue'
-import Search from '@/views/Search.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
         path: '/',
-        component: Home,
-        name: 'home',
-        key: 'home',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+        name: 'home'
     },
     {
         path: '/nosotros',
-        component: AboutUs,
-        name: 'about-us',
-        key: 'about-us',
+        component: () => import(/* webpackChunkName: "about-us" */ '@/views/AboutUs.vue'),
+        name: 'about-us'
     },
     {
         path: '/catalogos',
-        component: Catalogs,
-        name: 'catalogs',
-        key: 'catalogs',
+        component: () => import(/* webpackChunkName: "catalogs" */ '@/views/Catalogs.vue'),
+        name: 'catalogs'
     },
     {
         path: '/contacto',
-        component: Contact,
-        name: 'contact',
-        key: 'contact',
+        component: () => import(/* webpackChunkName: "contact" */ '@/views/Contact.vue'),
+        name: 'contact'
     },
     {
         path: '/portafolio',
-        component: Portfolio,
-        name: 'portfolio',
-        key: 'portfolio',
+        component: () => import(/* webpackChunkName: "portfolio" */ '@/views/Portfolio.vue'),
+        name: 'portfolio'
     },
     {
         path: '/productos',
-        component: Products,
-        name: 'products',
-        key: 'products',
+        component: () => import(/* webpackChunkName: "products" */ '@/views/Products.vue'),
+        name: 'products'
     },
     {
         path: '/productos/:id',
-        component: Product,
-        name: 'product',
-        key: 'product',
+        component: () => import(/* webpackChunkName: "product" */ '@/views/Product.vue'),
+        name: 'product'
     },
     {
         path: '/busqueda',
-        component: Search,
-        name: 'search',
-        key: 'search',
-        params: true,
+        component: () => import(/* webpackChunkName: "search" */ '@/views/Search.vue'),
+        name: 'search'
     }
 ]
 
@@ -66,11 +48,11 @@ const router = createRouter({
     routes,
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
-            return savedPosition;
+            return savedPosition
         } else {
-            return { left: 0, top: 0 };
+            return { left: 0, top: 0 }
         }
-    },
-});
+    }
+})
 
-export default router;
+export default router

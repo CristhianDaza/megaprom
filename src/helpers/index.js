@@ -42,7 +42,7 @@ export const constructPackagingCa = (packaging) => {
 }
 
 export const constructPackagingMp = (packaging) => {
-  const parts = [];
+  const parts = []
   if (packaging?.empaque_unds_caja) {
     parts.push(`${packaging.empaque_unds_caja} unidades por caja`)
   }
@@ -68,7 +68,7 @@ export const constructPackagingMp = (packaging) => {
 }
 
 export const constructCategoryMp = (product) => {
-  const parts = [];
+  const parts = []
   if (product?.subcategoria_1) {
     parts.push(product?.subcategoria_1?.nombre)
   }
@@ -146,20 +146,20 @@ export const constructTotalProductsMp = (materials) => {
 }
 
 export const constructTotalProductsCa = (children, stockData) => {
-  let totalProducts = 0;
+  let totalProducts = 0
   if (children) {
     children?.forEach(child => {
-      const stockEntry = stockData.find(item => item.Material === child.skuHijo);
+      const stockEntry = stockData.find(item => item.Material === child.skuHijo)
       if (stockEntry) {
-        totalProducts += stockEntry.Stock;
+        totalProducts += stockEntry.Stock
       }
     });
   }
-  return totalProducts;
+  return totalProducts
 }
 
 export const constructTableQuantityMp = (materials) => {
-  const quantity = [];
+  const quantity = []
   
   materials.forEach(material => {
     const discountFactor = material.descuento / 100
@@ -190,20 +190,28 @@ export const constructTableQuantityMp = (materials) => {
 
 
 export const constructTableQuantityCA = (children, stockData) => {
-  const table = [];
+  const table = []
   if (children) {
     children.forEach(child => {
-      const stockEntry = stockData.find(item => item.Material === child.skuHijo);
+      const stockEntry = stockData.find(item => item.Material === child.skuHijo)
       if (stockEntry) {
         table.push({
-          color: child.color,
+          color: _processString(child.color),
           quantity: stockEntry.Stock,
           price: child.precio
         });
       }
     });
   }
-  return table;
+  return table
+}
+
+const _processString = (input) => {
+  if (typeof input !== 'string') {
+    return ''
+  }
+  const lowerCased = input.toLowerCase()
+  return lowerCased.charAt(0).toUpperCase() + lowerCased.slice(1)
 }
 
 export const formatColor = (color) => {
@@ -299,7 +307,7 @@ export const formatColor = (color) => {
     'Negro translucido': '#000000',
     'Gris metalico': '#808080',
     'Azul metalico': '#0000FF88',
-    'Rojo metalico': '#800020',
+    'Rojo metalico': '#800020'
   }
   
   const normalizeColorName = (name) => {
@@ -307,23 +315,23 @@ export const formatColor = (color) => {
       .trim()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase();
+      .toLowerCase()
   };
   
-  const normalizedColor = normalizeColorName(color);
+  const normalizedColor = normalizeColorName(color)
   
   const foundColor = Object.keys(colors).find(
     key => normalizeColorName(key) === normalizedColor
-  );
+  )
   
-  return colors[foundColor] || null;
+  return colors[foundColor] || null
 }
 
 export const getDiscounts = (materials) => {
   const discounts = materials
     .filter(material => material.descuento !== 0)
-    .map(material => material.descuento);
+    .map(material => material.descuento)
   
-  return discounts.length > 0 ? discounts[0] : null;
+  return discounts.length > 0 ? discounts[0] : nul
 }
 

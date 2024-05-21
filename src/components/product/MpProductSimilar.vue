@@ -9,7 +9,7 @@ const route = useRoute()
 
 const props = defineProps({
   similar: {
-    type: Object,
+    type: Object
   }
 })
 
@@ -34,7 +34,7 @@ const responsiveOptions = ref([
     numVisible: 1,
     numScroll: 1
   }
-]);
+])
 
 watch(() => route.params, async (newValue, oldValue) => {
   if (newValue !== oldValue) {

@@ -5,38 +5,38 @@ import { collection, getDocs } from 'firebase/firestore'
 export const useCarouselStore = defineStore('carousel', {
     state: () => ({
         carousel: [],
-        isLoading: true,
+        isLoading: true
     }),
     actions: {
         async getCarousel() {
-            this.isLoading = true;
-            const carouselLocalStorage = localStorage.getItem('carousel');
-            const lastUpdateLocalStorage = localStorage.getItem('carouselLastUpdate');
+            this.isLoading = true
+            const carouselLocalStorage = localStorage.getItem('carousel')
+            const lastUpdateLocalStorage = localStorage.getItem('carouselLastUpdate')
             if (carouselLocalStorage && lastUpdateLocalStorage) {
-                const lastUpdateDate = new Date(lastUpdateLocalStorage);
-                const now = new Date();
+                const lastUpdateDate = new Date(lastUpdateLocalStorage)
+                const now = new Date()
 
-                const diffInMs = now - lastUpdateDate;
-                const diffInHours = diffInMs / (1000 * 60 * 60);
+                const diffInMs = now - lastUpdateDate
+                const diffInHours = diffInMs / (1000 * 60 * 60)
 
                 if (diffInHours < 24) {
-                    this.carousel = JSON.parse(carouselLocalStorage);
-                    this.isLoading = false;
-                    return;
+                    this.carousel = JSON.parse(carouselLocalStorage)
+                    this.isLoading = false
+                    return
                 }
             }
 
-            const querySnapshot = await getDocs(collection(db, 'carousel'));
-            const items = [];
+            const querySnapshot = await getDocs(collection(db, 'carousel'))
+            const items = []
 
             querySnapshot.forEach((doc) => {
-                items.push({ id: doc.id, ...doc.data() });
-            });
+                items.push({ id: doc.id, ...doc.data() })
+            })
 
             this.carousel = items;
-            localStorage.setItem('carousel', JSON.stringify(items));
-            localStorage.setItem('carouselLastUpdate', new Date().toISOString());
-            this.isLoading = false;
+            localStorage.setItem('carousel', JSON.stringify(items))
+            localStorage.setItem('carouselLastUpdate', new Date().toISOString())
+            this.isLoading = false
         }
     }
 })

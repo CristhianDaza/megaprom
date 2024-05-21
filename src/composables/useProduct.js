@@ -98,6 +98,6 @@ export function useProductHelpers() {
     setAllProductsPromosApi,
     isLoadingAllProducts,
     isLoadingMp,
-    isLoadingPromos,
+    isLoadingPromos
   }
 }

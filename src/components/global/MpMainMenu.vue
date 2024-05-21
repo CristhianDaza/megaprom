@@ -2,6 +2,8 @@
 import { defineAsyncComponent } from 'vue'
 
 const MpSearchFilter = defineAsyncComponent(/* webpackChunkName: "mpSearchFilter" */ () => import('@/components/global/MpSearchFilter.vue'))
+const MpThemeButton = defineAsyncComponent(/* webpackChunkName: "mpThemeButton" */() => import('@/components/global/MpThemeButton.vue'))
+
 const props = defineProps({
   menu: Object
 })
@@ -30,8 +32,11 @@ const props = defineProps({
       </div>
     </template>
     <template #end>
-      <div class="md:w-[20rem]">
-        <MpSearchFilter />
+      <div class="flex gap-5">
+        <MpThemeButton class="pl-10" />
+        <div class="md:w-[20rem]">
+          <MpSearchFilter />
+        </div>
       </div>
     </template>
   </Menubar>

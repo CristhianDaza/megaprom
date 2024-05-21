@@ -1,16 +1,20 @@
 <script setup>
-import { formatNumber } from '@/utils'
+import { formatNumber, formatPrice } from '@/utils'
 import { defineAsyncComponent } from 'vue'
 
 const MpBadgeDiscount = defineAsyncComponent(/* webpackChunkName: "mpBadgeDiscount" */() => import('@/components/UI/MpBadgeDiscount.vue'))
+const MpColor = defineAsyncComponent(/* webpackChunkName: "mpColor" */() => import('@/components/UI/MpColor.vue'))
+
+import { useUserStore } from '@/store/user.js'
+
+const userStore = useUserStore()
 
 const props = defineProps({
   product: {
     type: Object,
     required: true
-  },
+  }
 })
-
 </script>
 
 <template>
@@ -27,6 +31,16 @@ const props = defineProps({
         <span class="text-md text-gray-900 dark:text-white mr-5">{{ product.id }}</span>
         <span class="text-md text-gray-900 dark:text-white"><span class="font-bold">Stock:</span> {{ formatNumber(product.totalProducts) }} </span>
       </div>
+      <div class="flex gap-1">
+        <template v-for="{ color, quantity } in product.tableQuantity">
+          <MpColor :color="color" :quantity="quantity" />
+        </template>
+      </div>
+      <template v-if="userStore.isLogged">
+        <div class="flex items-center justify-between mt-5">
+          <span class="text-2xl font-semibold text-gray-900 dark:text-white">{{ formatPrice(product.tableQuantity[0].price, false) }}</span>
+        </div>
+      </template>
       <template v-if="product?.discount">
         <MpBadgeDiscount :discount="product?.discount"/>
       </template>

@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: null,
+    user: null
   }),
   actions: {
     async login({name, password}) {
@@ -33,6 +33,6 @@ export const useUserStore = defineStore('user', {
     },
   },
   getters: {
-    isLogged: (state) => state.user !== null,
+    isLogged: (state) => state.user !== null
   }
 })

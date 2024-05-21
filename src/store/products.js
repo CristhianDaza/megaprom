@@ -1,9 +1,6 @@
-import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { normalizeAndFilterProducts } from '@/utils'
 import { useProductHelpers } from '@/composables/useProduct.js'
-import { useUserStore } from '@/store/user.js'
-
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -18,7 +15,7 @@ export const useProductsStore = defineStore('products', {
     isLoading: false,
     isLoadingAllProducts: false,
     isLoadingMp: false,
-    isLoadingPromos: false,
+    isLoadingPromos: false
   }),
   actions: {
     async initProducts() {
@@ -55,7 +52,7 @@ export const useProductsStore = defineStore('products', {
       }
       const categories = this.products.flatMap(product => {
         if (product?.category) {
-          return product.category.split('|').map(category => category.trim());
+          return product.category.split('|').map(category => category.trim())
         }
         return []
       })

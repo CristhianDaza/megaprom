@@ -11,31 +11,31 @@ import {
   constructTotalProductsMp,
   formatText,
   getDiscounts
-} from '../helpers';
+} from '../helpers'
 
 export const formatNumber = (value, isTable = false) => {
-  if (value == null) return '';
-  if (value < 0) return '0';
+  if (value == null) return ''
+  if (value < 0) return '0'
   if (value > 10) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + `${isTable ? '' : ' unds.'}`;
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + `${isTable ? '' : ' unds.'}`
   }
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
 }
 
 export const formatPrice = (value, includeIva) => {
-  if (value == null) return '';
-  if (value < 0) return '0';
+  if (value == null) return ''
+  if (value < 0) return '0'
   
-  const formattedValue = includeIva ? value * 1.19 : value;
+  const formattedValue = includeIva ? value * 1.19 : value
 
-  const roundedValue = Math.round(formattedValue * 100) / 100;
+  const roundedValue = Math.round(formattedValue * 100) / 100
   
-  const roundValue = Math.ceil(roundedValue);
+  const roundValue = Math.ceil(roundedValue)
   
   if (includeIva) {
-    return `$ ${formatNumber(roundValue, true)} con iva`;
+    return `$ ${formatNumber(roundValue, true)} con iva`
   }
-  return `$ ${formatNumber(roundValue, true)} + iva`;
+  return `$ ${formatNumber(roundValue, true)} + iva`
 }
 
 
@@ -56,17 +56,17 @@ export const combineProducts = (docs) => {
 
 export const normalizeAndFilterProducts = (products, searchTerm) => {
   const normalizeString = (str) => {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  };
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
+  }
   
-  const keywords = normalizeString(searchTerm).split('|').map(keyword => keyword.trim());
+  const keywords = normalizeString(searchTerm).split('|').map(keyword => keyword.trim())
   
   return products.filter(product => {
-    const productName = normalizeString(product.name);
-    const productDescription = normalizeString(product.description);
-    const productMaterial = normalizeString(product.material);
-    const productCategory = product.category ? normalizeString(product.category) : '';
-    const productId = normalizeString(product.id);
+    const productName = normalizeString(product.name)
+    const productDescription = normalizeString(product.description)
+    const productMaterial = normalizeString(product.material)
+    const productCategory = product.category ? normalizeString(product.category) : ''
+    const productId = normalizeString(product.id)
     
     return keywords.some(keyword =>
       productName.includes(keyword) ||
@@ -74,8 +74,8 @@ export const normalizeAndFilterProducts = (products, searchTerm) => {
       productMaterial.includes(keyword) ||
       productCategory.includes(keyword) ||
       productId.includes(keyword)
-    );
-  });
+    )
+  })
 }
 
 export const normalizeProductsCA = (product, stock) => {
@@ -95,7 +95,7 @@ export const normalizeProductsCA = (product, stock) => {
     size: product?.medidas,
     tableQuantity: constructTableQuantityCA(product?.hijos, stock),
     totalProducts: constructTotalProductsCa(product?.hijos, stock)
-  };
+  }
 }
 
 
@@ -121,7 +121,7 @@ export const normalizeProductsMP = (product) => {
 
 export const formatDate = (dateToTransform) => {
   if (!dateToTransform) return ''
-  const date = new Date(dateToTransform);
+  const date = new Date(dateToTransform)
 
   const day = date.getUTCDate()
   const month = date.getUTCMonth()
