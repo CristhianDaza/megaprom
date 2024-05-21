@@ -196,7 +196,7 @@ export const constructTableQuantityCA = (children, stockData) => {
       const stockEntry = stockData.find(item => item.Material === child.skuHijo);
       if (stockEntry) {
         table.push({
-          color: child.color,
+          color: _processString(child.color),
           quantity: stockEntry.Stock,
           price: child.precio
         });
@@ -204,6 +204,14 @@ export const constructTableQuantityCA = (children, stockData) => {
     });
   }
   return table;
+}
+
+const _processString = (input) => {
+  if (typeof input !== 'string') {
+    return '';
+  }
+  const lowerCased = input.toLowerCase();
+  return lowerCased.charAt(0).toUpperCase() + lowerCased.slice(1);
 }
 
 export const formatColor = (color) => {
