@@ -16,7 +16,7 @@ const props = defineProps({
 <template>
   <div
     :style="{ backgroundColor: formatColor(color) }"
-    class="w-5 h-5 rounded-full border dark:border-gray-700 border-gray-200 shadow-sm relative"
+    class="w-5 h-5 border dark:border-gray-700 border-gray-200 shadow-sm relative"
     v-tooltip.top="`${quantity ? `Cantidad: ${formatNumber(quantity)}` : ''}`"
   >
   </div>
