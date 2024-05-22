@@ -2,13 +2,16 @@
 import { onMounted, ref } from 'vue'
 
 const checkbox = ref(false)
+const theme = ref('Oscuro')
 
 const setTheme = (themeName) => {
   localStorage.setItem('theme', themeName);
 
   if (themeName === 'theme-dark') {
+    theme.value = 'Claro'
     document.documentElement.classList.add('dark')
   } else {
+    theme.value = 'Oscuro'
     document.documentElement.classList.remove('dark')
   }
 }
@@ -34,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <label id="switch" class="relative inline-block w-12 h-8">
+  <label id="switch" class="relative inline-block w-12 h-8"  v-tooltip.bottom="`Cambiar a modo: ${theme}`">
     <input type="checkbox" @change="toggleTheme" v-model="checkbox" class="opacity-0 w-0 h-0">
     <span class="slider block absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 transition-all duration-400 ease-in-out rounded-full"></span>
   </label>
