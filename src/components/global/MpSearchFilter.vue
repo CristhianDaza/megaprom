@@ -11,6 +11,7 @@ const route = useRoute()
 const products = useProductsStore()
 
 const searchProduct = () => {
+  if (inputSearch.value.trim() === '' || inputSearch.value.trim().length < 3) return
   router.push({
     name: 'search',
     query: { q: inputSearch.value }
