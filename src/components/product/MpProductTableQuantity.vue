@@ -91,7 +91,7 @@ const hasLastUpdateTracking = computed(() => {
             <MpColor :color="item.color" />
           </th>
           <td class="px-6 py-4">
-            {{ item.color }}
+            {{ item.colorName }}
           </td>
           <td class="px-6 py-4">
             {{ formatNumber(item.quantity, true) }}
