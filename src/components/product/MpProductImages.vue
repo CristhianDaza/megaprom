@@ -30,7 +30,24 @@ const handleError = (e) => {
   <Carousel id="gallery" :items-to-show="1.5" :wrap-around="true" v-model="currentSlide">
     <Slide v-for="slide in images" :key="slide">
       <div class="carousel__item">
-        <img :src="slide" :alt="`producto ${id}`" @error="handleError">
+        <Image alt="Image" preview>
+          <template #indicatoricon>
+            <i class="pi pi-eye" style="color: #fff"></i>
+          </template>
+          <template #image>
+            <img :src="slide" :alt="`producto ${id}`" @error="handleError"/>
+          </template>
+          <template #preview="slotProps">
+            <img
+              :src="slide"
+              :alt="`producto ${id}`"
+              :style="{ ...slotProps.style, maxWidth: '750px' }"
+              @click="slotProps.onClick"
+              class="custom-preview-image"
+              @error="handleError"
+            />
+          </template>
+        </Image>
       </div>
     </Slide>
     <template #addons>
