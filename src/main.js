@@ -51,6 +51,7 @@ import Password from 'primevue/password'
 import ProgressSpinner from 'primevue/progressspinner'
 import ScrollTop from 'primevue/scrolltop'
 import Skeleton from 'primevue/skeleton'
+import SplitButton from 'primevue/splitbutton'
 import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
@@ -73,6 +74,7 @@ app.component('Password', Password)
 app.component('ProgressSpinner', ProgressSpinner)
 app.component('ScrollTop', ScrollTop)
 app.component('Skeleton', Skeleton)
+app.component('SplitButton', SplitButton)
 app.component('Toast', Toast)
 app.use(ToastService)
 app.use(router)
