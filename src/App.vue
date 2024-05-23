@@ -66,7 +66,7 @@ onMounted(async () => {
   <MpModalLoading />
   <ScrollTop />
   <MpWhatsApp v-if="!userStore.isLogged" />
-  <Toast />
+  <Toast position="top-left"/>
 </template>
 
 <style scoped>

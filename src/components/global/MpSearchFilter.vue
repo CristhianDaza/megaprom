@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProductsStore } from '@/store/products.js'
+import { useToast } from 'primevue/usetoast'
 
 const inputSearch = ref('')
 const isMac = ref(false)
@@ -9,9 +10,17 @@ const isMac = ref(false)
 const router = useRouter()
 const route = useRoute()
 const products = useProductsStore()
+const toast = useToast()
 
 const searchProduct = () => {
-  if (inputSearch.value.trim() === '' || inputSearch.value.trim().length < 3) return
+  if (inputSearch.value.trim() === '') {
+    showToastSearch('warn', 'Campo vacío', 'Por favor ingrese un valor para buscar.')
+    return
+  }
+  if (inputSearch.value.trim().length < 3) {
+    showToastSearch('warn', 'Valor muy corto', 'Por favor ingrese al menos 3 caracteres para buscar.')
+    return
+  }
   router.push({
     name: 'search',
     query: { q: inputSearch.value }
@@ -28,6 +37,10 @@ const searchToView = () => {
 const reset = () => {
   inputSearch.value = ''
   products.resetProductsInput()
+}
+
+const showToastSearch = (severity, summary, detail) => {
+  toast.add({ severity, summary, detail, life: 3000 })
 }
 
 watch(() => route.path, async () => {
