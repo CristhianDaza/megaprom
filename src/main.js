@@ -48,6 +48,7 @@ import InputIcon from 'primevue/inputicon'
 import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
 import ProgressSpinner from 'primevue/progressspinner'
+import ScrollTop from 'primevue/scrolltop'
 import Skeleton from 'primevue/skeleton'
 import Tooltip from 'primevue/tooltip'
 
@@ -66,6 +67,7 @@ app.component('InputIcon', InputIcon)
 app.component('InputText', InputText)
 app.component('Menubar', Menubar)
 app.component('ProgressSpinner', ProgressSpinner)
+app.component('ScrollTop', ScrollTop)
 app.component('Skeleton', Skeleton)
 app.use(router)
 app.directive('tooltip', Tooltip)

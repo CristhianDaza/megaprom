@@ -7,7 +7,6 @@ import { useUserStore } from '@/store/user.js'
 const MpFooter = defineAsyncComponent(/* webpackChunkName: "mpFooter" */() => import('@/components/global/MpFooter.vue'))
 const MpMainMenu = defineAsyncComponent(/* webpackChunkName: "mpMainMenu" */() => import('@/components/global/MpMainMenu.vue'))
 const MpModalLogin = defineAsyncComponent(/* webpackChunkName: "mpModalLogin" */() => import('@/components/global/MpModalLogin.vue'))
-const MpSpeedDial = defineAsyncComponent(/* webpackChunkName: "mpSpeedDial" */() => import('@/components/global/MpSpeedDial.vue'))
 const MpWhatsApp = defineAsyncComponent(/* webpackChunkName: "mpWhatsApp" */() => import('@/components/global/MpWhatsApp.vue'))
 const MpModalLoading = defineAsyncComponent(/* webpackChunkName: "mpModalLoading" */() => import('@/components/global/MpModalLoading.vue'))
 
@@ -41,7 +40,7 @@ onMounted(async () => {
     @manageModal="manageValueModal"
   />
   <MpModalLoading />
-  <MpSpeedDial />
+  <ScrollTop />
   <MpWhatsApp v-if="!userStore.isLogged" />
 </template>
 
