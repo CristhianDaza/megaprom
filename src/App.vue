@@ -1,8 +1,9 @@
 <script setup>
-import { onMounted, ref, defineAsyncComponent } from 'vue'
+import { onMounted, ref, defineAsyncComponent, watch } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 import { useMenuStore } from '@/store/menu.js'
 import { useUserStore } from '@/store/user.js'
+import { useToast } from 'primevue/usetoast'
 
 const MpFooter = defineAsyncComponent(/* webpackChunkName: "mpFooter" */() => import('@/components/global/MpFooter.vue'))
 const MpMainMenu = defineAsyncComponent(/* webpackChunkName: "mpMainMenu" */() => import('@/components/global/MpMainMenu.vue'))
@@ -19,6 +20,29 @@ const isOpen = ref(false)
 const manageValueModal = (value) => {
   isOpen.value = value
 }
+
+const toast = useToast()
+
+const showToast = (severity, summary, detail) => {
+  toast.add({ severity, summary, detail, life: 5000 })
+}
+
+watch(
+    () => userStore.loginStatus,
+    (newStatus) => {
+      if (newStatus === 'success') {
+        showToast('success', 'Inicio de sesión exitoso', 'Has iniciado sesión correctamente.')
+      } else if (newStatus === 'error') {
+        showToast('error', 'Error de inicio de sesión', 'Por favor verifique sus credenciales e inténtelo nuevamente.')
+      } else if (newStatus === 'logout') {
+        showToast('info', 'Cerrado de sesión exitoso', 'Se ha cerrado la sesión correctamente.')
+      }
+
+      setTimeout(() => {
+        userStore.resetLoginStatus()
+      }, 5000)
+    }
+)
 
 onMounted(async () => {
   await products.initProducts()
@@ -42,6 +66,7 @@ onMounted(async () => {
   <MpModalLoading />
   <ScrollTop />
   <MpWhatsApp v-if="!userStore.isLogged" />
+  <Toast />
 </template>
 
 <style scoped>
