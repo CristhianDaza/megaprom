@@ -36,3 +36,29 @@
 .hover\:opacity-100:hover {
     opacity: 0.8 !important;
 }
+
+.carousel__next {
+    background: rgba(0, 0, 0, .5) !important;
+    height: 100% !important;
+    width: 50px !important;
+    right: -15px !important;
+    transition: all .3s !important;
+}
+
+.carousel__prev {
+    background: rgba(0, 0, 0, .5) !important;
+    height: 100% !important;
+    width: 50px !important;
+    left: -15px !important;
+    transition: all .3s !important;
+}
+
+.carousel__next:hover {
+    background: rgba(0, 0, 0, .8) !important;
+    color: white !important;
+}
+
+.carousel__prev:hover {
+    background: rgba(0, 0, 0, .8) !important;
+    color: white !important;
+}
