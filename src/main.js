@@ -47,6 +47,7 @@ import Image from 'primevue/image'
 import InputIcon from 'primevue/inputicon'
 import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
+import Password from 'primevue/password'
 import ProgressSpinner from 'primevue/progressspinner'
 import ScrollTop from 'primevue/scrolltop'
 import Skeleton from 'primevue/skeleton'
@@ -68,6 +69,7 @@ app.component('Image', Image)
 app.component('InputIcon', InputIcon)
 app.component('InputText', InputText)
 app.component('Menubar', Menubar)
+app.component('Password', Password)
 app.component('ProgressSpinner', ProgressSpinner)
 app.component('ScrollTop', ScrollTop)
 app.component('Skeleton', Skeleton)
