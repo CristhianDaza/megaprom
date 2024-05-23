@@ -81,7 +81,15 @@ watch(() => props.images, (newValue) => {
 
 <template>
   <div class="w-full mx-auto flex justify-center pb-2">
-    <Button v-if="api === 'marpico'" icon="pi pi-copy" aria-label="Copiar" @click="save(images[currentSlide])" text raised rounded/>
+    <Button
+      v-if="api === 'marpico'"
+      icon="pi pi-copy"
+      aria-label="Copiar"
+      @click="save(images[currentSlide])"
+      outlined
+      rounded
+      v-tooltip.top="`Copiar imagen ${currentSlide + 1} en portapapeles`"
+    />
   </div>
   <Carousel id="gallery" :items-to-show="1.5" :wrap-around="true" v-model="currentSlide">
     <Slide v-for="(slide, index) in images" :key="index">
