@@ -16,6 +16,10 @@ const props = defineProps({
   id: {
     type: String,
     required: true
+  },
+  api: {
+    type: String,
+    required: true
   }
 })
 
@@ -77,7 +81,7 @@ watch(() => props.images, (newValue) => {
 
 <template>
   <div class="w-full mx-auto flex justify-center pb-2">
-    <Button icon="pi pi-copy" aria-label="Copiar" @click="save(images[currentSlide])" text raised rounded/>
+    <Button v-if="api === 'marpico'" icon="pi pi-copy" aria-label="Copiar" @click="save(images[currentSlide])" text raised rounded/>
   </div>
   <Carousel id="gallery" :items-to-show="1.5" :wrap-around="true" v-model="currentSlide">
     <Slide v-for="(slide, index) in images" :key="index">
