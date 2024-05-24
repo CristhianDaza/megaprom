@@ -63,7 +63,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <label for="quantity">Cantidad:</label>
+    <label for="quantity">Cantidad por color:</label>
     <InputText
       id="quantity"
       v-model="value"
@@ -78,7 +78,7 @@ onMounted(() => {
       @click="filterProduct"
     />
     <small id="quantity-help">
-      De 1 hasta {{ formatNumber(maxQuantityNumber) }}
+      Hasta {{ formatNumber(maxQuantityNumber) }}
     </small>
   </div>
 </template>

@@ -40,7 +40,7 @@ const filterQuantity = (value) => {
 const updateChips = () => {
   const filters = []
   if (route.query.inventario) {
-    filters.push({ name: `Inventario: ${formatNumber(route.query.inventario)}`, key: 'inventario' })
+    filters.push({ name: `Inventario: hasta ${formatNumber(route.query.inventario)}`, key: 'inventario' })
   }
 
   chips.value = filters
