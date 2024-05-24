@@ -2,6 +2,7 @@
 import { onMounted, watch, defineAsyncComponent, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProductsStore } from '@/store/products.js'
+import { formatNumber } from '@/utils'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
 const MpCardProduct = defineAsyncComponent(/* webpackChunkName: "mpCardProduct" */() => import('@/components/UI/MpCardProduct.vue'))
@@ -39,7 +40,7 @@ const filterQuantity = (value) => {
 const updateChips = () => {
   const filters = []
   if (route.query.inventario) {
-    filters.push({ name: `Inventario: ${route.query.inventario}`, key: 'inventario' })
+    filters.push({ name: `Inventario: ${formatNumber(route.query.inventario)}`, key: 'inventario' })
   }
 
   chips.value = filters
