@@ -1,19 +1,22 @@
 <script setup>
-import {onMounted, watch, defineAsyncComponent} from 'vue'
+import { onMounted, watch, defineAsyncComponent, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useProductsStore } from '@/store/products.js'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
+const MpCardProduct = defineAsyncComponent(/* webpackChunkName: "mpCardProduct" */() => import('@/components/UI/MpCardProduct.vue'))
+const MpChip = defineAsyncComponent(/* webpackChunkName: "mpChip" */() => import('@/components/UI/MpChip.vue'))
+const MpFilterQuantity = defineAsyncComponent(/* webpackChunkName: "mpFilterQuantity" */() => import('@/components/products/MpFilterQuantity.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
 
-import { useRoute } from 'vue-router'
-
-import { useProductsStore } from '@/store/products.js'
-import MpCardProduct from '@/components/UI/MpCardProduct.vue'
-
 const route = useRoute()
-
+const router = useRouter()
 const products = useProductsStore()
 
-const input = document.querySelector('#searchInput')
+const isCollapsed = ref(true)
+const productsToView = ref([])
+const inventory = ref(Number(route.query.inventario || 0))
+const chips = ref([])
 
 const breadcrumbItems = [
   {
@@ -22,15 +25,63 @@ const breadcrumbItems = [
   }
 ]
 
+const changeCollapsed = (toggle) => {
+  isCollapsed.value = toggle.value
+}
+
+const filterQuantity = (value) => {
+  productsToView.value = products.filteredProducts.filter(product =>
+    product.tableQuantity.some(item => item.quantity >= value)
+  )
+  router.push({ query: { ...route.query, inventario: value } })
+}
+
+const updateChips = () => {
+  const filters = []
+  if (route.query.inventario) {
+    filters.push({ name: `Inventario: ${route.query.inventario}`, key: 'inventario' })
+  }
+
+  chips.value = filters
+}
+
 watch(() => route.query.q, async (newValue, oldValue) => {
   if (newValue !== oldValue) {
-    input.blur()
     await products.filterProductsByCategory(route.query.q)
+    isCollapsed.value = true
+    productsToView.value = products.filteredProducts
   }
-})
+}, { immediate: true })
+
+watch(() => route.query.inventario, (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    if (route.query.inventario) {
+      inventory.value = Number(newValue)
+      filterQuantity(newValue)
+    } else {
+      productsToView.value = products.filteredProducts
+      inventory.value = 0
+    }
+  }
+}, { immediate: true })
+
+watch(
+  () => route.query,
+  () => {
+    updateChips()
+  },
+  { immediate: true }
+)
 
 onMounted(async () => {
   await products.filterProductsByCategory(route.query.q)
+  productsToView.value = products.filteredProducts
+  if (route.query.inventario) {
+    inventory.value = Number(route.query.inventario)
+    filterQuantity(route.query.inventario)
+    isCollapsed.value = false
+  }
+  updateChips()
 })
 </script>
 
@@ -49,17 +100,37 @@ onMounted(async () => {
       </div>
     </template>
   </div>
-  <div
-    v-else
-    class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10"
-  >
-    <template
-      v-for="product in products.filteredProducts"
-      :key="product.id"
+  <template v-else>
+    <Fieldset
+      v-if="products.filteredProducts.length > 1"
+      legend="Filtros"
+      :toggleable="true"
+      class="container mx-auto mt-8"
+      :collapsed="isCollapsed"
+      @toggle="changeCollapsed"
     >
-      <MpCardProduct :product="product" />
-    </template>
-  </div>
+      <div class="flex flex-col">
+        <MpFilterQuantity
+          :products="products.filteredProducts"
+          :value="inventory"
+          @filterQuantity="filterQuantity"
+        />
+      </div>
+      <div class="mt-2 flex gap-2">
+        <template v-for="filter in chips" :key="filter.key">
+          <MpChip :label="filter" />
+        </template>
+      </div>
+    </Fieldset>
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+      <template
+        v-for="product in productsToView"
+        :key="product.id"
+      >
+        <MpCardProduct :product="product" />
+      </template>
+    </div>
+  </template>
 </template>
 
 <style scoped>

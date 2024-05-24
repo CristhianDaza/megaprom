@@ -42,6 +42,7 @@ import Carousel from 'primevue/carousel'
 import Chip from 'primevue/chip'
 import Dialog from 'primevue/dialog'
 import Divider from 'primevue/divider'
+import Fieldset from 'primevue/fieldset'
 import IconField from 'primevue/iconfield'
 import Image from 'primevue/image'
 import InputIcon from 'primevue/inputicon'
@@ -65,6 +66,7 @@ app.component('CarouselP', Carousel)
 app.component('Chip', Chip)
 app.component('Dialog', Dialog)
 app.component('Divider', Divider)
+app.component('Fieldset', Fieldset)
 app.component('IconField', IconField)
 app.component('Image', Image)
 app.component('InputIcon', InputIcon)
