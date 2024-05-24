@@ -64,7 +64,7 @@ onMounted(() => {
 <template>
   <div class="flex flex-col gap-2">
     <label for="quantity">Cantidad por color:</label>
-    <InputText
+    <InputNumber
       id="quantity"
       v-model="value"
       aria-describedby="quantity-filter"
