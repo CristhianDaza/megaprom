@@ -5,8 +5,8 @@ import { useRoute } from 'vue-router'
 const emit = defineEmits({ filterDiscount: null });
 
 const props = defineProps({
-  products: {
-    type: Array,
+  totalProducts: {
+    type: Number,
     required: true
   }
 });
@@ -14,19 +14,6 @@ const props = defineProps({
 const route = useRoute();
 
 const checked = ref(false);
-const valueProducts = ref();
-
-const countDiscountedProducts = (data) => {
-  let count = 0;
-
-  data.forEach(item => {
-    if (item.discount !== null) {
-      count++;
-    }
-  });
-  valueProducts.value = count;
-  return count;
-}
 
 const filterDiscount = () => {
   emit('filterDiscount', checked.value);
@@ -54,11 +41,11 @@ watch(() => route.query.descuento, async (newValue, oldValue) => {
       aria-label="Confirmation"
       onLabel="Si"
       offLabel="No"
-      :disabled="valueProducts === 0"
+      :disabled="totalProducts === 0"
       @change="filterDiscount"
     />
     <small id="toggle-help">
-      Productos con descuento: {{ countDiscountedProducts(products) }}.
+      Productos con descuento: {{ totalProducts }}.
     </small>
   </div>
 </template>

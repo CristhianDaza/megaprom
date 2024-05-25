@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch, defineAsyncComponent, ref } from 'vue'
+import { onMounted, watch, defineAsyncComponent, ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProductsStore } from '@/store/products.js'
 import { formatNumber } from '@/utils'
@@ -93,6 +93,33 @@ watch(() => [route.query.inventario, route.query.descuento], async (newValue, ol
 
 watch(() => route.query, updateChips, { immediate: true })
 
+const countDiscountedProducts = computed(() => {
+  let count = 0
+
+  productsToView.value.forEach(item => {
+    if (item?.discount !== null) {
+      count++
+    }
+  })
+  return count
+})
+
+const getMaxQuantity = computed(() => {
+  let maxQuantity = 0;
+
+  productsToView.value.forEach(item => {
+    if (item?.tableQuantity) {
+      item.tableQuantity.forEach(quantityItem => {
+        if (quantityItem.quantity > maxQuantity) {
+          maxQuantity = quantityItem.quantity
+        }
+      })
+    }
+  })
+
+  return maxQuantity;
+})
+
 onMounted(async () => {
   await products.filterProductsByCategory(route.query.q)
   applyFilters()
@@ -127,14 +154,14 @@ onMounted(async () => {
       <div class="flex w-full gap-2">
         <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
           <MpFilterQuantity
-            :products="productsToView"
             :value="inventory"
+            :totalProducts="getMaxQuantity"
             @filterQuantity="filterQuantity"
           />
         </div>
         <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
           <MpFilterDiscount
-            :products="productsToView"
+            :totalProducts="countDiscountedProducts"
             @filterDiscount="filterDiscount"
           />
         </div>

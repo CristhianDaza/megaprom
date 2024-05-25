@@ -6,11 +6,11 @@ import { formatNumber } from '@/utils'
 const emit = defineEmits({ filterQuantity: null })
 
 const props = defineProps({
-  products: {
-    type: Array,
+  value: {
+    type: Number,
     required: true
   },
-  value: {
+  totalProducts: {
     type: Number,
     required: true
   }
@@ -21,28 +21,12 @@ const route = useRoute()
 const value = ref()
 const maxQuantityNumber = ref()
 
-const getMaxQuantity = (data) => {
-  let maxQuantity = 0;
-
-  data.forEach(item => {
-    if (item.tableQuantity) {
-      item.tableQuantity.forEach(quantityItem => {
-        if (quantityItem.quantity > maxQuantity) {
-          maxQuantity = quantityItem.quantity;
-        }
-      });
-    }
-  });
-
-  return maxQuantity;
-}
-
 const filterProduct = () => {
   emit('filterQuantity', value.value)
 }
 
-watch(() => props.products, (newValue) => {
-  maxQuantityNumber.value = getMaxQuantity(newValue)
+watch(() => props.totalProducts, (newValue) => {
+  maxQuantityNumber.value = newValue
   value.value = null
 })
 
@@ -57,7 +41,7 @@ watch(() => route.query.inventario, async (newValue, oldValue) => {
 }, { immediate: true })
 
 onMounted(() => {
-  maxQuantityNumber.value = getMaxQuantity(props.products)
+  maxQuantityNumber.value = props.totalProducts
 })
 </script>
 
