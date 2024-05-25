@@ -1,19 +1,13 @@
 <script setup>
-import {onMounted, watch, defineAsyncComponent} from 'vue'
+import { defineAsyncComponent } from 'vue'
+import { useFilters } from '@/composables/useFilters'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
+const MpCardProduct = defineAsyncComponent(/* webpackChunkName: "mpCardProduct" */() => import('@/components/UI/MpCardProduct.vue'))
+const MpChip = defineAsyncComponent(/* webpackChunkName: "mpChip" */() => import('@/components/UI/MpChip.vue'))
+const MpFilterDiscount = defineAsyncComponent(/* webpackChunkName: "mpFilterDiscount" */() => import('@/components/products/MpFilterDiscount.vue'))
+const MpFilterQuantity = defineAsyncComponent(/* webpackChunkName: "mpFilterQuantity" */() => import('@/components/products/MpFilterQuantity.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
-
-import { useRoute } from 'vue-router'
-
-import { useProductsStore } from '@/store/products.js'
-import MpCardProduct from '@/components/UI/MpCardProduct.vue'
-
-const route = useRoute()
-
-const products = useProductsStore()
-
-const input = document.querySelector('#searchInput')
 
 const breadcrumbItems = [
   {
@@ -22,16 +16,19 @@ const breadcrumbItems = [
   }
 ]
 
-watch(() => route.query.q, async (newValue, oldValue) => {
-  if (newValue !== oldValue) {
-    input.blur()
-    await products.filterProductsByCategory(route.query.q)
-  }
-})
-
-onMounted(async () => {
-  await products.filterProductsByCategory(route.query.q)
-})
+const {
+  isCollapsed,
+  inventory,
+  chips,
+  productsToView,
+  products,
+  route,
+  changeCollapsed,
+  filterQuantity,
+  filterDiscount,
+  countDiscountedProducts,
+  getMaxQuantity
+} = useFilters()
 </script>
 
 <template>
@@ -49,17 +46,45 @@ onMounted(async () => {
       </div>
     </template>
   </div>
-  <div
-    v-else
-    class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10"
-  >
-    <template
-      v-for="product in products.filteredProducts"
-      :key="product.id"
+  <template v-else>
+    <Fieldset
+      v-if="products.filteredProducts.length > 1"
+      legend="Filtros"
+      :toggleable="true"
+      class="container mx-auto mt-8"
+      :collapsed="isCollapsed"
+      @toggle="changeCollapsed"
     >
-      <MpCardProduct :product="product" />
-    </template>
-  </div>
+      <div class="flex w-full gap-2">
+        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
+          <MpFilterQuantity
+            :value="inventory"
+            :totalProducts="getMaxQuantity"
+            @filterQuantity="filterQuantity"
+          />
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
+          <MpFilterDiscount
+            :totalProducts="countDiscountedProducts"
+            @filterDiscount="filterDiscount"
+          />
+        </div>
+      </div>
+      <div class="mt-2 flex gap-2">
+        <template v-for="filter in chips" :key="filter.key">
+          <MpChip :label="filter" />
+        </template>
+      </div>
+    </Fieldset>
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+      <template
+        v-for="product in productsToView"
+        :key="product.id"
+      >
+        <MpCardProduct :product="product" />
+      </template>
+    </div>
+  </template>
 </template>
 
 <style scoped>

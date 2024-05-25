@@ -41,7 +41,7 @@ watch(() => props.visible, (value) => {
       </div>
       <div class="flex items-center gap-3 mb-5">
         <label for="password" class="font-semibold w-[6rem]">Contraseña</label>
-        <InputText v-model="user.password" id="password" type="password" class="flex-auto" />
+        <Password v-model="user.password" toggleMask :feedback="false" class="flex-auto" />
       </div>
       <div class="flex justify-end gap-2">
         <Button type="button" label="Cancelar" severity="secondary" @click="() => { valueModal(false) }"></Button>

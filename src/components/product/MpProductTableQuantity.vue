@@ -91,7 +91,7 @@ const hasLastUpdateTracking = computed(() => {
             <MpColor :color="item.color" />
           </th>
           <td class="px-6 py-4">
-            {{ item.color }}
+            {{ item.colorName }}
           </td>
           <td class="px-6 py-4">
             {{ formatNumber(item.quantity, true) }}
@@ -108,8 +108,12 @@ const hasLastUpdateTracking = computed(() => {
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
             {{ formatDate(item.lastUpdateTracking) }}
           </td>
-          <td v-if="userStore.isLogged" class="px-6 py-4">
+          <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
+            <InlineMessage
+              v-if="item?.type === 'Unico'"
+              severity="info"
+            >Unico</InlineMessage>
           </td>
         </tr>
         <tr v-if="props?.quantity?.length === 0">

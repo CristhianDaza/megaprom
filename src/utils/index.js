@@ -80,6 +80,7 @@ export const normalizeAndFilterProducts = (products, searchTerm) => {
 
 export const normalizeProductsCA = (product, stock) => {
   return {
+    api: 'promoopcion',
     areaPrinting: formatText(product?.impresion.areaImpresion),
     category: null,
     description: formatText(product?.descripcion, true),
@@ -101,6 +102,7 @@ export const normalizeProductsCA = (product, stock) => {
 
 export const normalizeProductsMP = (product) => {
   return {
+    api: 'marpico',
     areaPrinting: product?.area_impresion,
     category: constructCategoryMp(product),
     description: formatText(product?.descripcion_larga, true),

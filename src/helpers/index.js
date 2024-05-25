@@ -167,6 +167,7 @@ export const constructTableQuantityMp = (materials) => {
     
     const item = {
       color: material.color_nombre,
+      colorName: `${material.color_nombre} ${material.variedad ? ` (${material.variedad})` : ''}`,
       quantity: material.inventario_almacen?.[0]?.cantidad,
       inTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].cantidad : null,
       statusTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].estado : null,
@@ -197,8 +198,10 @@ export const constructTableQuantityCA = (children, stockData) => {
       if (stockEntry) {
         table.push({
           color: _processString(child.color),
+          colorName: _processString(child.color),
           quantity: stockEntry.Stock,
-          price: child.precio
+          price: child.precio,
+          type: child.tipo
         });
       }
     });

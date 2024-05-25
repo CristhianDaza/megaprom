@@ -32,3 +32,33 @@
     transform: translateY(-6px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
+
+.hover\:opacity-100:hover {
+    opacity: 0.8 !important;
+}
+
+.carousel__next {
+    background: rgba(0, 0, 0, .5) !important;
+    height: 100% !important;
+    width: 50px !important;
+    right: -10px !important;
+    transition: all .3s !important;
+}
+
+.carousel__prev {
+    background: rgba(0, 0, 0, .5) !important;
+    height: 100% !important;
+    width: 50px !important;
+    left: -10px !important;
+    transition: all .3s !important;
+}
+
+.carousel__next:hover {
+    background: rgba(0, 0, 0, .8) !important;
+    color: white !important;
+}
+
+.carousel__prev:hover {
+    background: rgba(0, 0, 0, .8) !important;
+    color: white !important;
+}
