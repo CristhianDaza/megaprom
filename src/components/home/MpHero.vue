@@ -1,5 +1,7 @@
 <script setup>
+import { useWhatsApp } from '@/composables/useWhatsApp.js'
 
+const { seeWp } = useWhatsApp()
 </script>
 
 <template>
@@ -13,9 +15,10 @@
         <RouterLink :to="{ name: 'products' }">
           <Button label="Ver productos" size="large" icon="pi pi-arrow-right" iconPos="right" severity="info" raised />
         </RouterLink>
-        <RouterLink :to="{ name: 'contact' }">
-          <Button label="Contacto" size="large" outlined severity="info" raised />
-        </RouterLink>
+<!--        <RouterLink :to="{ name: 'contact' }">-->
+<!--          <Button label="Contacto" size="large" outlined severity="info" raised />-->
+<!--        </RouterLink>-->
+        <Button label="Contacto" size="large" outlined severity="info" raised @click="seeWp" />
       </div>
     </div>
   </section>
