@@ -200,7 +200,8 @@ export const constructTableQuantityCA = (children, stockData) => {
           color: _processString(child.color),
           colorName: _processString(child.color),
           quantity: stockEntry.Stock,
-          price: child.precio
+          price: child.precio,
+          type: child.tipo
         });
       }
     });

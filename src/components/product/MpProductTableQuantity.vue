@@ -108,8 +108,12 @@ const hasLastUpdateTracking = computed(() => {
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
             {{ formatDate(item.lastUpdateTracking) }}
           </td>
-          <td v-if="userStore.isLogged" class="px-6 py-4">
+          <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
+            <InlineMessage
+              v-if="item?.type === 'Unico'"
+              severity="info"
+            >Unico</InlineMessage>
           </td>
         </tr>
         <tr v-if="props?.quantity?.length === 0">

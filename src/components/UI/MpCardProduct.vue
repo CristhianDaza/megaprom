@@ -38,7 +38,13 @@ const props = defineProps({
       </div>
       <template v-if="userStore.isLogged">
         <div class="flex items-center justify-between mt-5">
-          <span class="text-2xl font-semibold text-gray-900 dark:text-white">{{ formatPrice(product?.tableQuantity?.[0]?.price, false) }}</span>
+          <span class="text-2xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+            {{ formatPrice(product?.tableQuantity?.[0]?.price, false) }}
+             <InlineMessage
+               v-if="product?.tableQuantity?.[0]?.type === 'Unico'"
+               severity="info"
+             >Unico</InlineMessage>
+          </span>
         </div>
       </template>
       <template v-if="product?.discount">

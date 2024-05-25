@@ -45,6 +45,7 @@ import Divider from 'primevue/divider'
 import Fieldset from 'primevue/fieldset'
 import IconField from 'primevue/iconfield'
 import Image from 'primevue/image'
+import InlineMessage from 'primevue/inlinemessage'
 import InputIcon from 'primevue/inputicon'
 import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
@@ -71,6 +72,7 @@ app.component('Divider', Divider)
 app.component('Fieldset', Fieldset)
 app.component('IconField', IconField)
 app.component('Image', Image)
+app.component('InlineMessage', InlineMessage)
 app.component('InputIcon', InputIcon)
 app.component('InputNumber', InputNumber)
 app.component('InputText', InputText)
