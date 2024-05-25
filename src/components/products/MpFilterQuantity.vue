@@ -27,7 +27,6 @@ const filterProduct = () => {
 
 watch(() => props.totalProducts, (newValue) => {
   maxQuantityNumber.value = newValue
-  value.value = null
 })
 
 watch(() => route.query.inventario, async (newValue, oldValue) => {
