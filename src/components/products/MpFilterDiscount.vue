@@ -28,17 +28,14 @@ watch(() => route.query.descuento, async (newValue, oldValue) => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <label
-      for="toggle"
-    >Ver solo con descuentos:</label>
+    <p>Ver solo con descuentos:</p>
     <ToggleButton
       id="toggle"
       v-model="checked"
       onIcon="pi pi-check"
       offIcon="pi pi-times"
-      invalid
       class="w-full md:w-[5rem]"
-      aria-label="Confirmation"
+      aria-label="Descuento"
       onLabel="Si"
       offLabel="No"
       :disabled="totalProducts === 0"

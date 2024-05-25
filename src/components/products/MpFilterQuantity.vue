@@ -46,7 +46,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <label for="quantity">Cantidad por color:</label>
+    <p>Cantidad por color:</p>
     <InputNumber
       id="quantity"
       v-model="value"
@@ -54,6 +54,8 @@ onMounted(() => {
       type="number"
       autocomplete="off"
       :max="maxQuantityNumber"
+      name="quantity"
+      aria-label="Cantidad"
     />
     <Button
       label="Filtrar"
