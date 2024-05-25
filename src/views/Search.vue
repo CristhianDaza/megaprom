@@ -9,15 +9,18 @@ const MpCardProduct = defineAsyncComponent(/* webpackChunkName: "mpCardProduct" 
 const MpChip = defineAsyncComponent(/* webpackChunkName: "mpChip" */() => import('@/components/UI/MpChip.vue'))
 const MpFilterQuantity = defineAsyncComponent(/* webpackChunkName: "mpFilterQuantity" */() => import('@/components/products/MpFilterQuantity.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
+const MpFilterDiscount = defineAsyncComponent(/* webpackChunkName: "mpFilterDiscount" */() => import('@/components/products/MpFilterDiscount.vue'))
 
 const route = useRoute()
 const router = useRouter()
 const products = useProductsStore()
 
 const isCollapsed = ref(true)
-const productsToView = ref([])
 const inventory = ref(Number(route.query.inventario || 0))
+const discount = ref(route.query.descuento || null)
 const chips = ref([])
+
+const productsToView = ref([])
 
 const breadcrumbItems = [
   {
@@ -30,19 +33,45 @@ const changeCollapsed = (toggle) => {
   isCollapsed.value = toggle.value
 }
 
+const applyFilters = () => {
+  productsToView.value = products.filteredProducts.filter(product => {
+    const matchesQuantity = inventory.value ? product.tableQuantity.some(item => item.quantity >= inventory.value) : true
+    const matchesDiscount = discount.value ? product.discount !== null : true
+    return matchesQuantity && matchesDiscount
+  })
+  if (
+    route.query.inventario ||
+    route.query.descuento
+  ) {
+    isCollapsed.value = false
+  }
+}
+
 const filterQuantity = (value) => {
-  productsToView.value = products.filteredProducts.filter(product =>
-    product.tableQuantity.some(item => item.quantity >= value)
-  )
+  inventory.value = value
   router.push({ query: { ...route.query, inventario: value } })
 }
+
+const filterDiscount = (value) => {
+  discount.value = value ? value : null
+  const query = { ...route.query }
+  if (value) {
+    query.descuento = value
+  } else {
+    delete query.descuento
+  }
+  router.push({ query })
+}
+
 
 const updateChips = () => {
   const filters = []
   if (route.query.inventario) {
     filters.push({ name: `Inventario: hasta ${formatNumber(route.query.inventario)}`, key: 'inventario' })
   }
-
+  if (route.query.descuento) {
+    filters.push({ name: 'Con descuento', key: 'descuento' })
+  }
   chips.value = filters
 }
 
@@ -50,38 +79,23 @@ watch(() => route.query.q, async (newValue, oldValue) => {
   if (newValue !== oldValue) {
     await products.filterProductsByCategory(route.query.q)
     isCollapsed.value = true
-    productsToView.value = products.filteredProducts
+    applyFilters()
   }
 }, { immediate: true })
 
-watch(() => route.query.inventario, (newValue, oldValue) => {
+watch(() => [route.query.inventario, route.query.descuento], async (newValue, oldValue) => {
   if (newValue !== oldValue) {
-    if (route.query.inventario) {
-      inventory.value = Number(newValue)
-      filterQuantity(newValue)
-    } else {
-      productsToView.value = products.filteredProducts
-      inventory.value = 0
-    }
+    inventory.value = Number(route.query.inventario || 0)
+    discount.value = route.query.descuento || null
+    applyFilters()
   }
 }, { immediate: true })
 
-watch(
-  () => route.query,
-  () => {
-    updateChips()
-  },
-  { immediate: true }
-)
+watch(() => route.query, updateChips, { immediate: true })
 
 onMounted(async () => {
   await products.filterProductsByCategory(route.query.q)
-  productsToView.value = products.filteredProducts
-  if (route.query.inventario) {
-    inventory.value = Number(route.query.inventario)
-    filterQuantity(route.query.inventario)
-    isCollapsed.value = false
-  }
+  applyFilters()
   updateChips()
 })
 </script>
@@ -110,12 +124,20 @@ onMounted(async () => {
       :collapsed="isCollapsed"
       @toggle="changeCollapsed"
     >
-      <div class="flex flex-col">
-        <MpFilterQuantity
-          :products="products.filteredProducts"
-          :value="inventory"
-          @filterQuantity="filterQuantity"
-        />
+      <div class="flex w-full gap-2">
+        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
+          <MpFilterQuantity
+            :products="productsToView"
+            :value="inventory"
+            @filterQuantity="filterQuantity"
+          />
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
+          <MpFilterDiscount
+            :products="productsToView"
+            @filterDiscount="filterDiscount"
+          />
+        </div>
       </div>
       <div class="mt-2 flex gap-2">
         <template v-for="filter in chips" :key="filter.key">
