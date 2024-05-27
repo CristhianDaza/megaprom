@@ -1,6 +1,8 @@
 <script setup>
 import { useUserStore } from '@/store/user.js'
 
+const version = import.meta.env.VITE_VERSION
+
 const userStore = useUserStore()
 
 const emit = defineEmits({openModal: null})
@@ -49,7 +51,7 @@ const props = defineProps({
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <RouterLink :to="{ name: 'home' }" class="hover:underline">Megapromocionales LTDA</RouterLink>.
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{ new Date().getFullYear() }} <RouterLink :to="{ name: 'home' }" class="hover:underline">Megapromocionales LTDA</RouterLink>. v{{ version }}
             </span>
           <div class="flex mt-4 sm:justify-center sm:mt-0">
             <a href="https://www.facebook.com/Mega-Promocionales-242144370051788/" target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
