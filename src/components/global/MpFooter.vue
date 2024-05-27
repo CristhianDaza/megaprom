@@ -1,5 +1,8 @@
 <script setup>
+import {defineAsyncComponent} from "vue";
 import { useUserStore } from '@/store/user.js'
+
+const MpThemeButton = defineAsyncComponent(/* webpackChunkName: "mpThemeButton" */() => import('@/components/global/MpThemeButton.vue'))
 
 const version = import.meta.env.VITE_VERSION
 
@@ -48,6 +51,7 @@ const props = defineProps({
               Cerrar sesión
             </li>
           </ul>
+          <MpThemeButton class="inline-flex md:hidden" />
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div class="sm:flex sm:items-center sm:justify-between">

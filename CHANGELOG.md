@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add the version app in the footer of the project.
 
+### Changed
+- Change the color of the footer in mobile.
+
 ## [1.3.1] - 25/05/2024
 
 ### Fixed

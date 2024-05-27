@@ -33,8 +33,8 @@ const props = defineProps({
     </template>
     <template #end>
       <div class="flex gap-5">
-        <MpThemeButton class="pl-10" />
-        <div class="md:w-[20rem]">
+        <MpThemeButton class="pl-10 hidden md:inline-flex" />
+        <div class="w-full">
           <MpSearchFilter />
         </div>
       </div>
