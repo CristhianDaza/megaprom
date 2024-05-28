@@ -1,6 +1,7 @@
 <script setup>
-import { defineAsyncComponent } from 'vue'
+import {computed, defineAsyncComponent, watch} from 'vue'
 import { useFilters } from '@/composables/useFilters'
+import { useHead } from '@vueuse/head'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
 const MpCardProduct = defineAsyncComponent(/* webpackChunkName: "mpCardProduct" */() => import('@/components/UI/MpCardProduct.vue'))
@@ -8,6 +9,8 @@ const MpChip = defineAsyncComponent(/* webpackChunkName: "mpChip" */() => import
 const MpFilterDiscount = defineAsyncComponent(/* webpackChunkName: "mpFilterDiscount" */() => import('@/components/products/MpFilterDiscount.vue'))
 const MpFilterQuantity = defineAsyncComponent(/* webpackChunkName: "mpFilterQuantity" */() => import('@/components/products/MpFilterQuantity.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
+
+const idPage = computed(() => route.query.q);
 
 const breadcrumbItems = [
   {
@@ -29,6 +32,25 @@ const {
   countDiscountedProducts,
   getMaxQuantity
 } = useFilters()
+
+const updateMeta = () => {
+  useHead({
+    title: `🔍 ${route.query.q} | Megapromocionales`,
+    meta: [
+      { name: 'description', content: `Resultados de la búsqueda de ${route.query.q} en Megapromocionales.` },
+      { property: 'og:title', content: `${route.query.q} | Megapromocionales` },
+      { property: 'og:description', content: `Resultados de la búsqueda de ${route.query.q} en Megapromocionales.` },
+      { property: 'og:image', content: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-06.jpg?alt=media&token=9215aac9-b073-4482-ae77-b1d17a3f662a' },
+      { property: 'og:url', content: 'https://megapromocionales.com.co/' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: `${route.query.q} | Megapromocionales` },
+      { name: 'twitter:description', content: `Resultados de la búsqueda de ${route.query.q} en Megapromocionales.` },
+      { name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-06.jpg?alt=media&token=9215aac9-b073-4482-ae77-b1d17a3f662a' }
+    ]
+  });
+}
+
+watch(idPage, updateMeta, { immediate: true });
 </script>
 
 <template>

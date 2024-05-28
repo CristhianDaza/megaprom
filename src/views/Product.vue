@@ -1,6 +1,7 @@
 <script setup>
-import { ref, watch, onBeforeMount, defineAsyncComponent } from 'vue'
+import { ref, watch, onBeforeMount, defineAsyncComponent, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useHead } from '@vueuse/head'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
 const MpProductDescription = defineAsyncComponent(/* webpackChunkName: "mpProductDescription" */() => import('@/components/product/MpProductDescription.vue'))
@@ -13,6 +14,7 @@ import { useProductsStore } from '@/store/products.js'
 
 const productsStore = useProductsStore()
 const route = useRoute()
+const idPage = computed(() => route.params.id);
 
 const breadcrumbItems = [
   {
@@ -41,6 +43,24 @@ watch(() => productsStore.product, (newValue) => {
 onBeforeMount(async () => {
   await productsStore.getProductById(route.params.id)
 })
+
+const updateMeta = () => {
+  useHead({
+    title: `🛍️ ${route.params.id} - ${productsStore.product?.name} | Megapromocionales`,
+    meta: [
+      { name: 'description', content: productsStore.product?.description },
+      { property: 'og:title', content: `${productsStore.product?.name} | Megapromocionales` },
+      { property: 'og:description', content: productsStore.product?.description },
+      { property: 'og:image', content: productsStore.product?.mainImage },
+      { property: 'og:url', content: `https://megapromocionales.com.co/productos/${route.params.id}` },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: `${productsStore.product?.name} | Megapromocionales` },
+      { name: 'twitter:description', content: productsStore.product?.description },
+      { name: 'twitter:image', content: productsStore.product?.mainImage }
+    ]
+  });
+}
+watch(idPage, updateMeta, { immediate: true });
 </script>
 
 <template>
