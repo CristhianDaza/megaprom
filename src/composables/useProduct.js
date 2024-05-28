@@ -9,6 +9,7 @@ export function useProductHelpers() {
   const isLoadingMp = ref(true)
   const isLoadingPromos = ref(true)
   const isLoadingAllProducts = ref(false)
+  const lastUpdateProducts = ref()
   
   const getProductsFirebase = async () => {
     const docRef = await getDocs(collection(db, 'allProducts'))
@@ -89,7 +90,7 @@ export function useProductHelpers() {
     const now = new Date()
     const lastUpdateDay = lastUpdateDate.getDate()
     const nowDay = now.getDate()
-
+    lastUpdateProducts.value = lastUpdateDate
     return lastUpdateDay === nowDay
   }
   
@@ -98,6 +99,7 @@ export function useProductHelpers() {
     setAllProductsPromosApi,
     isLoadingAllProducts,
     isLoadingMp,
-    isLoadingPromos
+    isLoadingPromos,
+    lastUpdateProducts
   }
 }

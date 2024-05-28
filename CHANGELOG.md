@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add the version app in the footer of the project.
 - Add `relative-time` component to table of inventory.
+- Add label to the table of inventory the last update.
 
 ### Changed
 - Change the color of the footer in mobile.

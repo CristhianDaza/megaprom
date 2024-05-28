@@ -5,8 +5,10 @@ import { formatNumber, formatPrice } from '@/utils'
 const MpColor = defineAsyncComponent(/* webpackChunkName: "mpColor" */() => import('@/components/UI/MpColor.vue'))
 
 import { useUserStore } from '@/store/user.js'
+import { useProductsStore } from '@/store/products.js'
 
 const userStore = useUserStore()
+const products = useProductsStore()
 
 const props = defineProps({
   quantity: {
@@ -123,6 +125,9 @@ const hasLastUpdateTracking = computed(() => {
         </tr>
         </tbody>
       </table>
+    </div>
+    <div class="float-right mt-5 text-gray-900 whitespace-nowrap dark:text-white">
+      Inventario actualizado: <span class="font-bold"><relative-time :datetime="products.lastUpdateProducts"></relative-time></span>.
     </div>
   </div>
 </template>
