@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Change the color of the footer in mobile.
 
+### Fixed
+- Fix image of the product in the product view.
+
 ## [1.3.1] - 25/05/2024
 
 ### Fixed

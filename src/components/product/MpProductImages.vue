@@ -109,7 +109,9 @@ const handleError = (e) => {
 
 onMounted(() => {
   images.value = props.images
-  imageRefs.value = Array.from({ length: images.value.length }, () => null)
+  if (images.value.length > 0) {
+    imageRefs.value = Array.from({ length: images.value.length }, () => null)
+  }
 })
 
 watch(() => props.images, (newValue) => {
