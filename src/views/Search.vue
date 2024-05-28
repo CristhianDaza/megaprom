@@ -1,7 +1,7 @@
 <script setup>
 import {computed, defineAsyncComponent, watch} from 'vue'
 import { useFilters } from '@/composables/useFilters'
-import { useHead } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
 const MpCardProduct = defineAsyncComponent(/* webpackChunkName: "mpCardProduct" */() => import('@/components/UI/MpCardProduct.vue'))

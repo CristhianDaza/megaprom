@@ -7,7 +7,7 @@ import App from './App.vue'
 import Wind from '@/presets/wind'
 import 'primeicons/primeicons.css'
 import '@github/relative-time-element';
-import { createHead } from '@vueuse/head'
+import { VueHeadMixin, createHead } from '@unhead/vue'
 const app = createApp(App)
 
 import { useUserStore } from '@/store/user.js'
@@ -21,6 +21,7 @@ app.use(pinia)
 
 const head = createHead();
 app.use(head);
+app.mixin(VueHeadMixin)
 
 const userStore = useUserStore()
 const auth = getAuth();

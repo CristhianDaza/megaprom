@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, onBeforeMount, defineAsyncComponent, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useHead } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
 const MpProductDescription = defineAsyncComponent(/* webpackChunkName: "mpProductDescription" */() => import('@/components/product/MpProductDescription.vue'))
