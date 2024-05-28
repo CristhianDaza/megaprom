@@ -61,6 +61,44 @@ const copyImageToClipboard = (imgElement) => {
   }
 }
 
+const downloadImage = (slide) => {
+  const imageRef = images.value.find(ref => ref === slide)
+  if (imageRef) {
+    const image = new Image()
+    image.crossOrigin = 'anonymous'
+    image.src = imageRef
+
+    image.onload = () => {
+      const canvas = document.createElement('canvas')
+      canvas.width = image.naturalWidth
+      canvas.height = image.naturalHeight
+      const ctx = canvas.getContext('2d')
+      ctx.drawImage(image, 0, 0)
+
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `${props.id}.png`
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+        toast.add({ severity: 'success', summary: 'Descargado', detail: 'La imagen se ha descargado', life: 3000 })
+      })
+    }
+
+    image.onerror = (err) => {
+      toast.add({ severity: 'error', summary: 'Error', detail: 'Error al cargar la imagen', life: 3000 })
+      console.error('Error al cargar la imagen:', err)
+    }
+  } else {
+    toast.add({ severity: 'error', summary: 'Error', detail: 'No se encontró la referencia de la imagen para el slide', life: 3000 })
+    console.error('No se encontró la referencia de la imagen para el slide:', images.value[currentSlide.value])
+  }
+}
+
+
 const slideTo = (index) => {
   currentSlide.value = index
 }
@@ -80,7 +118,7 @@ watch(() => props.images, (newValue) => {
 </script>
 
 <template>
-  <div class="w-full mx-auto flex justify-center pb-2">
+  <div class="w-full mx-auto flex justify-center pb-2 gap-2">
     <Button
       v-if="api === 'marpico'"
       icon="pi pi-copy"
@@ -89,6 +127,16 @@ watch(() => props.images, (newValue) => {
       outlined
       rounded
       v-tooltip.top="`Copiar imagen ${currentSlide + 1} en portapapeles`"
+    />
+    <Button
+      v-if="api === 'marpico'"
+      icon="pi pi-download"
+      aria-label="Copiar"
+      @click="downloadImage(images[currentSlide])"
+      outlined
+      rounded
+      severity="info"
+      v-tooltip.top="`Descarga imagen ${currentSlide + 1}.`"
     />
   </div>
   <Carousel id="gallery" :items-to-show="1.5" :wrap-around="true" v-model="currentSlide">
