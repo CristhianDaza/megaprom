@@ -6,6 +6,7 @@ import './style.css'
 import App from './App.vue'
 import Wind from '@/presets/wind'
 import 'primeicons/primeicons.css'
+import '@github/relative-time-element';
 const app = createApp(App)
 
 import { useUserStore } from '@/store/user.js'

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@github/relative-time-element": "^4.4.0",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "firebase": "^10.11.1",

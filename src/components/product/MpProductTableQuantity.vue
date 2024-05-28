@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, defineAsyncComponent } from 'vue'
-import { formatDate, formatNumber, formatPrice } from '@/utils'
+import { formatNumber, formatPrice } from '@/utils'
 
 const MpColor = defineAsyncComponent(/* webpackChunkName: "mpColor" */() => import('@/components/UI/MpColor.vue'))
 
@@ -103,10 +103,10 @@ const hasLastUpdateTracking = computed(() => {
             {{ item.statusTracking }}
           </td>
           <td v-if="hasDataTracking" class="px-6 py-4">
-            {{ formatDate(item.dataTracking) }}
+            <relative-time :datetime="item.dataTracking" tense="future" formatStyle="long"></relative-time>
           </td>
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
-            {{ formatDate(item.lastUpdateTracking) }}
+            <relative-time :datetime="item.lastUpdateTracking" tense="auto"></relative-time>
           </td>
           <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
