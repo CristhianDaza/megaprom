@@ -28,14 +28,15 @@ export const useProductsStore = defineStore('products', {
         isLoadingPromos,
         lastUpdateProducts
       } = useProductHelpers()
-      this.lastUpdateProducts = lastUpdateProducts
       try {
         if (isLogin === 'true') {
           this.isLoadingAllProducts = isLoadingAllProducts
           this.isLoadingMp = isLoadingMp
           this.isLoadingPromos = isLoadingPromos
+          this.lastUpdateProducts = lastUpdateProducts
           this.products = await setAllProductsPromosApi(true)
         } else {
+          this.lastUpdateProducts = lastUpdateProducts
           this.products = await setAllProductsPromosApi(false)
         }
       } catch (error) {

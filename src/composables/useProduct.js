@@ -13,6 +13,10 @@ export function useProductHelpers() {
   
   const getProductsFirebase = async () => {
     const docRef = await getDocs(collection(db, 'allProducts'))
+
+    const docRefLastUpdated = await getDocs(collection(db, 'lastedUpdated'))
+    const { lastUpdate } = docRefLastUpdated.docs[0].data()
+    lastUpdateProducts.value = lastUpdate
     const allNormalizedProducts = combineProducts(docRef.docs)
     isLoadingAllProducts.value = false
     return allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name))
