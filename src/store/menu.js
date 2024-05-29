@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { db } from '../../firebase.js'
 import { collection, getDocs } from 'firebase/firestore'
+import { daysDifferenceFromMidnight } from '../utils/index.js'
 
 export const useMenuStore = defineStore('menu', {
     state: () => ({
@@ -13,11 +14,8 @@ export const useMenuStore = defineStore('menu', {
             if (menuLocalStorage && lastUpdateLocalStorage) {
                 const lastUpdateDate = new Date(lastUpdateLocalStorage)
                 const now = new Date()
-
-                const diffInMs = now - lastUpdateDate
-                const diffInHours = diffInMs / (1000 * 60 * 60)
-
-                if (diffInHours < 24) {
+                const diffInDays = daysDifferenceFromMidnight(lastUpdateDate, now);
+                if (diffInDays < 1) {
                     this.menu = JSON.parse(menuLocalStorage)
                     return
                 }
