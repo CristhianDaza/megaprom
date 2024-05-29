@@ -60,6 +60,8 @@ import ProgressSpinner from 'primevue/progressspinner'
 import ScrollTop from 'primevue/scrolltop'
 import Skeleton from 'primevue/skeleton'
 import SplitButton from 'primevue/splitbutton'
+import TabPanel from 'primevue/tabpanel'
+import TabView from 'primevue/tabview'
 import Toast from 'primevue/toast'
 import ToggleButton from 'primevue/togglebutton'
 import ToastService from 'primevue/toastservice'
@@ -87,6 +89,8 @@ app.component('ProgressSpinner', ProgressSpinner)
 app.component('ScrollTop', ScrollTop)
 app.component('Skeleton', Skeleton)
 app.component('SplitButton', SplitButton)
+app.component('TabPanel', TabPanel)
+app.component('TabView', TabView)
 app.component('Toast', Toast)
 app.component('ToggleButton', ToggleButton)
 app.use(ToastService)

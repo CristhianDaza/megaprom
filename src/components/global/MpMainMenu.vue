@@ -4,9 +4,13 @@ import { defineAsyncComponent } from 'vue'
 const MpSearchFilter = defineAsyncComponent(/* webpackChunkName: "mpSearchFilter" */ () => import('@/components/global/MpSearchFilter.vue'))
 const MpThemeButton = defineAsyncComponent(/* webpackChunkName: "mpThemeButton" */() => import('@/components/global/MpThemeButton.vue'))
 
+import { useUserStore } from '@/store/user.js'
+
 const props = defineProps({
   menu: Object
 })
+
+const userStore = useUserStore()
 </script>
 
 <template>
@@ -33,6 +37,17 @@ const props = defineProps({
     </template>
     <template #end>
       <div class="flex gap-5">
+        <RouterLink
+          :to="{ name: 'admin' }"
+          v-if="userStore.isLogged"
+        >
+          <div class="p-menuitem-content rounded-md text-surface-500 dark:text-white/70 hover:bg-surface-50 dark:hover:bg-surface-800 transition-all duration-200">
+            <div class="flex align-items-center p-menuitem-link relative sm:text-sm font-medium items-center py-2 px-3 my-1 sm:my-0 select-none cursor-pointer no-underline overflow-hidden">
+              <span class="pi pi-code" />
+              <span class="ml-2">Admin</span>
+          </div>
+          </div>
+        </RouterLink>
         <MpThemeButton class="pl-10 hidden md:inline-flex" />
         <div class="w-full">
           <MpSearchFilter />
