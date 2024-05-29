@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { db } from '../../firebase.js'
 import { collection, getDocs } from 'firebase/firestore'
+import { daysDifferenceFromMidnight } from '../utils/index.js'
 
 export const useCatalogsStore = defineStore('catalogs', {
 	state: () => ({
@@ -11,12 +12,9 @@ export const useCatalogsStore = defineStore('catalogs', {
 			const catalogsLocalStorage = localStorage.getItem('catalogs')
       const lastUpdateLocalStorage = localStorage.getItem('catalogsLastUpdate')
 		  if (catalogsLocalStorage && lastUpdateLocalStorage) {
-				 const lastUpdateDate = new Date(lastUpdateLocalStorage);
-				 const now = new Date();
-				 const lastUpdateMidnight = new Date(lastUpdateDate.getFullYear(), lastUpdateDate.getMonth(), lastUpdateDate.getDate());
-				 const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-				 const diffInMs = nowMidnight - lastUpdateMidnight;
-				 const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+				const lastUpdateDate = new Date(lastUpdateLocalStorage)
+				const now = new Date()
+				const diffInDays = daysDifferenceFromMidnight(lastUpdateDate, now);
 				 
 				 if (diffInDays < 1) {
 					 this.catalogs = JSON.parse(catalogsLocalStorage);
