@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { db } from '../../firebase.js'
 import { collection, getDocs } from 'firebase/firestore'
+import { daysDifferenceFromMidnight } from '../utils/index.js'
 
 export const useCarouselStore = defineStore('carousel', {
     state: () => ({
@@ -15,11 +16,8 @@ export const useCarouselStore = defineStore('carousel', {
             if (carouselLocalStorage && lastUpdateLocalStorage) {
                 const lastUpdateDate = new Date(lastUpdateLocalStorage)
                 const now = new Date()
-
-                const diffInMs = now - lastUpdateDate
-                const diffInHours = diffInMs / (1000 * 60 * 60)
-
-                if (diffInHours < 24) {
+                const diffInDays = daysDifferenceFromMidnight(lastUpdateDate, now);
+                if (diffInDays < 1) {
                     this.carousel = JSON.parse(carouselLocalStorage)
                     this.isLoading = false
                     return
