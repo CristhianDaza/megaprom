@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add label to the table of inventory the last update.
 - Add download button to the image of the product.
 - Add meta tags to the project.
+- Add page admin.
 
 ### Changed
 - Change the color of the footer in mobile.
