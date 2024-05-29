@@ -46,7 +46,7 @@ onBeforeMount(async () => {
 
 const updateMeta = () => {
   useHead({
-    title: `🛍️ ${route.params.id} - ${productsStore.product?.name} | Megapromocionales`,
+    title: `🛍️ ${route.params.id} - ${productsStore.product?.name ? productsStore.product?.name : ''} | Megapromocionales`,
     meta: [
       { name: 'description', content: productsStore.product?.description },
       { property: 'og:title', content: `${productsStore.product?.name} | Megapromocionales` },
