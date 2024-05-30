@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { db } from '../../firebase.js'
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
-import { getDownloadURL, getStorage, ref as storageRef, uploadBytes, deleteObject } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref as storageRef, uploadBytes, deleteObject } from 'firebase/storage'
 import { daysDifferenceFromMidnight } from '../utils/index.js'
 
 export const useCatalogsStore = defineStore('catalogs', {
@@ -20,12 +20,12 @@ export const useCatalogsStore = defineStore('catalogs', {
 				 if (catalogsLocalStorage && lastUpdateLocalStorage) {
 					 const lastUpdateDate = new Date(lastUpdateLocalStorage)
 					 const now = new Date()
-					 const diffInDays = daysDifferenceFromMidnight(lastUpdateDate, now);
+					 const diffInDays = daysDifferenceFromMidnight(lastUpdateDate, now)
 					 
 					 if (diffInDays < 1) {
-						 this.catalogs = JSON.parse(catalogsLocalStorage);
-						 this.isLoading = false;
-						 return;
+						 this.catalogs = JSON.parse(catalogsLocalStorage)
+						 this.isLoading = false
+						 return
 					 }
 				 }
 		 }
@@ -47,24 +47,24 @@ export const useCatalogsStore = defineStore('catalogs', {
 		 		this.isLoading = true
 		 		await deleteDoc(doc(db, 'catalogs', id))
 				if (imageUrl) {
-					const storage = getStorage();
-					const imageRef = storageRef(storage, imageUrl);
+					const storage = getStorage()
+					const imageRef = storageRef(storage, imageUrl)
 					try {
-						await deleteObject(imageRef);
+						await deleteObject(imageRef)
 					} catch (error) {
-						console.error("Error al eliminar la imagen:", error);
+						console.error("Error al eliminar la imagen:", error)
 					}
 				}
 				await this.getCatalogs(true)
 			},
 			
 			async _uploadImage (file) {
-				if (!file) return;
+				if (!file) return
 				
 				const storage = getStorage();
-				const fileRef = storageRef(storage, `catalogs/${file.name}`);
-				await uploadBytes(fileRef, file);
-				return await getDownloadURL(fileRef);
+				const fileRef = storageRef(storage, `catalogs/${file.name}`)
+				await uploadBytes(fileRef, file)
+				return await getDownloadURL(fileRef)
 			},
 		
 			async addCatalog(data) {

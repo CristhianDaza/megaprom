@@ -55,14 +55,14 @@ const confirmDelete = (id, image) => {
     rejectClass: 'transparent',
     acceptClass: 'bg-danger text-white',
     accept: () => {
-      toast.add({ severity: 'info', summary: 'Eliminado', detail: 'El catálogo ha sido eliminado.', life: 3000 });
+      toast.add({ severity: 'info', summary: 'Eliminado', detail: 'El catálogo ha sido eliminado.', life: 3000 })
       catalogsStore.deleteCatalog(id, image)
     },
     reject: () => {
-      toast.add({ severity: 'error', summary: 'Cancelado', detail: 'Se ha cancelado la operación.', life: 3000 });
+      toast.add({ severity: 'error', summary: 'Cancelado', detail: 'Se ha cancelado la operación.', life: 3000 })
     }
-  });
-};
+  })
+}
 
 onMounted(() => {
   catalogsStore.getCatalogs()

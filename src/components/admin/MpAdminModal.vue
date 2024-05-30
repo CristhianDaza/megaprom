@@ -10,7 +10,7 @@ const props = defineProps({
   visible: {
     type: Boolean,
     default: false,
-    required: true,
+    required: true
   },
   configModal: {
     type: Object,
@@ -20,8 +20,8 @@ const props = defineProps({
       acceptButton: '',
       cancelButton: '',
       data: null,
-      type: '',
-    }),
+      type: ''
+    })
   }
 })
 
@@ -55,9 +55,9 @@ const onFileSelect = (event) => {
 const acceptButton = () => {
   if (props.configModal.type === 'catalog') {
     if (props.configModal.action === 'edit') {
-      catalogsStore.editCatalog(uploadModal.value);
+      catalogsStore.editCatalog(uploadModal.value)
     } else {
-      catalogsStore.addCatalog(uploadModal.value);
+      catalogsStore.addCatalog(uploadModal.value)
     }
   }
   isVisible.value = false;
@@ -67,8 +67,8 @@ watch(() => props.visible, (value) => {
   isVisible.value = value
 
   if (props.configModal.data) {
-    uploadModal.value = cloneDeep(props.configModal.data);
-    previewImage.value = props.configModal.data.image;
+    uploadModal.value = cloneDeep(props.configModal.data)
+    previewImage.value = props.configModal.data.image
   } else {
     uploadModal.value = {
       image: null,
