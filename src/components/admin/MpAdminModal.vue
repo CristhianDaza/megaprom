@@ -1,9 +1,11 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
 import { useCatalogsStore } from '@/store/catalogs.js'
+import { useCarouselStore } from '@/store/carousel.js'
 import { cloneDeep } from 'lodash'
 
 const catalogsStore = useCatalogsStore()
+const carouselStore = useCarouselStore()
 
 const emit = defineEmits({ manageModal: null })
 const props = defineProps({
@@ -52,15 +54,26 @@ const onFileSelect = (event) => {
   previewImage.value = event.files[0].objectURL
 }
 
-const acceptButton = () => {
-  if (props.configModal.type === 'catalog') {
-    if (props.configModal.action === 'edit') {
-      catalogsStore.editCatalog(uploadModal.value)
-    } else {
-      catalogsStore.addCatalog(uploadModal.value)
-    }
+const actionsMap = {
+  catalog: {
+    edit: catalogsStore.editCatalog,
+    add: catalogsStore.addCatalog
+  },
+  carousel: {
+    edit: carouselStore.editImageCarousel,
+    add: carouselStore.addImageCarousel
   }
-  isVisible.value = false;
+}
+
+const acceptButton = () => {
+  const type = props.configModal.type
+  const action = props.configModal.action
+
+  if (actionsMap[type] && actionsMap[type][action]) {
+    actionsMap[type][action](uploadModal.value)
+  }
+
+  isVisible.value = false
 }
 
 watch(() => props.visible, (value) => {
@@ -131,7 +144,7 @@ const isInvalid = computed(() => {
         type="button"
         :label="configModal?.cancelButton"
         severity="secondary"
-        @click="isVisible = false"
+        @click="valueModal(false)"
       />
       <Button
         type="button"
