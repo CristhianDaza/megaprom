@@ -42,15 +42,15 @@ onMounted(() => {
     title="Catálogos"
     image="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-04.jpg?alt=media&token=04ffc52a-da42-4597-884b-7f4f18ee09d4"
   />
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
-    <div v-for="catalog in catalogsStore.catalogs" :key="catalog.id" class="border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+  <div v-if="catalogsStore.isLoading" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
+    <template v-for="loader in 12">
+      <Skeleton height="15rem" class="mb-2">{{loader}}</Skeleton>
+    </template>
+  </div>
+  <div v-else class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6">
+    <div v-for="catalog in catalogsStore.catalogs" :key="catalog.id" class="border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
       <a :href="catalog.link" target="_blank">
-      <img :src="catalog.image" alt="Producto" class="w-full h-[16rem] bg-cover">
-      <div class="p-5">
-        <h2 class="text-xl font-bold text-green-500 hover:text-green-700">
-          Ver {{ catalog.title }} <span class="pi pi-external-link"></span>
-        </h2>
-      </div>
+        <img :src="catalog.image" alt="Producto" class="w-full h-[16rem] bg-cover">
       </a>
     </div>
   </div>

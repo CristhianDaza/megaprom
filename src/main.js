@@ -45,6 +45,10 @@ import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Carousel from 'primevue/carousel'
 import Chip from 'primevue/chip'
+import Column from 'primevue/column'
+import ConfirmDialog from 'primevue/confirmdialog'
+import ConfirmationService from 'primevue/confirmationservice'
+import DataTable from 'primevue/datatable'
 import Dialog from 'primevue/dialog'
 import Divider from 'primevue/divider'
 import Fieldset from 'primevue/fieldset'
@@ -63,8 +67,8 @@ import SplitButton from 'primevue/splitbutton'
 import TabPanel from 'primevue/tabpanel'
 import TabView from 'primevue/tabview'
 import Toast from 'primevue/toast'
-import ToggleButton from 'primevue/togglebutton'
 import ToastService from 'primevue/toastservice'
+import ToggleButton from 'primevue/togglebutton'
 import Tooltip from 'primevue/tooltip'
 
 app.use(PrimeVue, { pt: Wind })
@@ -74,6 +78,9 @@ app.component('Button', Button)
 app.component('Card', Card)
 app.component('CarouselP', Carousel)
 app.component('Chip', Chip)
+app.component('Column', Column)
+app.component('ConfirmDialog', ConfirmDialog)
+app.component('DataTable', DataTable)
 app.component('Dialog', Dialog)
 app.component('Divider', Divider)
 app.component('Fieldset', Fieldset)
@@ -93,6 +100,7 @@ app.component('TabPanel', TabPanel)
 app.component('TabView', TabView)
 app.component('Toast', Toast)
 app.component('ToggleButton', ToggleButton)
+app.use(ConfirmationService);
 app.use(ToastService)
 app.use(router)
 app.directive('tooltip', Tooltip)
