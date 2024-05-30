@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { db } from '../../firebase.js'
-import { addDoc, collection, deleteDoc, doc, getDocs} from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, getStorage, ref as storageRef, uploadBytes, deleteObject } from 'firebase/storage';
 import { daysDifferenceFromMidnight } from '../utils/index.js'
 
@@ -71,6 +71,17 @@ export const useCatalogsStore = defineStore('catalogs', {
 				this.isLoading = true
 				const image = await this._uploadImage(data.image)
 				await addDoc(collection(db, 'catalogs'), { ...data, image })
+				await this.getCatalogs(true)
+			},
+		
+			async editCatalog(data) {
+				this.isLoading = true
+				let image = data.image
+				if (data.image instanceof File) {
+					image = await this._uploadImage(data.image)
+				}
+				await doc(db, 'catalogs', data.id)
+				await updateDoc(doc(db, 'catalogs', data.id), { ...data, image })
 				await this.getCatalogs(true)
 			}
 	}

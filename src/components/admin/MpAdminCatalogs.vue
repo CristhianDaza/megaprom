@@ -16,10 +16,33 @@ const manageValueModal = (value) => {
   openModal.value = value
 }
 
-const configModal = {
-  header: 'Agregar catálogo',
-  width: '25rem',
-  description: 'Agrega un nuevo catálogo a la lista.'
+const configModal = ref({})
+
+const manageCatalog = (action, type, data = null) => {
+  if (action === 'add') {
+    configModal.value = {
+      header: 'Agregar catálogo',
+      description: 'Completa los campos para agregar un nuevo catálogo.',
+      acceptButton: 'Agregar',
+      cancelButton: 'Cancelar',
+      type,
+      action,
+      data
+    }
+  }
+
+  if (action === 'edit') {
+    configModal.value = {
+      header: 'Editar catálogo',
+      description: 'Completa los campos para editar el catálogo.',
+      acceptButton: 'Editar',
+      cancelButton: 'Cancelar',
+      type,
+      action,
+      data
+    }
+  }
+  openModal.value = true
 }
 
 const confirmDelete = (id, image) => {
@@ -80,7 +103,7 @@ onMounted(() => {
             raised
             v-tooltip.top="`Agregar catálogo`"
             severity="info"
-            @click="openModal = true"
+            @click="manageCatalog('add', 'catalog')"
           />
         </div>
       </template>
@@ -110,6 +133,7 @@ onMounted(() => {
               v-tooltip.top="`Editar catálogo`"
               severity="info" rounded outlined
               aria-label="Editar catálogo"
+              @click="manageCatalog('edit', 'catalog', slotProps.data)"
             />
             <Button
               icon="pi pi-trash"
