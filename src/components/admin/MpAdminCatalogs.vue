@@ -1,14 +1,28 @@
 <script setup>
-import { onMounted } from 'vue'
+import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import { useCatalogsStore} from '@/store/catalogs.js'
+
+const MpAdminModal = defineAsyncComponent(/* webpackChunkName: "mpAdminModal" */() => import('@/components/admin/MpAdminModal.vue'))
 
 const catalogsStore = useCatalogsStore()
 const confirm = useConfirm()
 const toast = useToast()
 
-const confirmDelete = (id) => {
+const openModal = ref(false)
+
+const manageValueModal = (value) => {
+  openModal.value = value
+}
+
+const configModal = {
+  header: 'Agregar catálogo',
+  width: '25rem',
+  description: 'Agrega un nuevo catálogo a la lista.'
+}
+
+const confirmDelete = (id, image) => {
   confirm.require({
     message: '¿Quieres eliminar este catálogo?',
     header: 'Confirmar',
@@ -19,7 +33,7 @@ const confirmDelete = (id) => {
     acceptClass: 'bg-danger text-white',
     accept: () => {
       toast.add({ severity: 'info', summary: 'Eliminado', detail: 'El catálogo ha sido eliminado.', life: 3000 });
-      catalogsStore.deleteCatalog(id)
+      catalogsStore.deleteCatalog(id, image)
     },
     reject: () => {
       toast.add({ severity: 'error', summary: 'Cancelado', detail: 'Se ha cancelado la operación.', life: 3000 });
@@ -33,6 +47,11 @@ onMounted(() => {
 </script>
 
 <template>
+  <MpAdminModal
+    :visible="openModal"
+    :configModal="configModal"
+    @manageModal="manageValueModal"
+  />
   <ConfirmDialog />
   <div v-if="catalogsStore.isLoading" class="container mx-auto grid gap-4 mt-1">
     <div class="flex flex-wrap align-items-center justify-content-between gap-2">
@@ -53,6 +72,15 @@ onMounted(() => {
             raised
             v-tooltip.top="`Actualizar catálogos`"
             @click="catalogsStore.getCatalogs(true)"
+            :disabled="catalogsStore.catalogs.length === 0"
+          />
+          <Button
+            icon="pi pi-plus"
+            rounded
+            raised
+            v-tooltip.top="`Agregar catálogo`"
+            severity="info"
+            @click="openModal = true"
           />
         </div>
       </template>
@@ -89,7 +117,7 @@ onMounted(() => {
               v-tooltip.top="`Eliminar catálogo`"
               severity="danger" text rounded
               aria-label="Eliminar catálogo"
-              @click="confirmDelete(slotProps.data.id)"
+              @click="confirmDelete(slotProps.data.id, slotProps.data.image)"
             />
           </div>
         </template>

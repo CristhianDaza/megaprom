@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { db } from '../../firebase.js'
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs} from 'firebase/firestore'
+import { getDownloadURL, getStorage, ref as storageRef, uploadBytes, deleteObject } from 'firebase/storage';
 import { daysDifferenceFromMidnight } from '../utils/index.js'
 
 export const useCatalogsStore = defineStore('catalogs', {
@@ -42,9 +43,34 @@ export const useCatalogsStore = defineStore('catalogs', {
 				this.isLoading = false
 			},
 		
-			async deleteCatalog(id) {
+			async deleteCatalog(id, imageUrl) {
 		 		this.isLoading = true
 		 		await deleteDoc(doc(db, 'catalogs', id))
+				if (imageUrl) {
+					const storage = getStorage();
+					const imageRef = storageRef(storage, imageUrl);
+					try {
+						await deleteObject(imageRef);
+					} catch (error) {
+						console.error("Error al eliminar la imagen:", error);
+					}
+				}
+				await this.getCatalogs(true)
+			},
+			
+			async _uploadImage (file) {
+				if (!file) return;
+				
+				const storage = getStorage();
+				const fileRef = storageRef(storage, `catalogs/${file.name}`);
+				await uploadBytes(fileRef, file);
+				return await getDownloadURL(fileRef);
+			},
+		
+			async addCatalog(data) {
+				this.isLoading = true
+				const image = await this._uploadImage(data.image)
+				await addDoc(collection(db, 'catalogs'), { ...data, image })
 				await this.getCatalogs(true)
 			}
 	}

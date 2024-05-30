@@ -52,6 +52,7 @@ import DataTable from 'primevue/datatable'
 import Dialog from 'primevue/dialog'
 import Divider from 'primevue/divider'
 import Fieldset from 'primevue/fieldset'
+import FileUpload from 'primevue/fileupload'
 import IconField from 'primevue/iconfield'
 import Image from 'primevue/image'
 import InlineMessage from 'primevue/inlinemessage'
@@ -84,6 +85,7 @@ app.component('DataTable', DataTable)
 app.component('Dialog', Dialog)
 app.component('Divider', Divider)
 app.component('Fieldset', Fieldset)
+app.component('FileUpload', FileUpload)
 app.component('IconField', IconField)
 app.component('Image', Image)
 app.component('InlineMessage', InlineMessage)
