@@ -19,7 +19,9 @@ onMounted(() => {
     :autoplay="3000"
   >
     <slide v-for="slide in carouselStore.carousel" :key="slide">
-      <img :src="slide.itemImageSrc" :alt="slide.title" style="width: 100%; display: block; max-height: 580px" />
+      <RouterLink :to="slide.link" class="w-full">
+        <img :src="slide.image" :alt="slide.title" style="width: 100%; display: block; max-height: 580px" />
+      </RouterLink>
     </slide>
     <template #addons>
       <navigation />

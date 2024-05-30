@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add meta tags to the project.
 - Add page admin.
 - Add catalog section in the admin page, add, edit and delete catalogs.
+- Add carousel images section in the admin page, add, edit and delete images.
 
 ### Changed
 - Change the color of the footer in mobile.

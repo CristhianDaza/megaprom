@@ -8,7 +8,7 @@ const version = import.meta.env.VITE_VERSION
 
 const userStore = useUserStore()
 
-const emit = defineEmits({openModal: null})
+const emit = defineEmits({ openModal: null })
 
 const openModal = () => {
   emit('openModal', true)
