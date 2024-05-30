@@ -22,7 +22,7 @@ const manageModalCarousel = (action, type, data = null) => {
   if (action === 'add') {
     configModal.value = {
       header: 'Agregar imagen en el carrusel',
-      description: 'Completa los campos para agregar una nueva imagen en el carusel.',
+      description: 'Completa los campos para agregar una nueva imagen en el carrusel.',
       acceptButton: 'Agregar',
       cancelButton: 'Cancelar',
       type,
