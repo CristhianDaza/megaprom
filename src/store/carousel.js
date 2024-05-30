@@ -56,7 +56,6 @@ export const useCarouselStore = defineStore('carousel', {
         },
         
         async _uploadImageCarousel (file) {
-            console.log({file})
             if (!file) return
             
             const storage = getStorage();
@@ -66,7 +65,6 @@ export const useCarouselStore = defineStore('carousel', {
         },
         
         async addImageCarousel(data) {
-            console.log({data})
             this.isLoading = true
             const image = await this._uploadImageCarousel(data.image)
             await addDoc(collection(db, 'carousel'), { ...data, image })

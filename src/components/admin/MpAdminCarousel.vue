@@ -18,7 +18,7 @@ const manageValueModal = (value) => {
 
 const configModal = ref({})
 
-const manageCatalog = (action, type, data = null) => {
+const manageModalCarousel = (action, type, data = null) => {
   if (action === 'add') {
     configModal.value = {
       header: 'Agregar imagen en el carrusel',
@@ -102,7 +102,7 @@ onMounted(() => {
             raised
             v-tooltip.top="`Agregar imagen en el carrusel`"
             severity="info"
-            @click="manageCatalog('add', 'carousel')"
+            @click="manageModalCarousel('add', 'carousel')"
           />
         </div>
       </template>
@@ -137,7 +137,7 @@ onMounted(() => {
               v-tooltip.top="`Editar imagen del carrusel`"
               severity="info" rounded outlined
               aria-label="Editar imagen del carrusel"
-              @click="manageCatalog('edit', 'carousel', slotProps.data)"
+              @click="manageModalCarousel('edit', 'carousel', slotProps.data)"
             />
             <Button
               icon="pi pi-trash"
