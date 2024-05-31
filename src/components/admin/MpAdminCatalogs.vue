@@ -27,7 +27,8 @@ const manageCatalog = (action, type, data = null) => {
       cancelButton: 'Cancelar',
       type,
       action,
-      data
+      data,
+      containImage: true
     }
   }
 
@@ -39,7 +40,8 @@ const manageCatalog = (action, type, data = null) => {
       cancelButton: 'Cancelar',
       type,
       action,
-      data
+      data,
+      containImage: true
     }
   }
   openModal.value = true
