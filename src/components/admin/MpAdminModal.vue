@@ -46,9 +46,7 @@ const valueModal = (value) => {
 }
 
 const onFileSelect = (event) => {
-  if (!props.configModal.type === 'menu') {
-    uploadModal.value.image = event.files[0]
-  }
+  uploadModal.value.image = event.files[0]
   previewImage.value = event.files[0].objectURL
 }
 

@@ -42,7 +42,6 @@ export const useMenuStore = defineStore('menu', {
             this.menu = items
             localStorage.setItem('menu', JSON.stringify(items))
             localStorage.setItem('menuLastUpdate', new Date().toISOString())
-            console.log({ items })
             this.isLoading = false
         },
         
@@ -53,7 +52,6 @@ export const useMenuStore = defineStore('menu', {
         },
         
         async addMenu(data) {
-            console.log({ data })
             this.isLoading = true
             await addDoc(collection(db, 'menu'), { ...data })
             await this.getMenu(true)

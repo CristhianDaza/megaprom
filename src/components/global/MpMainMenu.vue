@@ -24,7 +24,6 @@ const userStore = useUserStore()
       <RouterLink v-if="item.isVisible" :to="item.readOnly ? { name: item.name } : { path: item.link }">
         <div class="flex align-items-center" v-bind="props.action">
           <span>{{ item.title }}</span>
-          <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge" severity="info" />
         </div>
       </RouterLink>
     </template>
