@@ -1,12 +1,14 @@
 <script setup>
 import { computed, ref, defineAsyncComponent } from 'vue'
-import { formatDate, formatNumber, formatPrice } from '@/utils'
+import { formatNumber, formatPrice } from '@/utils'
 
 const MpColor = defineAsyncComponent(/* webpackChunkName: "mpColor" */() => import('@/components/UI/MpColor.vue'))
 
 import { useUserStore } from '@/store/user.js'
+import { useProductsStore } from '@/store/products.js'
 
 const userStore = useUserStore()
+const products = useProductsStore()
 
 const props = defineProps({
   quantity: {
@@ -103,10 +105,10 @@ const hasLastUpdateTracking = computed(() => {
             {{ item.statusTracking }}
           </td>
           <td v-if="hasDataTracking" class="px-6 py-4">
-            {{ formatDate(item.dataTracking) }}
+            <relative-time :datetime="item.dataTracking" tense="future" formatStyle="long"></relative-time>
           </td>
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
-            {{ formatDate(item.lastUpdateTracking) }}
+            <relative-time :datetime="item.lastUpdateTracking" tense="auto"></relative-time>
           </td>
           <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
@@ -123,6 +125,9 @@ const hasLastUpdateTracking = computed(() => {
         </tr>
         </tbody>
       </table>
+    </div>
+    <div class="float-right mt-5 text-gray-900 whitespace-nowrap dark:text-white">
+      Inventario actualizado: <span class="font-bold"><relative-time :datetime="products.lastUpdateProducts"></relative-time></span>.
     </div>
   </div>
 </template>

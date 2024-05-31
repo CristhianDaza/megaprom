@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { getAuth } from 'firebase/auth'
 
 const routes = [
     {
@@ -40,6 +41,12 @@ const routes = [
         path: '/busqueda',
         component: () => import(/* webpackChunkName: "search" */ '@/views/Search.vue'),
         name: 'search'
+    },
+    {
+        path: '/admin',
+        component: () => import(/* webpackChunkName: "admin" */ '@/views/Admin.vue'),
+        name: 'admin',
+        meta: { requiresAuth: true }
     }
 ]
 
@@ -52,6 +59,18 @@ const router = createRouter({
         } else {
             return { left: 0, top: 0 }
         }
+    }
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!getAuth().currentUser) {
+            next({ name: 'home' })
+        } else {
+            next()
+        }
+    } else {
+        next()
     }
 })
 

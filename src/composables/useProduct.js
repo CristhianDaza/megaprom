@@ -9,9 +9,14 @@ export function useProductHelpers() {
   const isLoadingMp = ref(true)
   const isLoadingPromos = ref(true)
   const isLoadingAllProducts = ref(false)
+  const lastUpdateProducts = ref()
   
   const getProductsFirebase = async () => {
     const docRef = await getDocs(collection(db, 'allProducts'))
+
+    const docRefLastUpdated = await getDocs(collection(db, 'lastedUpdated'))
+    const { lastUpdate } = docRefLastUpdated.docs[0].data()
+    lastUpdateProducts.value = lastUpdate
     const allNormalizedProducts = combineProducts(docRef.docs)
     isLoadingAllProducts.value = false
     return allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name))
@@ -89,7 +94,7 @@ export function useProductHelpers() {
     const now = new Date()
     const lastUpdateDay = lastUpdateDate.getDate()
     const nowDay = now.getDate()
-
+    lastUpdateProducts.value = lastUpdateDate
     return lastUpdateDay === nowDay
   }
   
@@ -98,6 +103,7 @@ export function useProductHelpers() {
     setAllProductsPromosApi,
     isLoadingAllProducts,
     isLoadingMp,
-    isLoadingPromos
+    isLoadingPromos,
+    lastUpdateProducts
   }
 }

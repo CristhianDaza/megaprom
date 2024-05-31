@@ -1,25 +1,28 @@
 import { defineStore } from 'pinia'
 import { db } from '../../firebase.js'
-import { collection, getDocs } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { daysDifferenceFromMidnight } from '../utils/index.js'
 
 export const useMenuStore = defineStore('menu', {
     state: () => ({
-        menu: []
+        menu: [],
+        isLoading: true
     }),
     actions: {
-        async getMenu() {
-            const menuLocalStorage = localStorage.getItem('menu')
-            const lastUpdateLocalStorage = localStorage.getItem('menuLastUpdate')
-            if (menuLocalStorage && lastUpdateLocalStorage) {
-                const lastUpdateDate = new Date(lastUpdateLocalStorage)
-                const now = new Date()
-
-                const diffInMs = now - lastUpdateDate
-                const diffInHours = diffInMs / (1000 * 60 * 60)
-
-                if (diffInHours < 24) {
-                    this.menu = JSON.parse(menuLocalStorage)
-                    return
+        async getMenu(update = false) {
+            this.isLoading = true
+            if (!update) {
+                const menuLocalStorage = localStorage.getItem('menu')
+                const lastUpdateLocalStorage = localStorage.getItem('menuLastUpdate')
+                if (menuLocalStorage && lastUpdateLocalStorage) {
+                    const lastUpdateDate = new Date(lastUpdateLocalStorage)
+                    const now = new Date()
+                    const diffInDays = daysDifferenceFromMidnight(lastUpdateDate, now);
+                    if (diffInDays < 1) {
+                        this.menu = JSON.parse(menuLocalStorage)
+                        this.isLoading = false
+                        return
+                    }
                 }
             }
 
@@ -39,6 +42,26 @@ export const useMenuStore = defineStore('menu', {
             this.menu = items
             localStorage.setItem('menu', JSON.stringify(items))
             localStorage.setItem('menuLastUpdate', new Date().toISOString())
+            this.isLoading = false
+        },
+        
+        async deleteMenu(id) {
+            this.isLoading = true
+            await deleteDoc(doc(db, 'menu', id))
+            await this.getMenu(true)
+        },
+        
+        async addMenu(data) {
+            this.isLoading = true
+            await addDoc(collection(db, 'menu'), { ...data })
+            await this.getMenu(true)
+        },
+        
+        async editMenu(data) {
+            this.isLoading = true
+            await doc(db, 'menu', data.id)
+            await updateDoc(doc(db, 'menu', data.id), { ...data })
+            await this.getMenu(true)
         }
     }
 })

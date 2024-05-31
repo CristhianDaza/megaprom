@@ -1,5 +1,6 @@
 <script setup>
 import { defineAsyncComponent } from 'vue'
+import { useHead } from '@unhead/vue'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
@@ -10,6 +11,22 @@ const breadcrumbItems = [
     label: 'Nosotros'
   }
 ]
+
+useHead({
+  title: '👥 Sobre Nosotros | Megapromocionales',
+  meta: [
+    { name: 'description', content: 'Conoce más sobre Megapromocionales y nuestro compromiso con la calidad y el servicio.' },
+    { property: 'og:title', content: '👥 Sobre Nosotros | Megapromocionales' },
+    { property: 'og:description', content: 'Conoce más sobre Megapromocionales y nuestro compromiso con la calidad y el servicio.' },
+    { property: 'og:image', content: 'https://firebasestorage.googleapis.com/v0/b/megapromocionales2020.appspot.com/o/logoWeb.webp?alt=media&token=72bc41b4-57ed-4b55-b92f-0df6c335e685' },
+    { property: 'og:url', content: 'https://megapromocionales.com.co/nosotros' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: '👥 Sobre Nosotros | Megapromocionales' },
+    { name: 'twitter:description', content: 'Conoce más sobre Megapromocionales y nuestro compromiso con la calidad y el servicio.' },
+    { name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/megapromocionales2020.appspot.com/o/logoWeb.webp?alt=media&token=72bc41b4-57ed-4b55-b92f-0df6c335e685' }
+  ]
+});
+
 </script>
 
 <template>

@@ -15,7 +15,8 @@ export const useProductsStore = defineStore('products', {
     isLoading: false,
     isLoadingAllProducts: false,
     isLoadingMp: false,
-    isLoadingPromos: false
+    isLoadingPromos: false,
+    lastUpdateProducts: null
   }),
   actions: {
     async initProducts() {
@@ -24,15 +25,18 @@ export const useProductsStore = defineStore('products', {
         setAllProductsPromosApi,
         isLoadingAllProducts,
         isLoadingMp,
-        isLoadingPromos
+        isLoadingPromos,
+        lastUpdateProducts
       } = useProductHelpers()
       try {
         if (isLogin === 'true') {
           this.isLoadingAllProducts = isLoadingAllProducts
           this.isLoadingMp = isLoadingMp
           this.isLoadingPromos = isLoadingPromos
+          this.lastUpdateProducts = lastUpdateProducts
           this.products = await setAllProductsPromosApi(true)
         } else {
+          this.lastUpdateProducts = lastUpdateProducts
           this.products = await setAllProductsPromosApi(false)
         }
       } catch (error) {

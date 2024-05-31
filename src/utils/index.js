@@ -121,18 +121,9 @@ export const normalizeProductsMP = (product) => {
   }
 }
 
-export const formatDate = (dateToTransform) => {
-  if (!dateToTransform) return ''
-  const date = new Date(dateToTransform)
-
-  const day = date.getUTCDate()
-  const month = date.getUTCMonth()
-  const year = date.getUTCFullYear()
-
-  const months = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-  ]
-
-  return `${day} de ${months[month]} del ${year}`
+export function daysDifferenceFromMidnight(date1, date2) {
+  const date1Midnight = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+  const date2Midnight = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+  const diffInMs = date2Midnight - date1Midnight;
+  return diffInMs / (1000 * 60 * 60 * 24);
 }
