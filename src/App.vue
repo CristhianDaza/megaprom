@@ -56,7 +56,6 @@ onMounted(async () => {
     <RouterView />
   </div>
   <MpFooter
-    :menu="menuStore.menu"
     @openModal="manageValueModal"
   />
   <MpModalLogin

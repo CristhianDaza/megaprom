@@ -13,10 +13,6 @@ const emit = defineEmits({ openModal: null })
 const openModal = () => {
   emit('openModal', true)
 }
-
-const props = defineProps({
-  menu: Object
-})
 </script>
 
 <template>
@@ -28,14 +24,6 @@ const props = defineProps({
             <img src="https://firebasestorage.googleapis.com/v0/b/megapromocionales2020.appspot.com/o/logoWeb.webp?alt=media&token=72bc41b4-57ed-4b55-b92f-0df6c335e685" class="h-24" alt="Megapromocionales Logo" />
           </RouterLink>
           <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-            <li
-              v-for="item in menu"
-              :key="item.id"
-            >
-              <RouterLink :to="{ name: item.name }" class="hover:underline ms-4 md:ms-6">
-                {{ item.label }}
-              </RouterLink>
-            </li>
             <li
               v-if="!userStore.isLogged"
               class="hover:underline cursor-pointer ms-4 md:ms-6"

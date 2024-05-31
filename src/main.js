@@ -44,6 +44,7 @@ import Breadcrumb from 'primevue/breadcrumb'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Carousel from 'primevue/carousel'
+import Checkbox from 'primevue/checkbox'
 import Chip from 'primevue/chip'
 import Column from 'primevue/column'
 import ConfirmDialog from 'primevue/confirmdialog'
@@ -78,6 +79,7 @@ app.component('Breadcrumb', Breadcrumb)
 app.component('Button', Button)
 app.component('Card', Card)
 app.component('CarouselP', Carousel)
+app.component('Checkbox', Checkbox)
 app.component('Chip', Chip)
 app.component('Column', Column)
 app.component('ConfirmDialog', ConfirmDialog)

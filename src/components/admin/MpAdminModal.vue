@@ -2,10 +2,12 @@
 import { ref, watch, computed } from 'vue'
 import { useCatalogsStore } from '@/store/catalogs.js'
 import { useCarouselStore } from '@/store/carousel.js'
+import { useMenuStore } from '@/store/menu.js'
 import { cloneDeep } from 'lodash'
 
 const catalogsStore = useCatalogsStore()
 const carouselStore = useCarouselStore()
+const menuStore = useMenuStore()
 
 const emit = defineEmits({ manageModal: null })
 const props = defineProps({
@@ -22,35 +24,31 @@ const props = defineProps({
       acceptButton: '',
       cancelButton: '',
       data: null,
-      type: ''
+      type: '',
+      containImage: false
     })
   }
 })
 
 const isVisible = ref(props.visible)
-const uploadModal = ref({
-  image: null,
-  title: '',
-  link: ''
-})
+const uploadModal = ref({})
 const previewImage = ref(null)
 const image = ref(null)
+const showMenu = ref(false)
 
 const valueModal = (value) => {
   emit('manageModal', value)
   if (!value && props.configModal.action === 'edit') {
     uploadModal.value = cloneDeep(props.configModal.data)
   } else {
-    uploadModal.value = {
-      image: null,
-      title: '',
-      link: ''
-    }
+    uploadModal.value = {}
   }
 }
 
 const onFileSelect = (event) => {
-  uploadModal.value.image = event.files[0]
+  if (!props.configModal.type === 'menu') {
+    uploadModal.value.image = event.files[0]
+  }
   previewImage.value = event.files[0].objectURL
 }
 
@@ -62,12 +60,20 @@ const actionsMap = {
   carousel: {
     edit: carouselStore.editImageCarousel,
     add: carouselStore.addImageCarousel
+  },
+  menu: {
+    edit: menuStore.editMenu,
+    add: menuStore.addMenu
   }
 }
 
 const acceptButton = () => {
   const type = props.configModal.type
   const action = props.configModal.action
+
+  if (type === 'menu') {
+    uploadModal.value.isVisible = showMenu.value
+  }
 
   if (actionsMap[type] && actionsMap[type][action]) {
     actionsMap[type][action](uploadModal.value)
@@ -83,16 +89,14 @@ watch(() => props.visible, (value) => {
     uploadModal.value = cloneDeep(props.configModal.data)
     previewImage.value = props.configModal.data.image
   } else {
-    uploadModal.value = {
-      image: null,
-      title: '',
-      link: ''
-    }
+    uploadModal.value = {}
   }
 })
 
 const isInvalid = computed(() => {
-  return !uploadModal.value.image || !uploadModal.value.title || !uploadModal.value.link
+  return (props.configModal.containImage ? !uploadModal.value.image : !uploadModal.value.name) ||
+    !uploadModal.value.title ||
+    !uploadModal.value.link
 })
 </script>
 
@@ -108,6 +112,7 @@ const isInvalid = computed(() => {
       {{ configModal.description }}
     </span>
     <FileUpload
+      v-if="configModal.containImage"
       name="demo[]"
       :multiple="false"
       accept="image/*"
@@ -119,11 +124,7 @@ const isInvalid = computed(() => {
       mode="basic"
       chooseIcon="pi pi-trash"
       @select="onFileSelect"
-    >
-      <template #content>
-        <p>Arrastra y suelta archivos aquí para subirlos.</p>
-      </template>
-    </FileUpload>
+    ></FileUpload>
     <template v-if="uploadModal.image">
       <img
         class="py-2"
@@ -139,6 +140,20 @@ const isInvalid = computed(() => {
       <label for="link" class="font-semibold w-6rem">Url</label>
       <InputText id="link" class="flex-auto" autocomplete="off" v-model="uploadModal.link"/>
     </div>
+    <template v-if="configModal.type === 'menu'">
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="name" class="font-semibold w-6rem">Nombre</label>
+        <InputText id="name" class="flex-auto" autocomplete="off" v-model="uploadModal.name"/>
+      </div>
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="order" class="font-semibold w-6rem">Orden</label>
+        <InputText id="order" class="flex-auto" autocomplete="off" v-model="uploadModal.order"/>
+      </div>
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="visible" class="ml-2">Visible</label>
+        <Checkbox v-model="showMenu" name="visible" :binary="true" />
+      </div>
+    </template>
     <div class="flex justify-content-end gap-2">
       <Button
         type="button"
