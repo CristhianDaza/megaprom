@@ -21,7 +21,7 @@ onMounted(async () => {
 })
 
 useHead({
-  title: '🛒 Productos | Megapromocionales',
+  title: 'Productos | Megapromocionales',
   meta: [
     { name: 'description', content: 'Explora todos los productos disponibles en Megapromocionales.' },
     { property: 'og:title', content: '🛒 Productos | Megapromocionales' },

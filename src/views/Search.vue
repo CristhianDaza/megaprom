@@ -35,7 +35,7 @@ const {
 
 const updateMeta = () => {
   useHead({
-    title: `🔍 ${route.query.q} | Megapromocionales`,
+    title: `${route.query.q} | Megapromocionales`,
     meta: [
       { name: 'description', content: `Resultados de la búsqueda de ${route.query.q} en Megapromocionales.` },
       { property: 'og:title', content: `${route.query.q} | Megapromocionales` },

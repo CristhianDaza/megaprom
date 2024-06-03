@@ -7,7 +7,7 @@ const MpAdminCarousel = defineAsyncComponent(/* webpackChunkName: "mpAdminCarous
 const MpAdminMenu = defineAsyncComponent(/* webpackChunkName: "mpAdminMenu" */() => import('@/components/admin/MpAdminMenu.vue'))
 
 useHead({
-  title: '🔐 Admin | Megapromocionales',
+  title: 'Admin | Megapromocionales',
 });
 </script>
 

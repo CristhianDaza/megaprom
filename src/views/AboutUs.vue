@@ -13,7 +13,7 @@ const breadcrumbItems = [
 ]
 
 useHead({
-  title: '👥 Sobre Nosotros | Megapromocionales',
+  title: 'Sobre Nosotros | Megapromocionales',
   meta: [
     { name: 'description', content: 'Conoce más sobre Megapromocionales y nuestro compromiso con la calidad y el servicio.' },
     { property: 'og:title', content: '👥 Sobre Nosotros | Megapromocionales' },

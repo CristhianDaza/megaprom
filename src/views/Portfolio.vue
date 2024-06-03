@@ -17,7 +17,7 @@ const breadcrumbItems = [
 ]
 
 useHead({
-  title: '🗂️ Portafolio | Megapromocionales',
+  title: 'Portafolio | Megapromocionales',
   meta: [
     { name: 'description', content: 'Descubre nuestro portafolio de trabajos realizados y la calidad de nuestros productos en Megapromocionales.' },
     { property: 'og:title', content: '🗂️ Portafolio | Megapromocionales' },

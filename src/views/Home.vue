@@ -20,7 +20,7 @@ const images = [
 ]
 
 useHead({
-  title: '🏠 Inicio | Megapromocionales',
+  title: 'Inicio | Megapromocionales',
   meta: [
     { name: 'description', content: 'Bienvenido a Megapromocionales, tu tienda de productos promocionales de calidad.' },
     { property: 'og:title', content: '🏠 Inicio | Megapromocionales' },
