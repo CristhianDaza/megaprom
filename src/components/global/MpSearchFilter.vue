@@ -76,9 +76,9 @@ onMounted(() => {
         id="searchInput"
         @input="searchToView"
         autocomplete="off"
-        class="pl-9"
+        class="pl-9 pr-3 py-2 w-full rounded-2xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:ring-gray-500 dark:focus:text-white focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
       />
-      <span v-if="inputSearch === ''" class="hidden md:inline-flex placeholder-key">
+      <span v-if="inputSearch === ''" class="invisible md:visible placeholder-key">
         {{ isMac ? '⌘K' : 'Ctrl K' }}
       </span>
     </IconField>
