@@ -70,3 +70,15 @@ h1 {
 .carousel__next:hover, .carousel__prev:hover {
     color: black !important;
 }
+
+.p-divider-content {
+    background-color: #f3f4f6;
+}
+
+.dark .p-divider-content {
+    background-color: #111827;
+}
+
+.before\:border-surface-200::before{
+    border-color: gray !important;
+}

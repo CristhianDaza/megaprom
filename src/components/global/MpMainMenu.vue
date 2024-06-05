@@ -6,9 +6,15 @@ const MpThemeButton = defineAsyncComponent(/* webpackChunkName: "mpThemeButton" 
 
 import { useUserStore } from '@/store/user.js'
 
+const emit = defineEmits({ openModal: null })
+
 const props = defineProps({
   menu: Object
 })
+
+const openModal = () => {
+  emit('openModal', true)
+}
 
 const userStore = useUserStore()
 </script>
@@ -37,6 +43,16 @@ const userStore = useUserStore()
             </div>
           </div>
         </RouterLink>
+        <template v-else>
+          <div
+            class="p-menuitem-content rounded-md text-[#1D1D1B] dark:text-white/70 hover:bg-surface-50 dark:hover:bg-surface-800 transition-all duration-200"
+            @click="openModal"
+          >
+            <div class="flex align-items-center p-menuitem-link relative sm:text-sm font-medium items-center py-2 px-3 my-1 sm:my-0 select-none cursor-pointer no-underline overflow-hidden">
+              <span class="ml-2">Iniciar sesión</span>
+            </div>
+          </div>
+        </template>
         <MpThemeButton class="hidden md:inline-flex" />
         <div class="relative">
           <MpSearchFilter />

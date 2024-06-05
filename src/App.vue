@@ -51,13 +51,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <MpMainMenu :menu="menuStore.menu" />
+  <MpMainMenu :menu="menuStore.menu" @openModal="manageValueModal"/>
   <div class="dark:bg-dark-mp min-h-screen-60 pb-10">
     <RouterView />
   </div>
-  <MpFooter
-    @openModal="manageValueModal"
-  />
+  <MpFooter />
   <MpModalLogin
     :visible="isOpen"
     @manageModal="manageValueModal"

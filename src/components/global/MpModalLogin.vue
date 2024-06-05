@@ -1,8 +1,10 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useUserStore } from '@/store/user.js'
+import { useRouter } from 'vue-router'
 
 const userStore = useUserStore()
+const router = useRouter()
 
 const emit = defineEmits({ manageModal: null })
 
@@ -13,8 +15,11 @@ const props = defineProps({
 const isVisible = ref(props.visible)
 const user = ref({})
 
-const login = () => {
-  userStore.login(user.value)
+const login = async () => {
+  await userStore.login(user.value)
+  if (userStore.isLogged) {
+    await router.push({ name: 'admin' })
+  }
   valueModal(false)
 }
 
