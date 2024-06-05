@@ -6,19 +6,6 @@ const MpServicesImg = defineAsyncComponent(/* webpackChunkName: "mpServicesImg" 
 const MpHero = defineAsyncComponent(/* webpackChunkName: "mpHero" */() => import('@/components/home/MpHero.vue'))
 const MpAbout = defineAsyncComponent(/* webpackChunkName: "mpAbout" */() => import('@/components/home/MpAbout.vue'))
 
-const images = [
-  {
-    id: 1,
-    src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-08.jpg?alt=media&token=8ba599c0-a6ca-4f5b-b5f8-088c2738e715',
-    alt: 'Marcación promocionales',
-  },
-  {
-    id: 2,
-    src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-02.jpg?alt=media&token=43bc7305-f41f-45e2-be52-e3a065bf2cef',
-    alt: 'Offset impresión 5 colores',
-  },
-]
-
 useHead({
   title: 'Inicio | Megapromocionales',
   meta: [
@@ -39,7 +26,7 @@ useHead({
 <template>
   <MpHero />
   <MpAbout />
-  <MpServicesImg :images="images" />
+  <MpServicesImg />
 </template>
 
 <style scoped>
