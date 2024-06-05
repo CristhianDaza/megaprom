@@ -2,7 +2,6 @@
 import { defineAsyncComponent } from 'vue'
 import { useHead } from '@unhead/vue'
 
-const MpCarousel = defineAsyncComponent(/* webpackChunkName: "mpCarousel" */() => import('@/components/home/MpCarousel.vue'))
 const MpServicesImg = defineAsyncComponent(/* webpackChunkName: "mpServicesImg" */() => import('@/components/home/MpServicesImg.vue'))
 const MpHero = defineAsyncComponent(/* webpackChunkName: "mpHero" */() => import('@/components/home/MpHero.vue'))
 
@@ -38,7 +37,6 @@ useHead({
 
 <template>
   <MpHero />
-  <MpCarousel />
   <MpServicesImg :images="images" />
 </template>
 

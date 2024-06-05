@@ -120,7 +120,7 @@ watch(() => props.images, (newValue) => {
 </script>
 
 <template>
-  <div class="w-full mx-auto flex justify-center pb-2 gap-2">
+  <div class="w-full mx-auto flex justify-center pb-4 gap-2">
     <Button
       v-if="api === 'marpico'"
       icon="pi pi-copy"
@@ -141,7 +141,7 @@ watch(() => props.images, (newValue) => {
       v-tooltip.top="`Descarga imagen ${currentSlide + 1}.`"
     />
   </div>
-  <Carousel id="gallery" :items-to-show="1.5" :wrap-around="true" v-model="currentSlide">
+  <Carousel id="gallery" :items-to-show="1.2" :wrap-around="true" v-model="currentSlide">
     <Slide v-for="(slide, index) in images" :key="index">
       <div class="carousel__item">
         <Image alt="Image" preview>
@@ -169,7 +169,7 @@ watch(() => props.images, (newValue) => {
       </div>
     </Slide>
     <template #addons>
-      <navigation />
+      <navigation class="product" />
     </template>
   </Carousel>
   <Carousel
@@ -180,12 +180,12 @@ watch(() => props.images, (newValue) => {
     ref="carousel"
   >
     <Slide v-for="(slide, i) in images" :key="i">
-      <div class="carousel__item p-2" @click="slideTo(i)">
+      <div class="carousel__item p-1 cursor-pointer" @click="slideTo(i)">
         <img :src="slide" :alt="`producto ${id}`" @error="handleError">
       </div>
     </Slide>
     <template #addons>
-      <navigation />
+      <navigation class="product" />
     </template>
   </Carousel>
 </template>

@@ -17,6 +17,7 @@ onMounted(() => {
     :items-to-show="1"
     wrapAround
     :autoplay="3000"
+    class="mx-[5rem]"
   >
     <slide v-for="slide in carouselStore.carousel" :key="slide">
       <RouterLink :to="slide.link" class="w-full">
