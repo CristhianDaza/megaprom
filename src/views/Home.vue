@@ -4,6 +4,7 @@ import { useHead } from '@unhead/vue'
 
 const MpServicesImg = defineAsyncComponent(/* webpackChunkName: "mpServicesImg" */() => import('@/components/home/MpServicesImg.vue'))
 const MpHero = defineAsyncComponent(/* webpackChunkName: "mpHero" */() => import('@/components/home/MpHero.vue'))
+const MpAbout = defineAsyncComponent(/* webpackChunkName: "mpAbout" */() => import('@/components/home/MpAbout.vue'))
 
 const images = [
   {
@@ -37,6 +38,7 @@ useHead({
 
 <template>
   <MpHero />
+  <MpAbout />
   <MpServicesImg :images="images" />
 </template>
 
