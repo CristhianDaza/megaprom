@@ -23,7 +23,7 @@ const userStore = useUserStore()
   <Menubar :model="menu ? menu : []" breakpoint="640px" class="rounded-none bg-[#E7E7E7] px-4 py-2">
     <template #start>
       <RouterLink :to="{ name: 'home' }">
-        <img alt="Logo" class="w-16 lg:w-10" src="https://megapromocionales.com.co/favicon.ico" />
+        <img alt="Logo" class="w-16 lg:w-8" src="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/mega%203.png?alt=media&token=38b171d2-7ebe-431c-9d92-a772fd86e626" />
       </RouterLink>
     </template>
     <template #item="{ item, props }">

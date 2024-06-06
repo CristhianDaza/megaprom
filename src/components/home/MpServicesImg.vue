@@ -28,7 +28,7 @@ const images = [
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[2rem] px-[1rem] container mx-auto text-center mt-5">
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[2rem] px-[1rem] xl:px-[2rem] container mx-auto text-center mt-5">
     <template
       v-for="{ src, alt, title, description, color } in images"
     >
@@ -36,7 +36,7 @@ const images = [
         <div>
           <h3 class="text-2xl font-bold pt-3 pb-5" :class="`${color}`">{{ title }}</h3>
           <p class="text-[#0E2050] text-[1rem] text-justify pb-5 dark:text-white">{{ description }}</p>
-          <div class="flex justify-center items-center text-center">
+          <div class="flex justify-center items-center text-center pt-3">
             <img
               :src="src"
               :alt="alt"

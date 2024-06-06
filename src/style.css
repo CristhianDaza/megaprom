@@ -72,11 +72,11 @@ h1 {
 }
 
 .p-divider-content {
-    background-color: #f3f4f6;
+    background-color: #f3f4f6 !important;
 }
 
 .dark .p-divider-content {
-    background-color: #111827;
+    background-color: #111827 !important;
 }
 
 .before\:border-surface-200::before{
