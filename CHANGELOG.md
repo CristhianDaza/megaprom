@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Delete icons in title pages.
+- Change list of categories in the product page.
 
 ### Fixed
 - Fix button filter quantity in the products.
