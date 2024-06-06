@@ -3,6 +3,8 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { formatNumber } from '@/utils'
 
+import { useToast } from 'primevue/usetoast'
+
 const emit = defineEmits({ filterQuantity: null })
 
 const props = defineProps({
@@ -17,12 +19,21 @@ const props = defineProps({
 })
 
 const route = useRoute()
+const toast = useToast()
 
 const value = ref()
 const maxQuantityNumber = ref()
 
 const filterProduct = () => {
+  if (value.value === null) {
+    showToastSearch('warn', 'Campo vacío', 'Por favor ingrese un valor para filtrar.')
+    return
+  }
   emit('filterQuantity', value.value)
+}
+
+const showToastSearch = (severity, summary, detail) => {
+  toast.add({ severity, summary, detail, life: 3000 })
 }
 
 watch(() => props.totalProducts, (newValue) => {
@@ -59,7 +70,6 @@ onMounted(() => {
     />
     <Button
       label="Filtrar"
-      :disabled="value > maxQuantityNumber || !value"
       @click="filterProduct"
     />
     <small id="quantity-help">

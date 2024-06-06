@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+- Add alert when user filter with no value in to filter.
+
 ### Changed
 - Delete icons in title pages.
+
+### Fixed
+- Fix button filter quantity in the products.
+- Fix flex wrap in the filter of the products.
 
 ## [1.4.0] - 30/05/2024
 
