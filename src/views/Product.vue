@@ -71,7 +71,7 @@ watch(idPage, updateMeta);
     :image="productsStore.product?.mainImage"
   />
   <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 md:pt-5 md:mb-3 gap-3">
-    <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg py-5 px-10">
+    <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg py-5 px-2">
       <template v-if="productsStore.isLoading">
         <Skeleton height="100%"/>
       </template>

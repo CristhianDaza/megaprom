@@ -28,7 +28,7 @@ const images = [
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-[4rem] px-[3rem] container mx-auto text-center mt-5">
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[2rem] px-[1rem] container mx-auto text-center mt-5">
     <template
       v-for="{ src, alt, title, description, color } in images"
     >

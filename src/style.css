@@ -82,3 +82,17 @@ h1 {
 .before\:border-surface-200::before{
     border-color: gray !important;
 }
+
+@media (max-width: 639px) {
+    .carousel__next {
+        right: -10px !important;
+    }
+
+    .carousel__prev {
+        left: -10px !important;
+    }
+
+    .carousel__prev, .carousel__next, .product .carousel__prev, .product .carousel__next, .dark .product.carousel__next, .dark .product.carousel__prev {
+        color: #111827 !important;
+    }
+}

@@ -20,27 +20,17 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <Menubar :model="menu ? menu : []" breakpoint="956px" class="rounded-none bg-[#E7E7E7] px-4 py-2">
+  <Menubar :model="menu ? menu : []" breakpoint="640px" class="rounded-none bg-[#E7E7E7] px-4 py-2">
     <template #start>
       <RouterLink :to="{ name: 'home' }">
-        <img alt="Logo" class="h-10" src="https://megapromocionales.com.co/favicon.ico" />
+        <img alt="Logo" class="w-16 lg:w-10" src="https://megapromocionales.com.co/favicon.ico" />
       </RouterLink>
     </template>
     <template #item="{ item, props }">
-      <RouterLink v-if="item.isVisible" :to="item.readOnly ? { name: item.name } : { path: item.link }">
-        <div class="flex align-items-center" v-bind="props.action">
-          <span class="text-[#1D1D1B] dark:text-white/70 px-4">{{ item.title }}</span>
-        </div>
-      </RouterLink>
-    </template>
-    <template #end>
-      <div class="flex items-center gap-5">
-        <RouterLink :to="{ name: 'admin' }" v-if="userStore.isLogged">
-          <div class="p-menuitem-content rounded-md text-[#1D1D1B] dark:text-white/70 hover:bg-surface-50 dark:hover:bg-surface-800 transition-all duration-200">
-            <div class="flex align-items-center p-menuitem-link relative sm:text-sm font-medium items-center py-2 px-3 my-1 sm:my-0 select-none cursor-pointer no-underline overflow-hidden">
-              <span class="pi pi-code" />
-              <span class="ml-2">Admin</span>
-            </div>
+      <template  v-if="item.name === 'admin'">
+        <RouterLink v-if="userStore.isLogged" :to="item.readOnly ? { name: item.name } : { path: item.link }" class="">
+          <div class="flex align-items-center" v-bind="props.action">
+            <span class="text-[#1D1D1B] dark:text-white/70">{{ item.title }}</span>
           </div>
         </RouterLink>
         <template v-else>
@@ -53,6 +43,15 @@ const userStore = useUserStore()
             </div>
           </div>
         </template>
+      </template>
+      <RouterLink v-else-if="item.isVisible" :to="item.readOnly ? { name: item.name } : { path: item.link }" class="">
+        <div class="flex align-items-center" v-bind="props.action">
+          <span class="text-[#1D1D1B] dark:text-white/70">{{ item.title }}</span>
+        </div>
+      </RouterLink>
+    </template>
+    <template #end>
+      <div class="flex items-center gap-5">
         <MpThemeButton class="hidden md:inline-flex" />
         <div class="relative">
           <MpSearchFilter />
