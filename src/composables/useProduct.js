@@ -35,11 +35,11 @@ export function useProductHelpers() {
     await Promise.all([deletePromises, deleteLastUpdate])
   }
   
-  const setAllProductsPromosApi = async (isAdmin) => {
+  const setAllProductsPromosApi = async (isAdmin, updated = false) => {
     try {
       if (isAdmin) {
         const isUpdated = await _isUpdated()
-        if (isUpdated) {
+        if (isUpdated && !updated) {
           return await getProductsFirebase()
         }
         isLoadingAllProducts.value = true

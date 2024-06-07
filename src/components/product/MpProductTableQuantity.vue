@@ -50,7 +50,7 @@ const hasLastUpdateTracking = computed(() => {
   <div class="container mx-auto">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div v-if="userStore.isLogged" class="flex flex-wrap items-center justify-between gap-2 m-2 pb-2">
-<!--        <Button icon="pi pi-refresh" rounded raised />-->
+<!--        <Button icon="pi pi-refresh" rounded raised v-tooltip.bottom="`Actualizar inventario`" />-->
         <span></span>
         <Button :label="`Ver precio ${includeIva ? 'sin iva' : 'con iva'}`" @click="toggleIva" severity="info" text raised />
       </div>

@@ -19,7 +19,7 @@ export const useProductsStore = defineStore('products', {
     lastUpdateProducts: null
   }),
   actions: {
-    async initProducts() {
+    async initProducts(update = false) {
       const isLogin = localStorage.getItem('isLogin')
       const {
         setAllProductsPromosApi,
@@ -34,7 +34,7 @@ export const useProductsStore = defineStore('products', {
           this.isLoadingMp = isLoadingMp
           this.isLoadingPromos = isLoadingPromos
           this.lastUpdateProducts = lastUpdateProducts
-          this.products = await setAllProductsPromosApi(true)
+          this.products = await setAllProductsPromosApi(true, update)
         } else {
           this.lastUpdateProducts = lastUpdateProducts
           this.products = await setAllProductsPromosApi(false)
