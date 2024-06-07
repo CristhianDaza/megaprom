@@ -35,7 +35,7 @@ const {
 
 const updateMeta = () => {
   useHead({
-    title: `🔍 ${route.query.q} | Megapromocionales`,
+    title: `${route.query.q} | Megapromocionales`,
     meta: [
       { name: 'description', content: `Resultados de la búsqueda de ${route.query.q} en Megapromocionales.` },
       { property: 'og:title', content: `${route.query.q} | Megapromocionales` },
@@ -77,15 +77,15 @@ watch(idPage, updateMeta, { immediate: true });
       :collapsed="isCollapsed"
       @toggle="changeCollapsed"
     >
-      <div class="flex w-full gap-2">
-        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
+      <div class="flex w-full gap-2 flex-wrap">
+        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-full md:w-auto">
           <MpFilterQuantity
             :value="inventory"
             :totalProducts="getMaxQuantity"
             @filterQuantity="filterQuantity"
           />
         </div>
-        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
+        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-full md:w-auto">
           <MpFilterDiscount
             :totalProducts="countDiscountedProducts"
             @filterDiscount="filterDiscount"

@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <label id="switch" class="relative inline-block w-12 h-8"  v-tooltip.bottom="`Cambiar a modo: ${theme}`">
+  <label id="switch" class="relative inline-block w-8 h-5"  v-tooltip.bottom="`Cambiar a modo: ${theme}`">
     <input type="checkbox" @change="toggleTheme" v-model="checkbox" class="opacity-0 w-0 h-0">
     <span class="slider block absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 transition-all duration-400 ease-in-out rounded-full"></span>
   </label>
@@ -47,8 +47,8 @@ onMounted(() => {
 .slider:before {
   content: "";
   position: absolute;
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   left: 0;
   top: 0;
   bottom: 0;
@@ -68,7 +68,7 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  transform: translateX(24px);
+  transform: translateX(12px);
   background: white url('https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/night.png?alt=media&token=0c85734b-f74d-4972-888b-73063b3066f6') no-repeat center;
 }
 </style>

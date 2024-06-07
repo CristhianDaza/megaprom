@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 06/06/2024
+
+### Added
+- Add alert when user filter with no value in to filter.
+- Add button to update the inventory in admin page.
+- Add function to call two api in the project.
+- Add loader when the user is waiting for the response of the all services.
+- Add loader when the user is waiting for the response of the products in firebase (only admin).
+
+### Changed
+- Delete icons in title pages.
+- Change list of categories in the product page.
+- Change the home page.
+- Change button to log in and logout in the project.
+
+### Fixed
+- Fix button filter quantity in the products.
+- Fix flex wrap in the filter of the products.
+
 ## [1.4.0] - 30/05/2024
 
 ### Added
@@ -113,6 +132,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
+[1.5.0]: https://github.com/CristhianDaza/megaprom/pull/14
 [1.4.0]: https://github.com/CristhianDaza/megaprom/pull/13
 [1.3.1]: https://github.com/CristhianDaza/megaprom/pull/9
 [1.3.0]: https://github.com/CristhianDaza/megaprom/pull/8

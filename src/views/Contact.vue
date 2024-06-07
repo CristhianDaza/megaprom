@@ -12,7 +12,7 @@ const breadcrumbItems = [
 ]
 
 useHead({
-  title: '✉️ Contacto | Megapromocionales',
+  title: 'Contacto | Megapromocionales',
   meta: [
     { name: 'description', content: 'Ponte en contacto con nosotros en Megapromocionales para cualquier consulta o pedido.' },
     { property: 'og:title', content: '✉️ Contacto | Megapromocionales' },

@@ -1,28 +1,30 @@
 <script setup>
-import { useWhatsApp } from '@/composables/useWhatsApp.js'
+import { defineAsyncComponent } from 'vue'
 
-const { seeWp } = useWhatsApp()
+const MpCarousel = defineAsyncComponent(/* webpackChunkName: "mpCarousel" */() => import('@/components/home/MpCarousel.vue'))
 </script>
 
 <template>
-  <section class="bg-center bg-auto md:bg-cover bg-no-repeat bg-[url('https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/header.webp?alt=media&token=89fd25d1-5416-4922-a8f0-289e25a3b7c7')] bg-gray-800 bg-blend-multiply">
-    <div class="py-12 px-4 mx-auto max-w-screen-xl text-center lg:py-28">
-      <h1 class="mb-6 md:mb-10 text-4xl font-extrabold tracking-tight leading-none md:text-3xl lg:text-6xl text-white"> <span class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">Megapromocionales</span></h1>
-      <p class="mb-8 text-lg font-normal lg:text-2xl sm:px-16 lg:px-38 text-gray-400">Somos una empresa dedicada a la venta de artículos
-        promocionales, comprometidos con nuestro equipo
-        de trabajo a tener la mejor calidad de servicio y productos.</p>
-      <div class="flex flex-row gap-5 justify-center">
-        <RouterLink :to="{ name: 'products' }">
-          <Button label="Ver productos" size="large" icon="pi pi-arrow-right" iconPos="right" severity="info" raised />
-        </RouterLink>
-<!--        <RouterLink :to="{ name: 'contact' }">-->
-<!--          <Button label="Contacto" size="large" outlined severity="info" raised />-->
-<!--        </RouterLink>-->
-        <Button label="Contacto" size="large" outlined severity="info" raised @click="seeWp" />
+  <div class="relative mb-[1rem]">
+    <section class="bg-cover relative bg-center bg-no-repeat bg-[url('https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/mega%20fondo.png?alt=media&token=890d9e38-02e7-4179-afaa-8875627cb652')]">
+      <div class="relative py-[2rem] md:min-h-[60vh] lg:min-h-[90vh] xl:min-h-[100vh] lg:pt-[5rem] xl:pt-[4rem] px-2 md:px-16 xl:px-24 mx-auto max-w-screen-xl text-center flex justify-between items-start">
+        <div class="flex items-center flex-col md:flex-row justify-between w-full md:pt-[2rem]">
+          <img alt="Logo Megapromocionales" class="size-32 lg:size-52" src="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/logo%20mega.png?alt=media&token=c249f623-ecb7-4b86-aaf8-5ab4753da614" />
+          <div>
+            <h1 class="text-3xl md:text-[3.2rem] lg:text-[4.5rem] font-bold text-white">¡TODO AQUÍ!</h1>
+            <div class="font-bold text-xl tracking-wide lg:mt-3">
+              <span class="text-sm lg:text-xl text-[#5BC5F2] mr-2">PROMOCIONALES</span>
+              <span class="text-sm lg:text-xl text-[#FFCC00] mr-2">OFFSET</span>
+              <span class="text-sm lg:text-xl text-[#E6007D]">DIGITAL</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
+    <div class="relative md:absolute md:bottom-[-2rem] lg:bottom-[-3rem] xl:bottom-[-4rem]">
+      <MpCarousel />
     </div>
-  </section>
-
+  </div>
 </template>
 
 <style scoped>

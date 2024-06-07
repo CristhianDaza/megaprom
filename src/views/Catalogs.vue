@@ -17,7 +17,7 @@ const breadcrumbItems = [
 ]
 
 useHead({
-  title: '📚 Catálogos | Megapromocionales',
+  title: 'Catálogos | Megapromocionales',
   meta: [
     { name: 'description', content: 'Explora los catálogos de Megapromocionales y descubre nuestra amplia gama de productos.' },
     { property: 'og:title', content: '📚 Catálogos | Megapromocionales' },
