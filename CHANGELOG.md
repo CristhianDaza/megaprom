@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Delete icons in title pages.
 - Change list of categories in the product page.
+- Change the home page.
+- Change button to log in and logout in the project.
 
 ### Fixed
 - Fix button filter quantity in the products.
