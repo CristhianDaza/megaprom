@@ -20,7 +20,7 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <Menubar :model="menu ? menu : []" breakpoint="640px" class="rounded-none bg-[#E7E7E7] px-4 py-2">
+  <Menubar :model="menu ? menu : []" breakpoint="640px" class="rounded-none bg-[#E7E7E7] px-4 py-2 w-full justify-evenly">
     <template #start>
       <RouterLink :to="{ name: 'home' }">
         <img alt="Logo" class="w-16 lg:w-8" src="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/mega%203.png?alt=media&token=38b171d2-7ebe-431c-9d92-a772fd86e626" />
@@ -30,7 +30,7 @@ const userStore = useUserStore()
       <template  v-if="item.name === 'admin'">
         <RouterLink v-if="userStore.isLogged" :to="item.readOnly ? { name: item.name } : { path: item.link }" class="">
           <div class="flex align-items-center" v-bind="props.action">
-            <span class="text-[#1D1D1B] dark:text-white/70">{{ item.title }}</span>
+            <span class="text-[#1D1D1B] dark:text-white/70 px-5">{{ item.title }}</span>
           </div>
         </RouterLink>
         <template v-else>
@@ -39,14 +39,14 @@ const userStore = useUserStore()
             @click="openModal"
           >
             <div class="flex align-items-center p-menuitem-link relative sm:text-sm font-medium items-center py-2 px-3 my-1 sm:my-0 select-none cursor-pointer no-underline overflow-hidden">
-              <span class="ml-2">Iniciar sesión</span>
+              <span class="px-5">Iniciar sesión</span>
             </div>
           </div>
         </template>
       </template>
       <RouterLink v-else-if="item.isVisible" :to="item.readOnly ? { name: item.name } : { path: item.link }" class="">
         <div class="flex align-items-center" v-bind="props.action">
-          <span class="text-[#1D1D1B] dark:text-white/70">{{ item.title }}</span>
+          <span class="text-[#1D1D1B] dark:text-white/70 px-5">{{ item.title }}</span>
         </div>
       </RouterLink>
     </template>

@@ -36,8 +36,8 @@ watch(() => props.visible, (value) => {
   <div class="card flex justify-center">
     <Dialog v-model:visible="isVisible" modal header="Inicia Sesión" :style="{ width: '25rem' }" @after-hide="() => { valueModal(false) }">
       <img
-        src="https://firebasestorage.googleapis.com/v0/b/megapromocionales2020.appspot.com/o/logoWeb.webp?alt=media&token=72bc41b4-57ed-4b55-b92f-0df6c335e685"
-        class="h-36 w-full object-contain p-3"
+        src="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/logo%20mega.png?alt=media&token=c249f623-ecb7-4b86-aaf8-5ab4753da614"
+        class="h-44 w-full object-contain p-3"
         alt="Megapromocionales Logo"
       />
       <div class="flex items-center gap-3 mb-3">
