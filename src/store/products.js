@@ -16,17 +16,21 @@ export const useProductsStore = defineStore('products', {
     isLoadingAllProducts: false,
     isLoadingMp: false,
     isLoadingPromos: false,
-    lastUpdateProducts: null
+    lastUpdateProducts: null,
+    isLoadingFirebase: false,
+    isUpdatedFirebase: false
   }),
   actions: {
     async initProducts(update = false) {
       const isLogin = localStorage.getItem('isLogin')
       const {
-        setAllProductsPromosApi,
+        setAllProductsAndPromos,
         isLoadingAllProducts,
         isLoadingMp,
         isLoadingPromos,
-        lastUpdateProducts
+        lastUpdateProducts,
+        isLoadingFirebase,
+        isUpdatedFirebase
       } = useProductHelpers()
       try {
         if (isLogin === 'true') {
@@ -34,10 +38,12 @@ export const useProductsStore = defineStore('products', {
           this.isLoadingMp = isLoadingMp
           this.isLoadingPromos = isLoadingPromos
           this.lastUpdateProducts = lastUpdateProducts
-          this.products = await setAllProductsPromosApi(true, update)
+          this.isLoadingFirebase = isLoadingFirebase
+          this.isUpdatedFirebase = isUpdatedFirebase
+          this.products = await setAllProductsAndPromos(true, update)
         } else {
           this.lastUpdateProducts = lastUpdateProducts
-          this.products = await setAllProductsPromosApi(false)
+          this.products = await setAllProductsAndPromos(false)
         }
       } catch (error) {
         console.error('Error in getAllProductsPromosApi:', error)

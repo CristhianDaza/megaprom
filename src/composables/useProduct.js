@@ -10,6 +10,57 @@ export function useProductHelpers() {
   const isLoadingPromos = ref(true)
   const isLoadingAllProducts = ref(false)
   const lastUpdateProducts = ref()
+  const isLoadingFirebase = ref(false)
+  const isUpdatedFirebase = ref(false)
+  
+  const setAllProductsAndPromos = async (isAdmin, updated = false) => {
+    try {
+      if (isAdmin) {
+        const isUpdated = await _isUpdated()
+        if (isUpdated && !updated) {
+          return await getProductsFirebase()
+        }
+        isLoadingAllProducts.value = true
+
+        await _deleteAllProducts()
+
+        const [{ data: productsData }, { data: stockData }] = await Promise.all([
+          getAllProducts(),
+          getAllStock()
+        ])
+
+        isLoadingPromos.value = false
+        
+        const normalizedPromosResults = productsData.response.map(product =>
+          normalizeProductsCA(product, stockData?.Stocks)
+        )
+
+        const { data: mpData } = await searchProduct()
+        const normalizedSearchResults = mpData.results.map(normalizeProductsMP)
+
+        isLoadingMp.value = false
+        
+        const allNormalizedProducts = [...normalizedPromosResults, ...normalizedSearchResults]
+
+        const batchSize = 100
+        isLoadingFirebase.value = true
+        isUpdatedFirebase.value = true
+        for (let i = 0; i < allNormalizedProducts.length; i += batchSize) {
+          const batch = allNormalizedProducts.slice(i, i + batchSize)
+          await addDoc(collection(db, 'allProducts'), { products: batch })
+        }
+        
+        await addDoc(collection(db, 'lastedUpdated'), { lastUpdate: new Date().toISOString() })
+        
+        return await getProductsFirebase()
+      } else {
+        return await getProductsFirebase()
+      }
+    } catch (error) {
+      console.error('Error in setAllProductsAndPromos:', error)
+      throw new Error(error.message || error.code)
+    }
+  }
   
   const getProductsFirebase = async () => {
     const docRef = await getDocs(collection(db, 'allProducts'))
@@ -18,7 +69,11 @@ export function useProductHelpers() {
     const { lastUpdate } = docRefLastUpdated.docs[0].data()
     lastUpdateProducts.value = lastUpdate
     const allNormalizedProducts = combineProducts(docRef.docs)
-    isLoadingAllProducts.value = false
+    isLoadingFirebase.value = false
+    setTimeout(() => {
+      isLoadingAllProducts.value = false
+      isUpdatedFirebase.value = false
+    }, 1500)
     return allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name))
   }
   
@@ -33,55 +88,6 @@ export function useProductHelpers() {
       return
     }
     await Promise.all([deletePromises, deleteLastUpdate])
-  }
-  
-  const setAllProductsPromosApi = async (isAdmin, updated = false) => {
-    try {
-      if (isAdmin) {
-        const isUpdated = await _isUpdated()
-        if (isUpdated && !updated) {
-          return await getProductsFirebase()
-        }
-        isLoadingAllProducts.value = true
-        await _deleteAllProducts()
-        
-        const { data } = await getAllProducts()
-        const { data: stock } = await getAllStock()
-        const normalizedPromosResults = data.response.map(product => normalizeProductsCA(product, stock?.Stocks))
-        const allNormalizedProducts = [...normalizedPromosResults]
-        
-        await addDoc(collection(db, 'allProducts'), { products: allNormalizedProducts })
-        isLoadingPromos.value = false
-        return await _setAllProductsMpApi()
-      } else {
-        return await getProductsFirebase()
-      }
-    } catch (error) {
-      console.error('Error in getAllProductsPromosApi:', error)
-      throw new Error(error.message || error.code)
-    }
-  }
-  
-  const _setAllProductsMpApi = async () => {
-    try {
-      let products
-      const { data } = await searchProduct()
-      const normalizedSearchResults = data.results.map(normalizeProductsMP)
-      products = [...normalizedSearchResults]
-      
-      const batchSize = 100
-      for (let i = 0; i < products.length; i += batchSize) {
-        const batch = products.slice(i, i + batchSize)
-        await addDoc(collection(db, 'allProducts'), { products: batch })
-      }
-      
-      await addDoc(collection(db, 'lastedUpdated'), { lastUpdate: new Date().toISOString() })
-      isLoadingMp.value = false
-      return await getProductsFirebase()
-    } catch (error) {
-      console.error('Error in getAllProductsMpApi:', error)
-      throw new Error(error.message || error.code)
-    }
   }
   
   const _isUpdated = async () => {
@@ -100,10 +106,12 @@ export function useProductHelpers() {
   
   return {
     getProductsFirebase,
-    setAllProductsPromosApi,
+    setAllProductsAndPromos,
     isLoadingAllProducts,
     isLoadingMp,
     isLoadingPromos,
-    lastUpdateProducts
+    lastUpdateProducts,
+    isLoadingFirebase,
+    isUpdatedFirebase
   }
 }

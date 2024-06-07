@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add alert when user filter with no value in to filter.
 - Add button to update the inventory in admin page.
+- Add function to call two api in the project.
+- Add loader when the user is waiting for the response of the all services.
+- Add loader when the user is waiting for the response of the products in firebase (only admin).
 
 ### Changed
 - Delete icons in title pages.
