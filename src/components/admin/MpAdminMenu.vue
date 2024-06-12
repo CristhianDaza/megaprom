@@ -19,6 +19,7 @@ const manageValueModal = (value) => {
 const configModal = ref({})
 
 const manageModalMenu = (action, type, data = null) => {
+  console.log({ action, type, data })
   if (action === 'add') {
     configModal.value = {
       header: 'Agregar menú',

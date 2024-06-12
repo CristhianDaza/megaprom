@@ -34,7 +34,6 @@ const isVisible = ref(props.visible)
 const uploadModal = ref({})
 const previewImage = ref(null)
 const image = ref(null)
-const showMenu = ref(false)
 
 const valueModal = (value) => {
   emit('manageModal', value)
@@ -69,10 +68,6 @@ const acceptButton = () => {
   const type = props.configModal.type
   const action = props.configModal.action
 
-  if (type === 'menu') {
-    uploadModal.value.isVisible = showMenu.value
-  }
-
   if (actionsMap[type] && actionsMap[type][action]) {
     actionsMap[type][action](uploadModal.value)
   }
@@ -80,7 +75,7 @@ const acceptButton = () => {
   isVisible.value = false
 }
 
-const removeImage = (e) => {
+const removeImage = () => {
   previewImage.value = null
 }
 
@@ -153,8 +148,8 @@ const isInvalid = computed(() => {
         <InputText id="order" class="flex-auto" autocomplete="off" v-model="uploadModal.order"/>
       </div>
       <div class="flex align-items-center gap-3 mb-5">
-        <label for="visible" class="ml-2">Visible</label>
-        <Checkbox v-model="showMenu" name="visible" :binary="true" />
+        <label for="visible" class="font-semibold w-6rem">Visible</label>
+        <Checkbox v-model="uploadModal.isVisible" name="visible" :binary="true" />
       </div>
     </template>
     <div class="flex justify-content-end gap-2">
