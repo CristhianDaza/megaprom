@@ -80,6 +80,10 @@ const acceptButton = () => {
   isVisible.value = false
 }
 
+const removeImage = (e) => {
+  previewImage.value = null
+}
+
 watch(() => props.visible, (value) => {
   isVisible.value = value
 
@@ -122,6 +126,7 @@ const isInvalid = computed(() => {
       mode="basic"
       chooseIcon="pi pi-trash"
       @select="onFileSelect"
+      @before-send="removeImage"
     ></FileUpload>
     <template v-if="uploadModal.image">
       <img
