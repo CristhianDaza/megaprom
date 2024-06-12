@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Change style of checkbox in the admin page.
 - Change size logo in main menu.
+- Change input type in search component.
 
 ### Fixed
 - Fix the links social media in the footer.

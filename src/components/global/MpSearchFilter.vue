@@ -85,6 +85,7 @@ onMounted(() => {
         @input="searchToView"
         autocomplete="off"
         class="pl-9 pr-3 py-2 w-full rounded-2xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:ring-gray-500 dark:focus:text-white focus:ring-2 focus:ring-blue-700"
+        inputmode="search"
       />
       <span v-if="inputSearch === ''" class="invisible md:visible placeholder-key">
         {{ isMac ? '⌘K' : 'Ctrl K' }}
@@ -92,7 +93,7 @@ onMounted(() => {
     </IconField>
     <ul
       v-if="products.productsInput.length > 0 && inputSearch !== ''"
-      class="w-[14rem] md:w-[20rem] absolute text-sm mt-10 md:mt-8 right-0 md:left-0 font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white max-h-[14rem] overflow-y-auto z-10 shadow-lg"
+      class="w-[14rem] md:w-[20rem] absolute text-sm mt-10 md:mt-9 right-0 md:left-0 font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white max-h-[14rem] overflow-y-auto z-10 shadow-lg"
     >
       <li
         v-for="(item, index) in products.productsInput"
