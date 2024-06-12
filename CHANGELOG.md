@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fix the links social media in the footer.
+- Fix margin in about info.
 
 ## [1.5.0] - 06/06/2024
 
