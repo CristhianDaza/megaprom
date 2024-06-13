@@ -32,8 +32,8 @@ const updateProducts = async () => {
 <template>
   <ConfirmDialog />
   <div class="container mx-auto lg:py-5">
-    <Button label="Cerrar sesión" class="mb-4 float-right" @click="logout" severity="danger" raised />
-    <Button label="Actualizar inventario" class="mb-4" @click="updateProducts" severity="success" raised />
+    <Button label="Cerrar sesión" class="mb-4 float-right" @click="logout" severity="danger" text />
+    <Button label="Actualizar inventario" class="mb-4" @click="updateProducts" severity="info" outlined />
     <TabView>
       <TabPanel header="Menú">
         <MpAdminMenu />
