@@ -13,7 +13,7 @@ const products = useProductsStore()
 const toast = useToast()
 
 const searchProduct = () => {
-  if (inputSearch.value || inputSearch.value.trim() === '') {
+  if (inputSearch.value.trim() === '') {
     showToastSearch('warn', 'Campo vacío', 'Por favor ingrese un valor para buscar.')
     return
   }
