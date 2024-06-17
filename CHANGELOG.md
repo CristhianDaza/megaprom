@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix remove image preview when the user remove the image in the admin page.
 - Fix checkbox in view page.
 - Fix width of the input search.
+- Fix error in trim title.
 
 ## [1.5.0] - 06/06/2024
 
