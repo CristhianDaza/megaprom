@@ -13,6 +13,7 @@ const products = useProductsStore()
 const toast = useToast()
 
 const searchProduct = () => {
+  if (!inputSearch) return;
   if (inputSearch.value.trim() === '') {
     showToastSearch('warn', 'Campo vacío', 'Por favor ingrese un valor para buscar.')
     return
@@ -48,7 +49,15 @@ watch(() => route.path, async () => {
 })
 
 onMounted(() => {
-  isMac.value = navigator?.userAgentData ? navigator.userAgentData.platform.includes('Mac') : /Mac|iPod|iPhone|iPad/.test(navigator.userAgent);
+  isMac.value = (function() {
+    if (navigator?.userAgentData) {
+      return navigator.userAgentData.platform.includes('Mac');
+    } else if (navigator.userAgent) {
+      return /Mac|iPod|iPhone|iPad/.test(navigator.userAgent);
+    } else {
+      return false;
+    }
+  })();
 
   const handleKeydown = (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
@@ -76,7 +85,8 @@ onMounted(() => {
         id="searchInput"
         @input="searchToView"
         autocomplete="off"
-        class="pl-9 pr-3 py-2 w-full rounded-2xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:ring-gray-500 dark:focus:text-white focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
+        class="pl-9 pr-3 py-2 w-full rounded-2xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:ring-gray-500 dark:focus:text-white focus:ring-2 focus:ring-blue-700"
+        inputmode="search"
       />
       <span v-if="inputSearch === ''" class="invisible md:visible placeholder-key">
         {{ isMac ? '⌘K' : 'Ctrl K' }}
@@ -84,7 +94,7 @@ onMounted(() => {
     </IconField>
     <ul
       v-if="products.productsInput.length > 0 && inputSearch !== ''"
-      class="w-[14.8rem] md:w-[20rem] absolute text-sm mt-9 md:mt-8 -right-1 md:left-0 font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white max-h-[14rem] overflow-y-auto z-10 shadow-lg"
+      class="w-[14rem] md:w-[20rem] absolute text-sm mt-10 md:mt-9 right-0 md:left-0 font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white max-h-[14rem] overflow-y-auto z-10 shadow-lg"
     >
       <li
         v-for="(item, index) in products.productsInput"

@@ -78,9 +78,6 @@ onMounted(() => {
     @manageModal="manageValueModal"
   />
   <div v-if="carouselStore.isLoading" class="container mx-auto grid gap-4 mt-1">
-    <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-      <span class="text-xl text-900 font-bold">Carrusel de imágenes</span>
-    </div>
     <template v-for="loader in 12">
       <Skeleton height="2rem" class="mb-2">{{loader}}</Skeleton>
     </template>
@@ -88,24 +85,23 @@ onMounted(() => {
   <template v-else>
     <DataTable :value="carouselStore.carousel" tableStyle="min-width: 50rem">
       <template #header>
-        <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-          <span class="text-xl text-900 font-bold">Carrusel de imágenes</span>
-          <Button
-            icon="pi pi-refresh"
-            rounded
-            raised
-            v-tooltip.top="`Actualizar imágenes en el carrusel`"
-            @click="carouselStore.getCarousel(true)"
-            :disabled="carouselStore.carousel.length === 0"
-          />
-          <Button
-            icon="pi pi-plus"
-            rounded
-            raised
-            v-tooltip.top="`Agregar imagen en el carrusel`"
-            severity="info"
-            @click="manageModalCarousel('add', 'carousel')"
-          />
+        <div class="flex flex-wrap justify-end gap-2 mt-[-25px]">
+          <div class="flex gap-2">
+            <Button
+              icon="pi pi-refresh"
+              raised
+              v-tooltip.top="`Actualizar imágenes en el carrusel`"
+              @click="carouselStore.getCarousel(true)"
+              :disabled="carouselStore.carousel.length === 0"
+            />
+            <Button
+              icon="pi pi-plus"
+              raised
+              v-tooltip.top="`Agregar imagen en el carrusel`"
+              severity="info"
+              @click="manageModalCarousel('add', 'carousel')"
+            />
+          </div>
         </div>
       </template>
       <Column field="title" header="Nombre"></Column>
@@ -137,7 +133,8 @@ onMounted(() => {
               icon="pi pi-pencil"
               class="p-button-rounded p-button-success p-button-outlined"
               v-tooltip.top="`Editar imagen del carrusel`"
-              severity="info" rounded outlined
+              severity="info"
+              rounded
               aria-label="Editar imagen del carrusel"
               @click="manageModalCarousel('edit', 'carousel', slotProps.data)"
             />
@@ -145,7 +142,9 @@ onMounted(() => {
               icon="pi pi-trash"
               class="p-button-rounded p-button-danger p-button-outlined"
               v-tooltip.top="`Eliminar imagen del carrusel`"
-              severity="danger" text rounded
+              severity="danger"
+              outlined
+              rounded
               aria-label="Eliminar imagen del carrusel"
               @click="confirmDeleteCarousel(slotProps.data.id, slotProps.data.image)"
             />

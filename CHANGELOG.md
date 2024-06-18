@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 18/06/2024
+
+### Changed
+- Change style of checkbox in the admin page.
+- Change size logo in main menu.
+- Change input type in search component.
+- Change style button in admin page.
+
+### Fixed
+- Fix the links social media in the footer.
+- Fix margin in about info.
+- Fix shortcut search in mac.
+- Fix remove image preview when the user remove the image in the admin page.
+- Fix checkbox in view page.
+- Fix width of the input search.
+- Fix error in trim title.
+
 ## [1.5.0] - 06/06/2024
 
 ### Added
@@ -132,6 +149,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
+[1.6.0]: https://github.com/CristhianDaza/megaprom/pull/15
 [1.5.0]: https://github.com/CristhianDaza/megaprom/pull/14
 [1.4.0]: https://github.com/CristhianDaza/megaprom/pull/13
 [1.3.1]: https://github.com/CristhianDaza/megaprom/pull/9

@@ -76,34 +76,30 @@ onMounted(() => {
     @manageModal="manageValueModal"
   />
   <div v-if="menuStore.isLoading" class="container mx-auto grid gap-4 mt-1">
-    <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-      <span class="text-xl text-900 font-bold">Menú</span>
-    </div>
     <template v-for="loader in 12">
       <Skeleton height="2rem" class="mb-2">{{loader}}</Skeleton>
     </template>
   </div>
   <template v-else>
-    <DataTable :value="menuStore.menu" tableStyle="min-width: 50rem">
+    <DataTable :value="menuStore.menu">
       <template #header>
-        <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-          <span class="text-xl text-900 font-bold">Menú</span>
-          <Button
-            icon="pi pi-refresh"
-            rounded
-            raised
-            v-tooltip.top="`Actualizar menú`"
-            @click="menuStore.getMenu(true)"
-            :disabled="menuStore.menu.length === 0"
-          />
-          <Button
-            icon="pi pi-plus"
-            rounded
-            raised
-            v-tooltip.top="`Agregar menú`"
-            severity="info"
-            @click="manageModalMenu('add', 'menu')"
-          />
+        <div class="flex flex-wrap justify-end gap-2 mt-[-25px]">
+          <div class="flex gap-2">
+            <Button
+              icon="pi pi-refresh"
+              raised
+              v-tooltip.top="`Actualizar menú`"
+              @click="menuStore.getMenu(true)"
+              :disabled="menuStore.menu.length === 0"
+            />
+            <Button
+              icon="pi pi-plus"
+              raised
+              v-tooltip.top="`Agregar menú`"
+              severity="info"
+              @click="manageModalMenu('add', 'menu')"
+            />
+          </div>
         </div>
       </template>
       <Column field="title" header="Titulo"></Column>
@@ -134,7 +130,7 @@ onMounted(() => {
               icon="pi pi-pencil"
               class="p-button-rounded p-button-success p-button-outlined"
               v-tooltip.top="`Editar menú`"
-              severity="info" rounded outlined
+              severity="info" rounded
               aria-label="Editar menú"
               @click="manageModalMenu('edit', 'menu', slotProps.data)"
             />
@@ -142,7 +138,9 @@ onMounted(() => {
               icon="pi pi-trash"
               class="p-button-rounded p-button-danger p-button-outlined"
               v-tooltip.top="`Eliminar menú`"
-              severity="danger" text rounded
+              severity="danger"
+              outlined
+              rounded
               aria-label="`Eliminar menú"
               @click="confirmDeleteMenu(slotProps.data.id)"
               :disabled="slotProps.data.readOnly"

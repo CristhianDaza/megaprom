@@ -10,8 +10,8 @@
         <div class="text-[#0E2050] text-[50px] lg:text-[66px] xl:text-[70px] font-light dark:text-white">Quienes</div>
       </div>
       <div class="flex mt-[-35px] lg:mt-[-60px] pl-[45px] lg:pl-[65px]">
-        <div class="text-[#5BC5F2] text-[50px] lg:text-[66px] xl:text-[70px] font-extrabold"> somos</div>
-        <div class="text-[#5BC5F2] text-[40px] lg:text-[45px] xl:text-[50px] font-extrabold mt-[35px]">?</div>
+        <div class="text-[#5BC5F2] text-[50px] lg:text-[66px] xl:text-[70px] font-extrabold">somos</div>
+        <div class="text-[#5BC5F2] text-[40px] lg:text-[45px] xl:text-[50px] font-extrabold mt-[20px] md:mt-[35px]">?</div>
       </div>
     </div>
     <div class="text-[#0E2050] text-2xl xl:pl-[8rem] text-center dark:text-white">
