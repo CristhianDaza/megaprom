@@ -7,7 +7,7 @@ const MpSocialMedia = defineAsyncComponent(/* webpackChunkName: "mpSocialMedia" 
 
 <template>
   <footer>
-    <div class="dark:bg-gray-900">
+    <div class="dark:bg-gray-900 px-12">
       <div class="py-2 px-2 md:px-10">
         <div class="sm:flex sm:items-center sm:justify-between">
           <MpThemeButton class="inline-flex md:hidden" />
