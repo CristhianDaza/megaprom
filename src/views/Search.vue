@@ -50,7 +50,11 @@ const updateMeta = () => {
   });
 }
 
-watch(idPage, updateMeta, { immediate: true });
+watch(idPage, () => {
+  updateMeta();
+}, { immediate: true });
+
+updateMeta();
 </script>
 
 <template>
