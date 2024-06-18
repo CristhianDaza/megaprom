@@ -44,8 +44,6 @@ const updateProducts = async () => {
       <TabPanel header="Catálogos">
         <MpAdminCatalogs />
       </TabPanel>
-      <TabPanel header="Números" :disabled="true">
-      </TabPanel>
     </TabView>
   </div>
 </template>
