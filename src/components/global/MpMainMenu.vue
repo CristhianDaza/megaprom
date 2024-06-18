@@ -27,8 +27,8 @@ const userStore = useUserStore()
       </RouterLink>
     </template>
     <template #item="{ item, props }">
-      <template  v-if="item.name === 'admin'">
-        <RouterLink v-if="userStore.isLogged" :to="item.readOnly ? { name: item.name } : { path: item.link }" class="">
+      <template v-if="item.name === 'admin'">
+        <RouterLink v-if="userStore.isLogged" :to="item.readOnly ? { name: item.name } : { path: item.link }">
           <div class="flex align-items-center" v-bind="props.action">
             <span class="text-[#1D1D1B] dark:text-white/70 px-5">{{ item.title }}</span>
           </div>
@@ -44,7 +44,7 @@ const userStore = useUserStore()
           </div>
         </template>
       </template>
-      <RouterLink v-else-if="item.isVisible" :to="item.readOnly ? { name: item.name } : { path: item.link }" class="">
+      <RouterLink v-else-if="item.isVisible" :to="item.readOnly ? { name: item.name } : { path: item.link }">
         <div class="flex align-items-center" v-bind="props.action">
           <span class="text-[#1D1D1B] dark:text-white/70 px-5">{{ item.title }}</span>
         </div>
