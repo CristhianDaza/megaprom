@@ -7,7 +7,9 @@ import { combineProducts, normalizeProductsCA, normalizeProductsMP } from '@/uti
 
 export function useProductHelpers() {
   const isLoadingMp = ref(true)
+  const statusMp = ref()
   const isLoadingPromos = ref(true)
+  const statusPromos = ref()
   const isLoadingAllProducts = ref(false)
   const lastUpdateProducts = ref()
   const isLoadingFirebase = ref(false)
@@ -22,14 +24,13 @@ export function useProductHelpers() {
         }
         isLoadingAllProducts.value = true
 
-        await _deleteAllProducts()
-
         const [{ data: productsData }, { data: stockData }] = await Promise.all([
           getAllProducts(),
           getAllStock()
         ])
 
         isLoadingPromos.value = false
+        statusPromos.value = 'success'
         
         const normalizedPromosResults = productsData.response.map(product =>
           normalizeProductsCA(product, stockData?.Stocks)
@@ -39,24 +40,30 @@ export function useProductHelpers() {
         const normalizedSearchResults = mpData.results.map(normalizeProductsMP)
 
         isLoadingMp.value = false
+        statusMp.value = 'success'
         
         const allNormalizedProducts = [...normalizedPromosResults, ...normalizedSearchResults]
 
-        const batchSize = 100
+        const batchSize = 200
         isLoadingFirebase.value = true
         isUpdatedFirebase.value = true
+        
+        await _updatedFirebase()
+        
         for (let i = 0; i < allNormalizedProducts.length; i += batchSize) {
           const batch = allNormalizedProducts.slice(i, i + batchSize)
           await addDoc(collection(db, 'allProducts'), { products: batch })
         }
-        
-        await addDoc(collection(db, 'lastedUpdated'), { lastUpdate: new Date().toISOString() })
         
         return await getProductsFirebase()
       } else {
         return await getProductsFirebase()
       }
     } catch (error) {
+      isLoadingPromos.value = false
+      isLoadingMp.value = false
+      statusPromos.value = 'failed'
+      statusMp.value = 'failed'
       console.error('Error in setAllProductsAndPromos:', error)
       throw new Error(error.message || error.code)
     }
@@ -104,6 +111,11 @@ export function useProductHelpers() {
     return lastUpdateDay === nowDay
   }
   
+  const _updatedFirebase = async () => {
+    await _deleteAllProducts()
+    await addDoc(collection(db, 'lastedUpdated'), { lastUpdate: new Date().toISOString() })
+  }
+  
   return {
     getProductsFirebase,
     setAllProductsAndPromos,
@@ -112,6 +124,8 @@ export function useProductHelpers() {
     isLoadingPromos,
     lastUpdateProducts,
     isLoadingFirebase,
-    isUpdatedFirebase
+    isUpdatedFirebase,
+    statusMp,
+    statusPromos
   }
 }
