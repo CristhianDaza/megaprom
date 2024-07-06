@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased] - 00/00/2024
 
+### Added
+- Add page services.
+
 ### Changed
 - Change number of visibilities products in similar products.
+- Change style of button iva in the product view.
 
 ## [1.6.0] - 18/06/2024
 
