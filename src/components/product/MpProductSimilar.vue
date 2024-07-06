@@ -51,7 +51,7 @@ onMounted(async () => {
   <div v-if="products.similarProducts || products.similarProducts.length > 3 || similar" class="container mx-auto grid grid-cols-1 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
     <CarouselP
       :value="products.similarProducts"
-      :num-visible="products.similarProducts.length === 3 ? 3 : 5"
+      :num-visible="products.similarProducts.length === 3 ? 3 : 4"
       :num-scroll="3"
       circular
       :responsiveOptions="responsiveOptions"
