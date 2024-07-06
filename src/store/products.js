@@ -18,7 +18,10 @@ export const useProductsStore = defineStore('products', {
     isLoadingPromos: false,
     lastUpdateProducts: null,
     isLoadingFirebase: false,
-    isUpdatedFirebase: false
+    isUpdatedFirebase: false,
+    statusMp: null,
+    statusPromos: null,
+    attempts: 0,
   }),
   actions: {
     async initProducts(update = false) {
@@ -30,7 +33,9 @@ export const useProductsStore = defineStore('products', {
         isLoadingPromos,
         lastUpdateProducts,
         isLoadingFirebase,
-        isUpdatedFirebase
+        isUpdatedFirebase,
+        statusMp,
+        statusPromos,
       } = useProductHelpers()
       try {
         if (isLogin === 'true') {
@@ -40,6 +45,9 @@ export const useProductsStore = defineStore('products', {
           this.lastUpdateProducts = lastUpdateProducts
           this.isLoadingFirebase = isLoadingFirebase
           this.isUpdatedFirebase = isUpdatedFirebase
+          this.statusMp = statusMp
+          this.statusPromos = statusPromos
+          
           this.products = await setAllProductsAndPromos(true, update)
         } else {
           this.lastUpdateProducts = lastUpdateProducts
@@ -126,6 +134,12 @@ export const useProductsStore = defineStore('products', {
       }
       
       this.similarProducts = similar.slice(0, 10)
+    },
+    updateAttempts() {
+      this.attempts++
+    },
+    resetAttempts() {
+      this.attempts = 0
     }
   }
 })

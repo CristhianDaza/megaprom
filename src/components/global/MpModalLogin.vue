@@ -2,9 +2,11 @@
 import { ref, watch } from 'vue'
 import { useUserStore } from '@/store/user.js'
 import { useRouter } from 'vue-router'
+import { useProductsStore } from '@/store/products.js'
 
 const userStore = useUserStore()
 const router = useRouter()
+const products = useProductsStore()
 
 const emit = defineEmits({ manageModal: null })
 
@@ -18,6 +20,7 @@ const user = ref({})
 const login = async () => {
   await userStore.login(user.value)
   if (userStore.isLogged) {
+    await products.initProducts(false)
     await router.push({ name: 'admin' })
   }
   valueModal(false)

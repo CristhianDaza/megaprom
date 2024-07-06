@@ -1,7 +1,43 @@
 <script setup>
+import { onMounted, ref } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 
 const products = useProductsStore()
+
+const countdown = ref(60);
+const progress = ref(0);
+let timer;
+
+const startCountdown = () => {
+  countdown.value = 60
+  progress.value = 0
+  timer = setInterval(() => {
+    if (countdown.value > 0) {
+      countdown.value -= 1
+      progress.value = Math.floor(((60 - countdown.value) / 60) * 100);
+    } else {
+      clearInterval(timer)
+    }
+  }, 1000)
+}
+
+const updateProducts = async () => {
+  products.updateAttempts()
+  await products.initProducts(true)
+  if (products.statusMp === 'success' && products.statusPromos === 'success') {
+    products.resetAttempts()
+  }
+  if (products.attempts === 3) {
+    setTimeout(() => {
+      products.resetAttempts()
+    }, 60000)
+    startCountdown()
+  }
+}
+
+onMounted(() => {
+  clearInterval(timer);
+})
 </script>
 
 <template>
@@ -29,7 +65,11 @@ const products = useProductsStore()
               animationDuration=".5s"
               aria-label="Cargando productos..."
             />
-            <i v-else class="pi pi-check text-green-500 text-xl"></i>
+            <i
+              v-else
+              class="pi text-xl"
+              :class="'pi-' + (products.statusMp === 'success' ? 'check text-green-500' : 'times text-red-500')"
+            ></i>
           </div>
         </div>
         <div class="flex items-center gap-4 w-full justify-between">
@@ -43,10 +83,15 @@ const products = useProductsStore()
               animationDuration=".5s"
               aria-label="Cargando productos..."
             />
-            <i v-else class="pi pi-check text-green-500 text-xl"></i>
+            <i
+              v-else
+              class="pi text-xl"
+              :class="'pi-' + (products.statusPromos === 'success' ? 'check text-green-500' : 'times text-red-500')"
+            ></i>
           </div>
         </div>
         <div v-if="products.isUpdatedFirebase" class="flex items-center gap-4 w-full justify-between">
+          <Divider />
           <p class="font-semibold text-gray-600 dark:text-gray-300">Actualizando Base de Datos:</p>
           <div class="flex items-center">
             <ProgressSpinner
@@ -60,6 +105,27 @@ const products = useProductsStore()
             <i v-else class="pi pi-check text-green-500 text-xl"></i>
           </div>
         </div>
+        <template v-if="products.statusMp === 'failed' || products.statusPromos === 'failed'">
+          <Divider />
+          <p v-if="products.attempts < 3" class="font-semibold text-red-500 dark:text-red-400">
+            Hubo un error al actualizar la base de datos, por favor intenta de nuevo.
+          </p>
+          <Button
+            label="Actualizar inventario nuevamente"
+            class="mt-4 w-full"
+            @click="updateProducts"
+            severity="info"
+            outlined
+            v-if="products.attempts < 3"
+          />
+          <template v-else>
+            <p class="font-semibold text-red-500 dark:text-red-400">
+              <ProgressBar :value="progress" />
+              <br>
+              Se ha excedido el número de intentos, por favor intenta más tarde.
+            </p>
+          </template>
+        </template>
       </div>
     </Dialog>
   </div>
