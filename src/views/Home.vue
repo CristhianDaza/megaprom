@@ -26,7 +26,7 @@ useHead({
 <template>
   <MpHero />
   <MpAbout />
-  <MpServicesImg />
+  <MpServicesImg view-first-button />
 </template>
 
 <style scoped>
