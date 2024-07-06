@@ -62,6 +62,7 @@ import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
 import Password from 'primevue/password'
+import ProgressBar from 'primevue/Progressbar'
 import ProgressSpinner from 'primevue/progressspinner'
 import ScrollTop from 'primevue/scrolltop'
 import Skeleton from 'primevue/skeleton'
@@ -96,6 +97,7 @@ app.component('InputNumber', InputNumber)
 app.component('InputText', InputText)
 app.component('Menubar', Menubar)
 app.component('Password', Password)
+app.component('ProgressBar', ProgressBar)
 app.component('ProgressSpinner', ProgressSpinner)
 app.component('ScrollTop', ScrollTop)
 app.component('Skeleton', Skeleton)
