@@ -41,9 +41,9 @@ const props = defineProps({
           <span class="text-2xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
             {{ formatPrice(product?.tableQuantity?.[0]?.price, false) }}
              <InlineMessage
-               v-if="product?.tableQuantity?.[0]?.type === 'Unico'"
+               v-if="product?.tableQuantity?.[0]?.type === 'Unico' || product?.tableQuantity?.[0]?.type === 'Único'"
                severity="info"
-             >Unico</InlineMessage>
+             >Único</InlineMessage>
           </span>
         </div>
       </template>

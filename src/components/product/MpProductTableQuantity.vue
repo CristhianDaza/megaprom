@@ -52,7 +52,7 @@ const hasLastUpdateTracking = computed(() => {
       <div v-if="userStore.isLogged" class="flex flex-wrap items-center justify-between gap-2 m-2 pb-2">
 <!--        <Button icon="pi pi-refresh" rounded raised v-tooltip.bottom="`Actualizar inventario`" />-->
         <span></span>
-        <Button :label="`Ver precio ${includeIva ? 'sin iva' : 'con iva'}`" @click="toggleIva" severity="info" outlined />
+        <Button :label="`Ver precios ${includeIva ? 'sin iva' : 'con iva'}`" @click="toggleIva" severity="info" outlined />
       </div>
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -85,9 +85,9 @@ const hasLastUpdateTracking = computed(() => {
         </thead>
         <tbody>
         <tr
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-            v-for="item in props.quantity"
-            :key="item.id"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          v-for="item in props.quantity"
+          :key="item.id"
         >
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             <MpColor :color="item.color" />
@@ -113,9 +113,9 @@ const hasLastUpdateTracking = computed(() => {
           <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
             <InlineMessage
-              v-if="item?.type === 'Unico'"
+              v-if="item?.type === 'Unico' || item?.type === 'Único'"
               severity="info"
-            >Unico</InlineMessage>
+            >Único</InlineMessage>
           </td>
         </tr>
         <tr v-if="props?.quantity?.length === 0">
