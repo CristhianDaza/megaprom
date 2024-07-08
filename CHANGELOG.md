@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased] - 08/07/2024
+## [1.6.2] - 08/07/2024
 
 ### Fixed
 - Fix key `isLogin` localstorage in the project.
@@ -163,6 +163,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
+[1.6.2]: https://github.com/CristhianDaza/megaprom/pull/17
 [1.6.1]: https://github.com/CristhianDaza/megaprom/pull/16
 [1.6.0]: https://github.com/CristhianDaza/megaprom/pull/15
 [1.5.0]: https://github.com/CristhianDaza/megaprom/pull/14
