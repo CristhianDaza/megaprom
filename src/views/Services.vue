@@ -8,7 +8,7 @@ const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => impo
 
 const breadcrumbItems = [
   {
-    icon: 'pi pi-cog',
+    icon: 'pi pi-book',
     label: 'Servicios'
   }
 ]
