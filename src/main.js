@@ -25,6 +25,7 @@ app.mixin(VueHeadMixin)
 
 const userStore = useUserStore()
 const auth = getAuth();
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = {
@@ -32,8 +33,10 @@ onAuthStateChanged(auth, (user) => {
       email: user.email
     }
     userStore.hasUser(uid)
+    localStorage.setItem('isLogin', 'true')
   } else {
     userStore.hasUser(null)
+    localStorage.setItem('isLogin', 'false')
   }
 })
 

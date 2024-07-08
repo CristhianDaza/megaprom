@@ -22,6 +22,7 @@ export const useUserStore = defineStore('user', {
           state.loginStatus = 'error'
         })
         console.error(error)
+        localStorage.setItem('isLogin', 'false')
       }
     },
     
