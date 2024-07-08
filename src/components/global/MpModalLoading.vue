@@ -103,7 +103,7 @@ onMounted(() => {
             <i
               v-else
               class="pi text-xl"
-              :class="'pi-' + (products.statusFirebase === 'success' ? 'check text-green-500' : 'times text-red-500')"
+              :class="'pi-' + (products.statusFirebase === 'failed' ? 'times text-red-500' : 'check text-green-500')"
             ></i>
           </div>
         </div>
