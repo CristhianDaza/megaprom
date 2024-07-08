@@ -14,6 +14,7 @@ export function useProductHelpers() {
   const lastUpdateProducts = ref()
   const isLoadingFirebase = ref(false)
   const isUpdatedFirebase = ref(false)
+  const statusFirebase = ref()
   
   const setAllProductsAndPromos = async (isAdmin, updated = false) => {
     try {
@@ -55,6 +56,8 @@ export function useProductHelpers() {
           await addDoc(collection(db, 'allProducts'), { products: batch })
         }
         
+        statusFirebase.value = 'success'
+        
         return await getProductsFirebase()
       } else {
         return await getProductsFirebase()
@@ -62,8 +65,10 @@ export function useProductHelpers() {
     } catch (error) {
       isLoadingPromos.value = false
       isLoadingMp.value = false
+      isLoadingFirebase.value = false
       statusPromos.value = 'failed'
       statusMp.value = 'failed'
+      statusFirebase.value = 'failed'
       console.error('Error in setAllProductsAndPromos:', error)
       throw new Error(error.message || error.code)
     }
@@ -80,21 +85,26 @@ export function useProductHelpers() {
     setTimeout(() => {
       isLoadingAllProducts.value = false
       isUpdatedFirebase.value = false
-    }, 1500)
+    }, 1000)
     return allNormalizedProducts.sort((a, b) => a.name.localeCompare(b.name))
   }
   
   const _deleteAllProducts = async () => {
-    const docRef = await getDocs(collection(db, 'allProducts'))
-    const lastUpdateRef = await getDocs(collection(db, 'lastedUpdated'))
-    
-    const deleteLastUpdate = lastUpdateRef.docs.map(document => deleteDoc(doc(db, 'lastedUpdated', document.id)))
-    
-    const deletePromises = docRef.docs.map(document => deleteDoc(doc(db, 'allProducts', document.id)))
-    if (!deletePromises || deletePromises.length === 0) {
-      return
+    try {
+      const docRef = await getDocs(collection(db, 'allProducts'))
+      const lastUpdateRef = await getDocs(collection(db, 'lastedUpdated'))
+      
+      const deleteLastUpdate = lastUpdateRef.docs.map(document => deleteDoc(doc(db, 'lastedUpdated', document.id)))
+      
+      const deletePromises = docRef.docs.map(document => deleteDoc(doc(db, 'allProducts', document.id)))
+      if (!deletePromises || deletePromises.length === 0) {
+        return
+      }
+      await Promise.all([deletePromises, deleteLastUpdate])
+    } catch (error) {
+      isLoadingFirebase.value = false
+      statusFirebase.value = 'failed'
     }
-    await Promise.all([deletePromises, deleteLastUpdate])
   }
   
   const _isUpdated = async () => {
@@ -112,8 +122,13 @@ export function useProductHelpers() {
   }
   
   const _updatedFirebase = async () => {
-    await _deleteAllProducts()
-    await addDoc(collection(db, 'lastedUpdated'), { lastUpdate: new Date().toISOString() })
+    try {
+      await _deleteAllProducts()
+      await addDoc(collection(db, 'lastedUpdated'), { lastUpdate: new Date().toISOString() })
+    } catch (error) {
+      isLoadingFirebase.value = false
+      statusFirebase.value = 'failed'
+    }
   }
   
   return {

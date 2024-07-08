@@ -22,6 +22,7 @@ export const useProductsStore = defineStore('products', {
     statusMp: null,
     statusPromos: null,
     attempts: 0,
+    statusFirebase: null,
   }),
   actions: {
     async initProducts(update = false) {
@@ -36,6 +37,7 @@ export const useProductsStore = defineStore('products', {
         isUpdatedFirebase,
         statusMp,
         statusPromos,
+        statusFirebase,
       } = useProductHelpers()
       try {
         if (isLogin === 'true') {
@@ -47,13 +49,15 @@ export const useProductsStore = defineStore('products', {
           this.isUpdatedFirebase = isUpdatedFirebase
           this.statusMp = statusMp
           this.statusPromos = statusPromos
-          
+          this.statusFirebase = statusFirebase
           this.products = await setAllProductsAndPromos(true, update)
         } else {
           this.lastUpdateProducts = lastUpdateProducts
           this.products = await setAllProductsAndPromos(false)
         }
       } catch (error) {
+        this.isLoadingFirebase = false
+        this.statusFirebase = 'failed'
         console.error('Error in getAllProductsPromosApi:', error)
         this.error = error.message || error.code
       }
