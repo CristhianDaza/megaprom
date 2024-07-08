@@ -10,7 +10,7 @@ const { seeWp, showTooltip } = useWhatsApp()
       @click="seeWp"
       @mouseenter="showTooltip = true"
       @mouseleave="showTooltip = false"
-      class="fixed bottom-4 left-4 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[#128C7E]"
+      class="fixed bottom-4 left-4 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[#128C7E]"
     >
       <i class="text-3xl pi pi-whatsapp"></i>
       <span
