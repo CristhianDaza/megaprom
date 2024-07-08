@@ -49,17 +49,16 @@ onMounted(() => {
       :style="{ width: '30rem' }"
       class="rounded-lg shadow-lg"
     >
-      <div class="flex flex-col items-center p-6 space-y-6">
-        <h3 class="font-bold text-2xl text-center text-gray-700 dark:text-gray-300">
+      <div class="flex flex-col items-center px-6 space-y-3">
+        <h3 class="font-bold text-xl text-center text-gray-700 dark:text-gray-300 mb-3">
           No cerrar esta ventana
         </h3>
-        <Divider />
-        <div class="flex items-center gap-4 w-full justify-between">
+        <div class="flex items-center w-full justify-between">
           <p class="font-semibold text-gray-600 dark:text-gray-300">Actualizando API MP:</p>
           <div class="flex items-center">
             <ProgressSpinner
               v-if="products.isLoadingMp"
-              style="width: 25px; height: 25px"
+              style="width: 20px; height: 20px"
               strokeWidth="8"
               class="fill-current text-blue-500 dark:text-blue-400"
               animationDuration=".5s"
@@ -72,12 +71,12 @@ onMounted(() => {
             ></i>
           </div>
         </div>
-        <div class="flex items-center gap-4 w-full justify-between">
+        <div class="flex items-center w-full justify-between">
           <p class="font-semibold text-gray-600 dark:text-gray-300">Actualizando API Promos:</p>
           <div class="flex items-center">
             <ProgressSpinner
               v-if="products.isLoadingPromos"
-              style="width: 25px; height: 25px"
+              style="width: 20px; height: 20px"
               strokeWidth="8"
               class="fill-current text-blue-500 dark:text-blue-400"
               animationDuration=".5s"
@@ -90,24 +89,26 @@ onMounted(() => {
             ></i>
           </div>
         </div>
-        <div v-if="products.isUpdatedFirebase" class="flex items-center gap-4 w-full justify-between">
-          <Divider />
+        <div v-if="products.isUpdatedFirebase" class="flex items-center w-full justify-between">
           <p class="font-semibold text-gray-600 dark:text-gray-300">Actualizando Base de Datos:</p>
           <div class="flex items-center">
             <ProgressSpinner
               v-if="products.isLoadingFirebase"
-              style="width: 25px; height: 25px"
+              style="width: 20px; height: 20px"
               strokeWidth="8"
               class="fill-current text-blue-500 dark:text-blue-400"
               animationDuration=".5s"
               aria-label="Cargando productos..."
             />
-            <i v-else class="pi pi-check text-green-500 text-xl"></i>
+            <i
+              v-else
+              class="pi text-xl"
+              :class="'pi-' + (products.statusFirebase === 'failed' ? 'times text-red-500' : 'check text-green-500')"
+            ></i>
           </div>
         </div>
         <template v-if="products.statusMp === 'failed' || products.statusPromos === 'failed'">
-          <Divider />
-          <p v-if="products.attempts < 3" class="font-semibold text-red-500 dark:text-red-400">
+          <p v-if="products.attempts < 3" class="font-semibold text-red-500 dark:text-red-400 pt-5">
             Hubo un error al actualizar la base de datos, por favor intenta de nuevo.
           </p>
           <Button
@@ -146,15 +147,5 @@ Dialog {
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-Divider {
-  height: 1px;
-  background-color: #e5e7eb;
-  margin: 1rem 0;
-}
-
-.dark Divider {
-  background-color: #374151;
 }
 </style>
