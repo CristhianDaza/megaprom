@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.6.4] - 09/07/2024
 
+### Added
+- Add version in `MpFooter.vue` component.
+
 ### Fixed
 - Fix call service in init project.
-
 
 ## [1.6.3] - 08/07/2024
 
@@ -125,7 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.1] - 21/05/2024
 
 ### Fixed
-- Fix error of type un helpers.
+- Fix error of type in helpers.
 
 ## [1.2.0] - 21/05/2024
 
