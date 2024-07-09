@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add page services.
 - Add new colors in list of colors in the product card.
+- Add color name in tooltip of the product card.
 
 ### Changed
 - Change number of visibilities products in similar products.
