@@ -185,21 +185,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
-[1.6.4]: https://github.com/CristhianDaza/megaprom/pull/19
-[1.6.3]: https://github.com/CristhianDaza/megaprom/pull/18
-[1.6.2]: https://github.com/CristhianDaza/megaprom/pull/17
-[1.6.1]: https://github.com/CristhianDaza/megaprom/pull/16
-[1.6.0]: https://github.com/CristhianDaza/megaprom/pull/15
-[1.5.0]: https://github.com/CristhianDaza/megaprom/pull/14
-[1.4.0]: https://github.com/CristhianDaza/megaprom/pull/13
-[1.3.1]: https://github.com/CristhianDaza/megaprom/pull/9
-[1.3.0]: https://github.com/CristhianDaza/megaprom/pull/8
-[1.2.2]: https://github.com/CristhianDaza/megaprom/pull/7
-[1.2.1]: https://github.com/CristhianDaza/megaprom/pull/6
-[1.2.0]: https://github.com/CristhianDaza/megaprom/pull/5
-[1.1.1]: https://github.com/CristhianDaza/megaprom/pull/4
-[1.1.0]: https://github.com/CristhianDaza/megaprom/pull/3
-[1.0.1]: https://github.com/CristhianDaza/megaprom/pull/2
-[1.0.0]: https://github.com/CristhianDaza/megaprom/pull/1
+[1.6.4]: https://github.com/CristhianDaza/megaprom/pull/19/files
+[1.6.3]: https://github.com/CristhianDaza/megaprom/pull/18/files
+[1.6.2]: https://github.com/CristhianDaza/megaprom/pull/17/files
+[1.6.1]: https://github.com/CristhianDaza/megaprom/pull/16/files
+[1.6.0]: https://github.com/CristhianDaza/megaprom/pull/15/files
+[1.5.0]: https://github.com/CristhianDaza/megaprom/pull/14/files
+[1.4.0]: https://github.com/CristhianDaza/megaprom/pull/13/files
+[1.3.1]: https://github.com/CristhianDaza/megaprom/pull/9/files
+[1.3.0]: https://github.com/CristhianDaza/megaprom/pull/8/files
+[1.2.2]: https://github.com/CristhianDaza/megaprom/pull/7/files
+[1.2.1]: https://github.com/CristhianDaza/megaprom/pull/6/files
+[1.2.0]: https://github.com/CristhianDaza/megaprom/pull/5/files
+[1.1.1]: https://github.com/CristhianDaza/megaprom/pull/4/files
+[1.1.0]: https://github.com/CristhianDaza/megaprom/pull/3/files
+[1.0.1]: https://github.com/CristhianDaza/megaprom/pull/2/files
+[1.0.0]: https://github.com/CristhianDaza/megaprom/pull/1/files
 
 
