@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change number of visibilities products in similar products.
 - Change style of button iva in the product view.
 
+## [1.6.4] - 09/07/2024
+
+### Fixed
+- Fix call service in init project.
+
+
 ## [1.6.3] - 08/07/2024
 
 ### Fixed
@@ -177,6 +183,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
+[1.6.4]: https://github.com/CristhianDaza/megaprom/pull/19
 [1.6.3]: https://github.com/CristhianDaza/megaprom/pull/18
 [1.6.2]: https://github.com/CristhianDaza/megaprom/pull/17
 [1.6.1]: https://github.com/CristhianDaza/megaprom/pull/16
