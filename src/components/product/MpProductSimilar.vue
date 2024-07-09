@@ -16,18 +16,18 @@ const props = defineProps({
 const responsiveOptions = ref([
   {
     breakpoint: '1400px',
-    numVisible: 2,
-    numScroll: 1
+    numVisible: 4,
+    numScroll: 4
   },
   {
     breakpoint: '1199px',
     numVisible: 3,
-    numScroll: 1
+    numScroll: 3
   },
   {
     breakpoint: '767px',
     numVisible: 2,
-    numScroll: 1
+    numScroll: 2
   },
   {
     breakpoint: '575px',
@@ -52,7 +52,7 @@ onMounted(async () => {
     <CarouselP
       :value="products.similarProducts"
       :num-visible="products.similarProducts.length === 3 ? 3 : 4"
-      :num-scroll="3"
+      :num-scroll="4"
       circular
       :responsiveOptions="responsiveOptions"
     >
