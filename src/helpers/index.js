@@ -269,7 +269,7 @@ export const formatColor = (color) => {
     'Transparente / Azul Rey': '#FFFFFF00',
     'Azul Rey / Negro': '#4169E1',
     'Amarillo Limón': '#FFFFE0',
-    'Blanco Traslúcido': '#FFFFFF00',
+    'Blanco Traslúcido': '#FFFFFF80',
     'Naranja Traslúcido': '#FFA50088',
     'Rosado Traslúcido': '#FFC0CB88',
     'Rojo Sólido': '#FF0000',
@@ -310,8 +310,15 @@ export const formatColor = (color) => {
     'Negro translucido': '#000000',
     'Gris metalico': '#808080',
     'Azul metalico': '#0000FF88',
-    'Rojo metalico': '#800020'
-  }
+    'Rojo metalico': '#800020',
+    'Gris Translúcido': '#80808080',
+    'Verde Traslúcido': '#00800080',
+    'Negro Traslúcido': '#00000080',
+    'Rosa Pastel': '#FFD1DC',
+    'Morado Pastel': '#DCC6E0',
+    'Azul Pastel': '#AEC6CF',
+    'Verde Pastel': '#77DD77'
+}
   
   const normalizeColorName = (name) => {
     return name
