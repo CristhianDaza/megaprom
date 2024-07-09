@@ -3,6 +3,8 @@ import {defineAsyncComponent} from "vue";
 
 const MpThemeButton = defineAsyncComponent(/* webpackChunkName: "mpThemeButton" */() => import('@/components/global/MpThemeButton.vue'))
 const MpSocialMedia = defineAsyncComponent(/* webpackChunkName: "mpSocialMedia" */() => import('@/components/global/MpSocialMedia.vue'))
+
+const version = import.meta.env.VITE_VERSION
 </script>
 
 <template>
@@ -20,7 +22,7 @@ const MpSocialMedia = defineAsyncComponent(/* webpackChunkName: "mpSocialMedia" 
           <Divider />
         </div>
         <div class="sm:flex sm:items-center sm:justify-between mt-[10px] md:mt-[-40px]">
-          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{ new Date().getFullYear() }} Megapromocionales LTDA.</span>
+          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{ new Date().getFullYear() }} Megapromocionales LTDA. <span class="version text-gray-600">- v{{version}}</span></span>
         </div>
       </div>
     </div>
@@ -37,5 +39,7 @@ const MpSocialMedia = defineAsyncComponent(/* webpackChunkName: "mpSocialMedia" 
 </template>
 
 <style scoped>
-
+.version {
+  font-size: 0.9em;
+}
 </style>
