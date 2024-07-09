@@ -153,7 +153,7 @@ export const constructTotalProductsCa = (children, stockData) => {
       if (stockEntry) {
         totalProducts += stockEntry.Stock
       }
-    });
+    })
   }
   return totalProducts
 }
@@ -167,7 +167,7 @@ export const constructTableQuantityMp = (materials) => {
     
     const item = {
       color: material.color_nombre,
-      colorName: `${material.color_nombre} ${material.variedad ? ` (${material.variedad})` : ''}`,
+      colorName: `${material.color_nombre}${material.variedad ? ` (${material.variedad})` : ''}`,
       quantity: material.inventario_almacen?.[0]?.cantidad,
       inTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].cantidad : null,
       statusTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].estado : null,
@@ -175,7 +175,7 @@ export const constructTableQuantityMp = (materials) => {
       lastUpdateTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].ultima_actualizacion : null,
       idColorTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].material_id : null,
       price: discountedPrice
-    };
+    }
     
     Object.keys(item).forEach(key => {
       if (item[key] == null) {
@@ -184,7 +184,7 @@ export const constructTableQuantityMp = (materials) => {
     })
     
     quantity.push(item)
-  });
+  })
   
   return quantity
 }
@@ -202,9 +202,9 @@ export const constructTableQuantityCA = (children, stockData) => {
           quantity: stockEntry.Stock,
           price: child.precio,
           type: child.tipo
-        });
+        })
       }
-    });
+    })
   }
   return table
 }
@@ -217,124 +217,120 @@ const _processString = (input) => {
   return lowerCased.charAt(0).toUpperCase() + lowerCased.slice(1)
 }
 
-export const formatColor = (color) => {
-  const colors = {
-    'Blanco': '#FFFFFF',
-    'Negro': '#000000',
-    'Rojo': '#FF0000',
-    'Azul': '#0000FF',
-    'Verde': '#008000',
-    'Amarillo': '#FFFF00',
-    'Naranja': '#ff4d00',
-    'Rosa': '#FFC0CB',
-    'Morado': '#800080',
-    'Gris': '#808080',
-    'Cian': '#00FFFF',
-    'Marrón': '#A52A2A',
-    'Violeta': '#EE82EE',
-    'Turquesa': '#40E0D0',
-    'Lima': '#00FF00',
-    'Oro': '#FFD700',
-    'Plateado': '#C0C0C0',
-    'Plata': '#C0C0C0',
-    'Celeste': '#87CEEB',
-    'Lavanda': '#E6E6FA',
-    'Fucsia': '#FF00FF',
-    'Azul Rey': '#184ae3',
-    'Verde Esmeralda': '#50C878',
-    'Azul Cielo': '#87CEEB',
-    'Azul Oscuro': '#00008B',
-    'Verde Limón': '#32CD32',
-    'Bamboo': '#E3A857',
-    'Verde Oscuro': '#006400',
-    'Camel': '#C19A6B',
-    'Natural': '#F5F5DC',
-    'Tricolor': '#FFD700', // Amarillo
-    'Azul y Verde': '#00FF7F', // Verde Claro
-    'Negro / Gris': '#2F4F4F',
-    'Khaki': '#F0E68C',
-    'Blanco Sólido': '#FFFFFF',
-    'Plateado / Negro': '#C0C0C0',
-    'Azul Claro': '#ADD8E6',
-    'Gris Oscuro': '#A9A9A9',
-    'Azul Petróleo': '#004953',
-    'Vinotinto': '#800000',
-    'Transparente': '#FFFFFF00',
-    'Plateado / Azul Rey': '#4169E1',
-    'Amarillo Neón': '#FFFF33',
-    'Naranja Neón': '#FF6600',
-    'Café': '#6F4E37',
-    'Rosado Oro': '#B76E79',
-    'Transparente / Negro': '#FFFFFF00',
-    'Transparente / Azul Rey': '#FFFFFF00',
-    'Azul Rey / Negro': '#4169E1',
-    'Amarillo Limón': '#FFFFE0',
-    'Blanco Traslúcido': '#FFFFFF80',
-    'Naranja Traslúcido': '#FFA50088',
-    'Rosado Traslúcido': '#FFC0CB88',
-    'Rojo Sólido': '#FF0000',
-    'Verde Esmeralda Traslúcido': '#50C87888',
-    'Morado Traslúcido': '#80008088',
-    'Azul Rey Sólido': '#4169E1',
-    'Amarillo Traslúcido': '#FFFF0088',
-    'Rojo Traslúcido': '#FF000088',
-    'Azul Rey Traslúcido': '#4169E188',
-    'Blanco / Rojo': '#FFFFFF',
-    'Blanco / Negro': '#FFFFFF',
-    'Blanco / Azul Rey': '#FFFFFF',
-    'Blanco / Verde': '#FFFFFF',
-    'Naranja Neón / Blanco': '#FFFFFF',
-    'Blanco / Azul Oscuro': '#FFFFFF',
-    'Blanco / Rosado Neón': '#FFFFFF',
-    'Azul Traslúcido': '#0000FF88',
-    'Amarillo Sólido': '#FFFF00',
-    'Morado Sólido': '#800080',
-    'Naranja Sólido': '#FFA500',
-    'Burgundy': '#800020',
-    'Negro / Rojo': '#000000',
-    'Negro / Azul Rey': '#000000',
-    'Negro / Negro': '#000000',
-    'Negro / Azul Oscuro': '#000000',
-    'Azul Rey / Rsd, Amr, Vr': '#4169E1',
-    'Blanco / Rsd, Amr, Vr': '#FFFFFF',
-    'Rosado, Amarillo, Azul': '#FFC0CB',
-    'Rosado, Amarillo, Verde': '#FFC0CB',
-    'Azul Turquesa': '#40E0D0',
-    'Blanco / Colores': '#FFFFFF',
-    'Blanco / Blanco': '#FFFFFF',
-    'Rosado, Amarillo. Verde': '#FFC0CB',
-    'Rosado': '#bf61ff',
-    'Beige': '#F5F5DC',
-    'Amarillo metálico': '#FFD700',
-    'Tinto': '#800020',
-    'Negro translucido': '#000000',
-    'Gris metalico': '#808080',
-    'Azul metalico': '#0000FF88',
-    'Rojo metalico': '#800020',
-    'Gris Translúcido': '#80808080',
-    'Verde Traslúcido': '#00800080',
-    'Negro Traslúcido': '#00000080',
-    'Rosa Pastel': '#FFD1DC',
-    'Morado Pastel': '#DCC6E0',
-    'Azul Pastel': '#AEC6CF',
-    'Verde Pastel': '#77DD77'
+const _colors = new Map([
+  ['amarillo limon', '#FFFFE0'],
+  ['amarillo metalico', '#FFD700'],
+  ['amarillo neon', '#FFFF33'],
+  ['amarillo solido', '#FFFF00'],
+  ['amarillo traslucido', '#FFFF0088'],
+  ['amarillo', '#FFFF00'],
+  ['azul cielo', '#87CEEB'],
+  ['azul claro', '#ADD8E6'],
+  ['azul metalico', '#0000FF88'],
+  ['azul oscuro', '#00008B'],
+  ['azul pastel', '#AEC6CF'],
+  ['azul petroleo', '#004953'],
+  ['azul rey / negro', '#4169E1'],
+  ['azul rey / rsd, amr, vr', '#4169E1'],
+  ['azul rey solido', '#4169E1'],
+  ['azul rey traslucido', '#4169E188'],
+  ['azul rey', '#184ae3'],
+  ['azul traslucido', '#0000FF88'],
+  ['azul turquesa', '#40E0D0'],
+  ['azul y verde', '#00FF7F'],
+  ['azul', '#0000FF'],
+  ['bamboo', '#E3A857'],
+  ['beige', '#F5F5DC'],
+  ['blanco / azul oscuro', '#FFFFFF'],
+  ['blanco / azul rey', '#FFFFFF'],
+  ['blanco / blanco', '#FFFFFF'],
+  ['blanco / colores', '#FFFFFF'],
+  ['blanco / negro', '#FFFFFF'],
+  ['blanco / rojo', '#FFFFFF'],
+  ['blanco / rosado neon', '#FFFFFF'],
+  ['blanco / rsd, amr, vr', '#FFFFFF'],
+  ['blanco / verde', '#FFFFFF'],
+  ['blanco solido', '#FFFFFF'],
+  ['blanco traslucido', '#FFFFFF80'],
+  ['blanco', '#FFFFFF'],
+  ['burgundy', '#800020'],
+  ['cafe', '#6F4E37'],
+  ['camel', '#C19A6B'],
+  ['celeste', '#87CEEB'],
+  ['cian', '#00FFFF'],
+  ['fucsia', '#FF00FF'],
+  ['gris metalico', '#808080'],
+  ['gris oscuro', '#A9A9A9'],
+  ['gris translucido', '#80808080'],
+  ['gris', '#808080'],
+  ['khaki', '#F0E68C'],
+  ['lavanda', '#E6E6FA'],
+  ['lima', '#00FF00'],
+  ['marron', '#A52A2A'],
+  ['morado pastel', '#DCC6E0'],
+  ['morado solido', '#800080'],
+  ['morado traslucido', '#80008088'],
+  ['morado', '#800080'],
+  ['naranja neon / blanco', '#FFFFFF'],
+  ['naranja neon', '#FF6600'],
+  ['naranja solido', '#FFA500'],
+  ['naranja traslucido', '#FFA50088'],
+  ['naranja', '#ff4d00'],
+  ['natural', '#F5F5DC'],
+  ['negro / azul oscuro', '#000000'],
+  ['negro / azul rey', '#000000'],
+  ['negro / gris', '#2F4F4F'],
+  ['negro / negro', '#000000'],
+  ['negro / rojo', '#000000'],
+  ['negro translucido', '#00000080'],
+  ['negro translucido', '#00000080'],
+  ['negro traslucido', '#00000080'],
+  ['negro', '#000000'],
+  ['oro', '#FFD700'],
+  ['plata', '#C0C0C0'],
+  ['plateado / azul rey', '#4169E1'],
+  ['plateado / negro', '#C0C0C0'],
+  ['plateado', '#C0C0C0'],
+  ['rojo metalico', '#800020'],
+  ['rojo solido', '#FF0000'],
+  ['rojo traslucido', '#FF000088'],
+  ['rojo', '#FF0000'],
+  ['rosa neon', '#FF00FF'],
+  ['rosa pastel', '#FFD1DC'],
+  ['rosa', '#FFC0CB'],
+  ['rosado oro', '#B76E79'],
+  ['rosado traslucido', '#FFC0CB88'],
+  ['rosado', '#bf61ff'],
+  ['rosado, amarillo, azul', '#FFC0CB'],
+  ['rosado, amarillo, verde', '#FFC0CB'],
+  ['rosado, amarillo. verde', '#FFC0CB'],
+  ['tinto', '#800020'],
+  ['transparente / azul rey', '#FFFFFF00'],
+  ['transparente / negro', '#FFFFFF00'],
+  ['transparente', '#FFFFFF00'],
+  ['tricolor', '#FFD700'],
+  ['turquesa', '#40E0D0'],
+  ['verde esmeralda traslucido', '#50C87888'],
+  ['verde esmeralda', '#50C878'],
+  ['verde limon', '#32CD32'],
+  ['verde metalico', '#50C878'],
+  ['verde neon', '#00FF00'],
+  ['verde oscuro', '#006400'],
+  ['verde pastel', '#77DD77'],
+  ['verde translucido', '#00800080'],
+  ['verde traslucido', '#00800080'],
+  ['verde', '#008000'],
+  ['vinotinto', '#800000'],
+  ['violeta', '#EE82EE']
+])
+
+const _normalizeColorName = (name) => {
+  return name.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 }
-  
-  const normalizeColorName = (name) => {
-    return name
-      .trim()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase()
-  };
-  
-  const normalizedColor = normalizeColorName(color)
-  
-  const foundColor = Object.keys(colors).find(
-    key => normalizeColorName(key) === normalizedColor
-  )
-  
-  return colors[foundColor] || null
+
+export const formatColor = (color) => {
+  const normalizedColor = _normalizeColorName(color)
+  return _colors.get(normalizedColor) || null
 }
 
 export const getDiscounts = (materials) => {
