@@ -45,7 +45,6 @@ watch(
 )
 
 onMounted(async () => {
-  localStorage.setItem('isLogin', userStore.user ? 'true' : 'false')
   await products.initProducts()
   await menuStore.getMenu()
 })
