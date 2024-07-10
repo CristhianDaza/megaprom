@@ -162,12 +162,12 @@ export const useProductsStore = defineStore('products', {
         productData = normalizeProductsMP(product)
       } else if (api === 'promoopcion') {
         const { tableQuantity } = product
-        const skuPromises = tableQuantity.map(async sku => {
-          const { data } = await getProductStock(sku.sku)
-          return data
-        })
+        const skuData = []
 
-        const skuData = await Promise.all(skuPromises)
+        for (const sku of tableQuantity) {
+          const { data } = await getProductStock(sku.sku)
+          skuData.push(data)
+        }
 
         const productReduce = skuData.reduce((acc, skuResponse) => {
           if (skuResponse.success && skuResponse.Stocks && skuResponse.Stocks.length > 0) {
