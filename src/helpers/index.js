@@ -201,7 +201,24 @@ export const constructTableQuantityCA = (children, stockData) => {
           colorName: _processString(child.color),
           quantity: stockEntry.Stock,
           price: child.precio,
-          type: child.tipo
+          type: child.tipo,
+          sku: child.skuHijo
+        })
+      }
+    })
+  }
+  return table
+}
+
+export const constructUpdatedTableQuantityCA = (children, stockData) => {
+  const table = []
+  if (children) {
+    children.forEach(child => {
+      const stockEntry = stockData.find(item => item.Material === child.sku)
+      if (stockEntry) {
+        table.push({
+          ...child,
+          quantity: stockEntry.Stock,
         })
       }
     })

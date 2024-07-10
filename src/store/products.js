@@ -5,6 +5,7 @@ import { getProductId } from '@/api/apiMarpico.js'
 import { getProductStock } from '@/api/apiPromos.js'
 import { collection, getDocs, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase.js'
+import { constructUpdatedTableQuantityCA } from '@/helpers/index.js'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -160,14 +161,35 @@ export const useProductsStore = defineStore('products', {
         const [product] = await data
         productData = normalizeProductsMP(product)
       } else if (api === 'promoopcion') {
-        // TODO: Implement the updateProduct function for the 'promoopcion' API
-        // const { data } = await getProductStock(id)
-        // productData = data
-        console.log('product', product)
-        return
+        const { tableQuantity } = product
+        const skuPromises = tableQuantity.map(async sku => {
+          const { data } = await getProductStock(sku.sku)
+          return data
+        })
+
+        const skuData = await Promise.all(skuPromises)
+
+        const productReduce = skuData.reduce((acc, skuResponse) => {
+          if (skuResponse.success && skuResponse.Stocks && skuResponse.Stocks.length > 0) {
+            skuResponse.Stocks.forEach(stock => {
+              acc.push({
+                Material: stock.Material,
+                Stock: stock.Stock,
+                Planta: stock.Planta
+              })
+            })
+          }
+          return acc
+        }, [])
+        
+        const newProductData = constructUpdatedTableQuantityCA(product.tableQuantity, productReduce)
+        
+        productData = {
+          ...product,
+          tableQuantity: newProductData,
+          lastUpdate: new Date().toISOString()
+        }
       }
-      
-      if (!productData) return console.log('No product data found')
       
       const allProductsRef = collection(db, 'allProducts')
       const allCollectionsSnapshot = await getDocs(allProductsRef)
@@ -187,14 +209,14 @@ export const useProductsStore = defineStore('products', {
             docData.products[productIndex] = updatedProduct
             
             await updateDoc(docSnapshot.ref, { products: docData.products })
-            this.updateProductInStore(updatedProduct)
+            this._updateProductInStore(updatedProduct)
           }
         }
       }
       this.isUpdatedTable = false
     },
     
-    updateProductInStore(updatedProduct) {
+    _updateProductInStore(updatedProduct) {
       const index = this.products.findIndex(product => product.id === updatedProduct.id)
       if (index !== -1) {
         this.products.splice(index, 1, updatedProduct)
