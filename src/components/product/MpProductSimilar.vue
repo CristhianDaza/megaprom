@@ -16,18 +16,18 @@ const props = defineProps({
 const responsiveOptions = ref([
   {
     breakpoint: '1400px',
-    numVisible: 2,
-    numScroll: 1
+    numVisible: 4,
+    numScroll: 4
   },
   {
     breakpoint: '1199px',
     numVisible: 3,
-    numScroll: 1
+    numScroll: 3
   },
   {
     breakpoint: '767px',
     numVisible: 2,
-    numScroll: 1
+    numScroll: 2
   },
   {
     breakpoint: '575px',
@@ -51,8 +51,8 @@ onMounted(async () => {
   <div v-if="products.similarProducts || products.similarProducts.length > 3 || similar" class="container mx-auto grid grid-cols-1 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
     <CarouselP
       :value="products.similarProducts"
-      :num-visible="products.similarProducts.length === 3 ? 3 : 5"
-      :num-scroll="3"
+      :num-visible="products.similarProducts.length === 3 ? 3 : 4"
+      :num-scroll="4"
       circular
       :responsiveOptions="responsiveOptions"
     >

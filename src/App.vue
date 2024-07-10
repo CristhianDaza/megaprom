@@ -28,20 +28,20 @@ const showToast = (severity, summary, detail) => {
 }
 
 watch(
-    () => userStore.loginStatus,
-    (newStatus) => {
-      if (newStatus === 'success') {
-        showToast('success', 'Inicio de sesión exitoso', 'Has iniciado sesión correctamente.')
-      } else if (newStatus === 'error') {
-        showToast('error', 'Error de inicio de sesión', 'Por favor verifique sus credenciales e inténtelo nuevamente.')
-      } else if (newStatus === 'logout') {
-        showToast('info', 'Cerrado de sesión exitoso', 'Se ha cerrado la sesión correctamente.')
-      }
-
-      setTimeout(() => {
-        userStore.resetLoginStatus()
-      }, 5000)
+  () => userStore.loginStatus,
+  (newStatus) => {
+    if (newStatus === 'success') {
+      showToast('success', 'Inicio de sesión exitoso', 'Has iniciado sesión correctamente.')
+    } else if (newStatus === 'error') {
+      showToast('error', 'Error de inicio de sesión', 'Por favor verifique sus credenciales e inténtelo nuevamente.')
+    } else if (newStatus === 'logout') {
+      showToast('info', 'Cerrado de sesión exitoso', 'Se ha cerrado la sesión correctamente.')
     }
+
+    setTimeout(() => {
+      userStore.resetLoginStatus()
+    }, 5000)
+  }
 )
 
 onMounted(async () => {

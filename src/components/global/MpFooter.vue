@@ -22,7 +22,7 @@ const version = import.meta.env.VITE_VERSION
           <Divider />
         </div>
         <div class="sm:flex sm:items-center sm:justify-between mt-[10px] md:mt-[-40px]">
-          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{ new Date().getFullYear() }} Megapromocionales LTDA. <span class="version text-gray-600">- v{{version}}</span></span>
+          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{ new Date().getFullYear() }} Megapromocionales LTDA. <span class="version text-gray-600">v{{version}}</span></span>
         </div>
       </div>
     </div>

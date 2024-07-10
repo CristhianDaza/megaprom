@@ -1,6 +1,11 @@
 import { defineStore } from 'pinia'
-import { normalizeAndFilterProducts } from '@/utils'
+import { normalizeAndFilterProducts, normalizeProductsMP } from '@/utils'
 import { useProductHelpers } from '@/composables/useProduct.js'
+import { getProductId } from '@/api/apiMarpico.js'
+import { getProductStock } from '@/api/apiPromos.js'
+import { collection, getDocs, updateDoc } from 'firebase/firestore'
+import { db } from '../../firebase.js'
+import { constructUpdatedTableQuantityCA } from '@/helpers/index.js'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -23,6 +28,7 @@ export const useProductsStore = defineStore('products', {
     statusPromos: null,
     attempts: 0,
     statusFirebase: null,
+    isUpdatedTable: false,
   }),
   actions: {
     async initProducts(update = false) {
@@ -144,6 +150,77 @@ export const useProductsStore = defineStore('products', {
     },
     resetAttempts() {
       this.attempts = 0
+    },
+    
+    async updateProduct(api, id, product) {
+      this.isUpdatedTable = true
+      let productData = null
+      
+      if (api === 'marpico') {
+        const { data } = await getProductId(id)
+        const [product] = await data
+        productData = normalizeProductsMP(product)
+      } else if (api === 'promoopcion') {
+        const { tableQuantity } = product
+        const skuPromises = tableQuantity.map(async sku => {
+          const { data } = await getProductStock(sku.sku)
+          return data
+        })
+
+        const skuData = await Promise.all(skuPromises)
+
+        const productReduce = skuData.reduce((acc, skuResponse) => {
+          if (skuResponse.success && skuResponse.Stocks && skuResponse.Stocks.length > 0) {
+            skuResponse.Stocks.forEach(stock => {
+              acc.push({
+                Material: stock.Material,
+                Stock: stock.Stock,
+                Planta: stock.Planta
+              })
+            })
+          }
+          return acc
+        }, [])
+        
+        const newProductData = constructUpdatedTableQuantityCA(product.tableQuantity, productReduce)
+        
+        productData = {
+          ...product,
+          tableQuantity: newProductData,
+          lastUpdate: new Date().toISOString()
+        }
+      }
+      
+      const allProductsRef = collection(db, 'allProducts')
+      const allCollectionsSnapshot = await getDocs(allProductsRef)
+      
+      for (const docSnapshot of allCollectionsSnapshot.docs) {
+        const docData = docSnapshot.data()
+        
+        if (docData.products) {
+          const productIndex = docData.products.findIndex(product => product.id === id)
+          
+          if (productIndex !== -1) {
+            const updatedProduct = {
+              ...docData.products[productIndex],
+              ...productData,
+              lastUpdate: new Date().toISOString()
+            };
+            docData.products[productIndex] = updatedProduct
+            
+            await updateDoc(docSnapshot.ref, { products: docData.products })
+            this._updateProductInStore(updatedProduct)
+          }
+        }
+      }
+      this.isUpdatedTable = false
+    },
+    
+    _updateProductInStore(updatedProduct) {
+      const index = this.products.findIndex(product => product.id === updatedProduct.id)
+      if (index !== -1) {
+        this.products.splice(index, 1, updatedProduct)
+      }
     }
   }
 })

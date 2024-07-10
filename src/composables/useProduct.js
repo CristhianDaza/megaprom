@@ -45,7 +45,7 @@ export function useProductHelpers() {
         
         const allNormalizedProducts = [...normalizedPromosResults, ...normalizedSearchResults]
 
-        const batchSize = 200
+        const batchSize = 450
         isLoadingFirebase.value = true
         isUpdatedFirebase.value = true
         

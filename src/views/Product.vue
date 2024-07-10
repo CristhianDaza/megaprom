@@ -41,6 +41,13 @@ watch(() => productsStore.product, (newValue) => {
   updateMeta();
 })
 
+watch(() => productsStore.isUpdatedTable, (newValue) => {
+  if (!newValue) {
+    productsStore.getProductById(route.params.id)
+  }
+})
+
+
 onBeforeMount(async () => {
   await productsStore.getProductById(route.params.id)
 })
@@ -93,12 +100,13 @@ watch(idPage, updateMeta);
     </div>
   </div>
   <div class="container mx-auto grid grid-cols-1 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 my-3">
-    <template v-if="productsStore.isLoading">
+    <template v-if="productsStore.isLoading || productsStore.isUpdatedTable">
       <Skeleton height="18rem"/>
     </template>
     <MpProductTableQuantity
       v-else
       :quantity="productsStore.product?.tableQuantity"
+      :product="productsStore.product"
     />
   </div>
   <template v-if="productsStore.isLoading">
