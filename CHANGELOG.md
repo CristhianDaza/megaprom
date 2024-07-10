@@ -11,11 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add page services.
 - Add new colors in list of colors in the product card.
 - Add color name in tooltip of the product card.
+- Add update inventory in `marpico` products.
+- Add update inventory in `promoopcion` products.
 
 ### Changed
 - Change number of visibilities products in similar products.
 - Change style of button iva in the product view.
 - Optimized the function color in the product card.
+- Edit version in `MpFooter.vue` component.
+- Change styles of the product card.
+- Change `batchSize` in firebase.
+
+### Fixed
+- Fix error in `_normalizeColorName` function.
 
 ## [1.6.4] - 09/07/2024
 
