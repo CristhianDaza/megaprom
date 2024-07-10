@@ -325,6 +325,7 @@ const _colors = new Map([
 ])
 
 const _normalizeColorName = (name) => {
+  if (!name) return ''
   return name.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 }
 
