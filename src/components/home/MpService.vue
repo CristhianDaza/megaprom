@@ -35,12 +35,13 @@ const props = defineProps({
       >
         <Chip label="Productos" />
       </RouterLink>
-      <RouterLink
-        :to="{ name: 'service', params: { serviceId } }"
-        v-if="viewFirstButton"
-      >
-        <Chip label="Servicios" />
-      </RouterLink>
+<!--      <RouterLink-->
+<!--        :to="{ name: 'service', params: { serviceId } }"-->
+<!--        v-if="viewFirstButton"-->
+<!--      >-->
+<!--        <Chip label="Servicios" />-->
+<!--      </RouterLink>-->
+      <Chip label="Servicios" />
     </div>
   </div>
 </template>
