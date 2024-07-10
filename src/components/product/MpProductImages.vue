@@ -141,7 +141,7 @@ watch(() => props.images, (newValue) => {
       v-tooltip.top="`Descarga imagen ${currentSlide + 1}.`"
     />
   </div>
-  <Carousel id="gallery" :items-to-show="1.5" :wrap-around="true" v-model="currentSlide">
+  <Carousel id="gallery" :items-to-show="1" :wrap-around="true" v-model="currentSlide">
     <Slide v-for="(slide, index) in images" :key="index">
       <div class="carousel__item">
         <Image alt="Image" preview>
@@ -161,7 +161,7 @@ watch(() => props.images, (newValue) => {
               :alt="`producto ${id}`"
               :style="{ ...slotProps.style, maxWidth: '750px' }"
               @click="slotProps.onClick"
-              class="custom-preview-image w-full h-[750px] object-contain"
+              class="custom-preview-image w-full h-[950px] object-contain"
               @error="handleError"
             />
           </template>
