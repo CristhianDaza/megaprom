@@ -174,7 +174,7 @@ watch(() => props.images, (newValue) => {
   </Carousel>
   <Carousel
     id="thumbnails"
-    :items-to-show="5"
+    :items-to-show="7"
     :wrap-around="true"
     v-model="currentSlide"
     ref="carousel"
