@@ -14,6 +14,10 @@ const props = defineProps({
   quantity: {
     type: Array,
     required: true
+  },
+  product: {
+    type: Object,
+    required: true
   }
 })
 
@@ -23,6 +27,11 @@ const includeIva = ref(priceLocalStorage ? JSON.parse(priceLocalStorage) : false
 const toggleIva = () => {
   includeIva.value = !includeIva.value
   localStorage.setItem('includeIva', includeIva.value)
+}
+
+const updateInventory = () => {
+  const { id, api } = props?.product
+  products.updateProduct(api, id, props?.product)
 }
 
 const hasInTracking = computed(() => {
@@ -50,9 +59,21 @@ const hasLastUpdateTracking = computed(() => {
   <div class="container mx-auto">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div v-if="userStore.isLogged" class="flex flex-wrap items-center justify-between gap-2 m-2 pb-2">
-<!--        <Button icon="pi pi-refresh" rounded raised v-tooltip.bottom="`Actualizar inventario`" />-->
+        <Button
+          icon="pi pi-refresh"
+          rounded
+          raised
+          v-tooltip.bottom="`Actualizar inventario`"
+          severity="info"
+          @click="updateInventory"
+        />
         <span></span>
-        <Button :label="`Ver precios ${includeIva ? 'sin iva' : 'con iva'}`" @click="toggleIva" severity="info" outlined />
+        <Button
+          :label="`Ver precios ${includeIva ? 'sin iva' : 'con iva'}`"
+          @click="toggleIva"
+          severity="info"
+          outlined
+        />
       </div>
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -127,7 +148,7 @@ const hasLastUpdateTracking = computed(() => {
       </table>
     </div>
     <div class="float-right mt-5 text-gray-900 whitespace-nowrap dark:text-white">
-      Inventario actualizado: <span class="font-bold"><relative-time :datetime="products.lastUpdateProducts"></relative-time></span>.
+      Inventario actualizado: <span class="font-bold"><relative-time :datetime="product?.lastUpdate ?? products.lastUpdateProducts"></relative-time></span>.
     </div>
   </div>
 </template>

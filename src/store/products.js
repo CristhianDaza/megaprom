@@ -1,6 +1,10 @@
 import { defineStore } from 'pinia'
-import { normalizeAndFilterProducts } from '@/utils'
+import { normalizeAndFilterProducts, normalizeProductsMP } from '@/utils'
 import { useProductHelpers } from '@/composables/useProduct.js'
+import { getProductId } from '@/api/apiMarpico.js'
+import { getProductStock } from '@/api/apiPromos.js'
+import { collection, getDocs, updateDoc } from 'firebase/firestore'
+import { db } from '../../firebase.js'
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -23,6 +27,7 @@ export const useProductsStore = defineStore('products', {
     statusPromos: null,
     attempts: 0,
     statusFirebase: null,
+    isUpdatedTable: false,
   }),
   actions: {
     async initProducts(update = false) {
@@ -144,6 +149,56 @@ export const useProductsStore = defineStore('products', {
     },
     resetAttempts() {
       this.attempts = 0
+    },
+    
+    async updateProduct(api, id, product) {
+      this.isUpdatedTable = true
+      let productData = null
+      
+      if (api === 'marpico') {
+        const { data } = await getProductId(id)
+        const [product] = await data
+        productData = normalizeProductsMP(product)
+      } else if (api === 'promoopcion') {
+        // TODO: Implement the updateProduct function for the 'promoopcion' API
+        // const { data } = await getProductStock(id)
+        // productData = data
+        console.log('product', product)
+        return
+      }
+      
+      if (!productData) return console.log('No product data found')
+      
+      const allProductsRef = collection(db, 'allProducts')
+      const allCollectionsSnapshot = await getDocs(allProductsRef)
+      
+      for (const docSnapshot of allCollectionsSnapshot.docs) {
+        const docData = docSnapshot.data()
+        
+        if (docData.products) {
+          const productIndex = docData.products.findIndex(product => product.id === id)
+          
+          if (productIndex !== -1) {
+            const updatedProduct = {
+              ...docData.products[productIndex],
+              ...productData,
+              lastUpdate: new Date().toISOString()
+            };
+            docData.products[productIndex] = updatedProduct
+            
+            await updateDoc(docSnapshot.ref, { products: docData.products })
+            this.updateProductInStore(updatedProduct)
+          }
+        }
+      }
+      this.isUpdatedTable = false
+    },
+    
+    updateProductInStore(updatedProduct) {
+      const index = this.products.findIndex(product => product.id === updatedProduct.id)
+      if (index !== -1) {
+        this.products.splice(index, 1, updatedProduct)
+      }
     }
   }
 })
