@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 09/07/2024
+
+### Added
+- Add page services.
+- Add new colors in list of colors in the product card.
+- Add color name in tooltip of the product card.
+- Add update inventory in `marpico` products.
+- Add update inventory in `promoopcion` products.
+
+### Changed
+- Change number of visibilities products in similar products.
+- Change style of button iva in the product view.
+- Optimized the function color in the product card.
+- Edit version in `MpFooter.vue` component.
+- Change styles of the product card.
+- Change `batchSize` in firebase.
+
+### Fixed
+- Fix error in `_normalizeColorName` function.
+
 ## [1.6.4] - 09/07/2024
 
 ### Added
@@ -176,21 +196,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
-[1.6.4]: https://github.com/CristhianDaza/megaprom/pull/19
-[1.6.3]: https://github.com/CristhianDaza/megaprom/pull/18
-[1.6.2]: https://github.com/CristhianDaza/megaprom/pull/17
-[1.6.1]: https://github.com/CristhianDaza/megaprom/pull/16
-[1.6.0]: https://github.com/CristhianDaza/megaprom/pull/15
-[1.5.0]: https://github.com/CristhianDaza/megaprom/pull/14
-[1.4.0]: https://github.com/CristhianDaza/megaprom/pull/13
-[1.3.1]: https://github.com/CristhianDaza/megaprom/pull/9
-[1.3.0]: https://github.com/CristhianDaza/megaprom/pull/8
-[1.2.2]: https://github.com/CristhianDaza/megaprom/pull/7
-[1.2.1]: https://github.com/CristhianDaza/megaprom/pull/6
-[1.2.0]: https://github.com/CristhianDaza/megaprom/pull/5
-[1.1.1]: https://github.com/CristhianDaza/megaprom/pull/4
-[1.1.0]: https://github.com/CristhianDaza/megaprom/pull/3
-[1.0.1]: https://github.com/CristhianDaza/megaprom/pull/2
-[1.0.0]: https://github.com/CristhianDaza/megaprom/pull/1
+[1.7.0]: https://github.com/CristhianDaza/megaprom/pull/21/files
+[1.6.4]: https://github.com/CristhianDaza/megaprom/pull/19/files
+[1.6.3]: https://github.com/CristhianDaza/megaprom/pull/18/files
+[1.6.2]: https://github.com/CristhianDaza/megaprom/pull/17/files
+[1.6.1]: https://github.com/CristhianDaza/megaprom/pull/16/files
+[1.6.0]: https://github.com/CristhianDaza/megaprom/pull/15/files
+[1.5.0]: https://github.com/CristhianDaza/megaprom/pull/14/files
+[1.4.0]: https://github.com/CristhianDaza/megaprom/pull/13/files
+[1.3.1]: https://github.com/CristhianDaza/megaprom/pull/9/files
+[1.3.0]: https://github.com/CristhianDaza/megaprom/pull/8/files
+[1.2.2]: https://github.com/CristhianDaza/megaprom/pull/7/files
+[1.2.1]: https://github.com/CristhianDaza/megaprom/pull/6/files
+[1.2.0]: https://github.com/CristhianDaza/megaprom/pull/5/files
+[1.1.1]: https://github.com/CristhianDaza/megaprom/pull/4/files
+[1.1.0]: https://github.com/CristhianDaza/megaprom/pull/3/files
+[1.0.1]: https://github.com/CristhianDaza/megaprom/pull/2/files
+[1.0.0]: https://github.com/CristhianDaza/megaprom/pull/1/files
 
 

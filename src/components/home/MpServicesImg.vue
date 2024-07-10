@@ -1,4 +1,12 @@
 <script setup>
+import { defineAsyncComponent } from 'vue'
+
+const MpService = defineAsyncComponent(/* webpackChunkName: "mpService" */ () => import('@/components/home/MpService.vue'))
+
+const props = defineProps({
+  viewFirstButton: Boolean,
+})
+
 const images = [
   {
     id: 1,
@@ -7,6 +15,7 @@ const images = [
     src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/cat-07.png?alt=media&token=67742bed-a013-46d9-b5ec-7abc9c617068',
     alt: 'Marcación promocionales',
     color: 'text-[#5BC5F2]',
+    serviceId: 'promocioanles',
   },
   {
     id: 2,
@@ -15,6 +24,7 @@ const images = [
     src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/revistas.png?alt=media&token=dfa11190-530a-4d5d-adf8-788ab89890b5',
     alt: 'Offset impresión 5 colores',
     color: 'text-[#FFCC00]',
+    serviceId: 'offset',
   },
   {
     id: 3,
@@ -23,6 +33,7 @@ const images = [
     src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/tarjeta.png?alt=media&token=d1a54f94-deb5-4127-80c3-11c4fc2027ca',
     alt: 'Impresión digital',
     color: 'text-[#E6007D]',
+    serviceId: 'digital',
   }
 ]
 </script>
@@ -30,29 +41,28 @@ const images = [
 <template>
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[2rem] px-[1rem] xl:px-[2rem] container mx-auto text-center mt-5">
     <template
-      v-for="{ src, alt, title, description, color } in images"
+      v-for="{ src, alt, title, description, color, serviceId } in images"
     >
-      <div class="bg-white p-5 rounded-3xl drop-shadow-xl flex flex-col justify-between dark:bg-gray-800">
-        <div>
-          <h3 class="text-2xl font-bold pt-3 pb-5" :class="`${color}`">{{ title }}</h3>
-          <p class="text-[#0E2050] text-[1rem] text-justify pb-5 dark:text-white">{{ description }}</p>
-          <div class="flex justify-center items-center text-center pt-3">
-            <img
-              :src="src"
-              :alt="alt"
-              class="w-[18rem]"
-              height="100%"
-              width="100%"
-            />
-          </div>
-        </div>
-        <div class="flex gap-[4rem] mt-5 justify-center">
-          <RouterLink :to="{ name: 'products' }">
-            <Chip label="Productos" />
-          </RouterLink>
-          <Chip label="Servicios" />
-        </div>
-      </div>
+      <MpService
+        :src="src"
+        :alt="alt"
+        :title="title"
+        :description="description"
+        :color="color"
+        :serviceId="serviceId"
+        :viewFirstButton="true"
+        v-if="viewFirstButton"
+      />
+      <RouterLink :to="{ name: 'service', params: { serviceId } }" v-else>
+        <MpService
+          :src="src"
+          :alt="alt"
+          :title="title"
+          :description="description"
+          :color="color"
+          :serviceId="serviceId"
+        />
+      </RouterLink>
     </template>
   </div>
 </template>
