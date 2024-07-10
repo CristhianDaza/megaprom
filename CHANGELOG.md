@@ -201,7 +201,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
-[1.7.1]: https://github.com/CristhianDaza/megaprom/pull/22/files
+[1.7.1]: https://github.com/CristhianDaza/megaprom/pull/23/files
 [1.7.0]: https://github.com/CristhianDaza/megaprom/pull/21/files
 [1.6.4]: https://github.com/CristhianDaza/megaprom/pull/19/files
 [1.6.3]: https://github.com/CristhianDaza/megaprom/pull/18/files
