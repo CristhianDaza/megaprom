@@ -141,7 +141,7 @@ watch(() => props.images, (newValue) => {
       v-tooltip.top="`Descarga imagen ${currentSlide + 1}.`"
     />
   </div>
-  <Carousel id="gallery" :items-to-show="1.5" :wrap-around="true" v-model="currentSlide">
+  <Carousel id="gallery" :items-to-show="1" :wrap-around="true" v-model="currentSlide">
     <Slide v-for="(slide, index) in images" :key="index">
       <div class="carousel__item">
         <Image alt="Image" preview>
@@ -153,7 +153,7 @@ watch(() => props.images, (newValue) => {
             if (el && imageRefs.value) {
               imageRefs.value[index] = el
             }
-          }" class="w-full h-[350px] object-contain"/>
+          }" class="w-full h-[450px] object-contain"/>
           </template>
           <template #preview="slotProps">
             <img
@@ -174,14 +174,14 @@ watch(() => props.images, (newValue) => {
   </Carousel>
   <Carousel
     id="thumbnails"
-    :items-to-show="5"
+    :items-to-show="7"
     :wrap-around="true"
     v-model="currentSlide"
     ref="carousel"
   >
     <Slide v-for="(slide, i) in images" :key="i">
       <div class="carousel__item p-1 cursor-pointer" @click="slideTo(i)">
-        <img :src="slide" :alt="`producto ${id}`" @error="handleError" class="w-full h-[90px] object-contain">
+        <img :src="slide" :alt="`producto ${id}`" @error="handleError" class="w-full h-[80px] object-fill">
       </div>
     </Slide>
     <template #addons>

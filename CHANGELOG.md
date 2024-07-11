@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.2] - 10/07/2024
+
+### Changed
+- Change size image in the product view.
+- Change items to show in the product view.
+
+### Fixed
+- Fix the call api `promoopcion` in update inventory.
+
 ## [1.7.1] - 09/07/2024
 
 ### Changed
@@ -201,6 +210,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
+[1.7.2]: https://github.com/CristhianDaza/megaprom/pull/24/files
 [1.7.1]: https://github.com/CristhianDaza/megaprom/pull/23/files
 [1.7.0]: https://github.com/CristhianDaza/megaprom/pull/21/files
 [1.6.4]: https://github.com/CristhianDaza/megaprom/pull/19/files
