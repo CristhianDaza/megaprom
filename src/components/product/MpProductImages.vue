@@ -153,7 +153,7 @@ watch(() => props.images, (newValue) => {
             if (el && imageRefs.value) {
               imageRefs.value[index] = el
             }
-          }" class="w-full h-[350px] object-contain"/>
+          }" class="w-full h-[450px] object-contain"/>
           </template>
           <template #preview="slotProps">
             <img
@@ -161,7 +161,7 @@ watch(() => props.images, (newValue) => {
               :alt="`producto ${id}`"
               :style="{ ...slotProps.style, maxWidth: '750px' }"
               @click="slotProps.onClick"
-              class="custom-preview-image w-full h-[950px] object-contain"
+              class="custom-preview-image w-full h-[750px] object-contain"
               @error="handleError"
             />
           </template>
@@ -181,7 +181,7 @@ watch(() => props.images, (newValue) => {
   >
     <Slide v-for="(slide, i) in images" :key="i">
       <div class="carousel__item p-1 cursor-pointer" @click="slideTo(i)">
-        <img :src="slide" :alt="`producto ${id}`" @error="handleError" class="w-full h-[90px] object-contain">
+        <img :src="slide" :alt="`producto ${id}`" @error="handleError" class="w-full h-[80px] object-fill">
       </div>
     </Slide>
     <template #addons>
