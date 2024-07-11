@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+### Changed
+- Change size image in the product view.
+- Change items to show in the product view.
+
+### Fixed
+- Fix the call api `promoopcion` in update inventory.
+
 ## [1.7.1] - 09/07/2024
 
 ### Changed
