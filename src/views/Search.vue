@@ -10,7 +10,8 @@ const MpFilterDiscount = defineAsyncComponent(/* webpackChunkName: "mpFilterDisc
 const MpFilterQuantity = defineAsyncComponent(/* webpackChunkName: "mpFilterQuantity" */() => import('@/components/products/MpFilterQuantity.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
 
-const idPage = computed(() => route.query.q);
+const paramSearch = computed(() => route.query.q)
+const paramLabel = computed(() => route.query.label)
 
 const breadcrumbItems = [
   {
@@ -47,14 +48,18 @@ const updateMeta = () => {
       { name: 'twitter:description', content: `Resultados de la búsqueda de ${route.query.q ? route.query.q : route.query.pageName} en Megapromocionales.` },
       { name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-06.jpg?alt=media&token=9215aac9-b073-4482-ae77-b1d17a3f662a' }
     ]
-  });
+  })
 }
 
-watch(idPage, () => {
-  updateMeta();
-}, { immediate: true });
+watch(paramSearch, () => {
+  updateMeta()
+}, { immediate: true })
 
-updateMeta();
+watch(paramLabel, () => {
+  updateMeta()
+}, { immediate: true })
+
+updateMeta()
 </script>
 
 <template>
