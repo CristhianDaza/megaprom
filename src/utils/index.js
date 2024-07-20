@@ -82,12 +82,9 @@ export const normalizeProductsCA = (product, stock) => {
   return {
     api: 'promoopcion',
     areaPrinting: formatText(product?.impresion.areaImpresion),
-    category: null,
     description: formatText(product?.descripcion, true),
-    discount: null,
     id: product?.skuPadre,
     images: constructImagesCa(product?.hijos, product?.imagenesPadre),
-    labels: null,
     mainImage: product?.imagenesPadre.length > 0 ? product?.imagenesPadre?.[0] : 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/Default%20Image.webp?alt=media&token=33275052-af6f-47ab-8826-394691b96484',
     material: formatText(product?.material),
     name: `${formatText(product?.nombrePadre)}${product?.capacidad !== '' ? ` - ${product?.capacidad}` : ''}`,
