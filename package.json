@@ -1,7 +1,7 @@
 {
   "name": "megaprom",
   "private": true,
-  "version": "1.7.2",
+  "version": "1.7.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,24 +9,24 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@github/relative-time-element": "^4.4.0",
-    "@unhead/vue": "^1.9.11",
-    "axios": "^1.6.8",
+    "@github/relative-time-element": "^4.4.2",
+    "@unhead/vue": "^1.9.16",
+    "axios": "^1.7.2",
     "dotenv": "^16.4.5",
-    "firebase": "^10.11.1",
+    "firebase": "^10.12.4",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "primeicons": "^6.0.1",
     "primevue": "^3.52.0",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.2",
+    "vue": "^3.4.33",
+    "vue-router": "^4.4.0",
     "vue3-carousel": "^0.3.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3",
-    "vite": "^5.2.0"
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.6",
+    "vite": "^5.3.4"
   }
 }

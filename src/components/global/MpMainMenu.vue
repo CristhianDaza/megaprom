@@ -44,7 +44,7 @@ const userStore = useUserStore()
           </div>
         </template>
       </template>
-      <RouterLink v-else-if="item.isVisible" :to="item.readOnly ? { name: item.name } : { path: item.link }">
+      <RouterLink v-else-if="item.isVisible" :to="item.readOnly ? { name: item.name } : item.link">
         <div class="flex align-items-center" v-bind="props.action">
           <span class="text-[#1D1D1B] dark:text-white/70 px-5">{{ item.title }}</span>
         </div>
