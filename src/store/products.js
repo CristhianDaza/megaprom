@@ -75,9 +75,7 @@ export const useProductsStore = defineStore('products', {
     },
     async getCategories() {
       this.isLoading = true
-      if (!this.products.length) {
-        await this._getProductsFirebase()
-      }
+      await this._checkProducts()
       const categories = this.products.flatMap(product => {
         if (product?.category) {
           return product.category.split('|').map(category => category.trim())
@@ -94,9 +92,7 @@ export const useProductsStore = defineStore('products', {
         return
       }
       
-      if (!this.products.length) {
-        await this._getProductsFirebase()
-      }
+      await this._checkProducts()
       
       this.filteredProducts = normalizeAndFilterProducts(this.products, searchTerm)
       this.isLoading = false
@@ -106,10 +102,7 @@ export const useProductsStore = defineStore('products', {
         this.resetProductsInput()
         return
       }
-      
-      if (!this.products.length) {
-        await this._getProductsFirebase()
-      }
+      await this._checkProducts()
 
       this.productsInput = normalizeAndFilterProducts(this.products, searchTerm)
     },
@@ -118,16 +111,12 @@ export const useProductsStore = defineStore('products', {
     },
     async getProductById(id) {
       this.isLoading = true
-      if (!this.products.length) {
-        await this._getProductsFirebase()
-      }
+      await this._checkProducts()
       this.product = this.products.find(product => product.id === id)
       this.isLoading = false
     },
     async getSimilarProduct(name) {
-      if (!this.products.length) {
-        await this._getProductsFirebase()
-      }
+      await this._checkProducts()
       
       const firstName = name?.split(' ')[0]
       let similar = normalizeAndFilterProducts(this.products, firstName)
@@ -220,6 +209,26 @@ export const useProductsStore = defineStore('products', {
       const index = this.products.findIndex(product => product.id === updatedProduct.id)
       if (index !== -1) {
         this.products.splice(index, 1, updatedProduct)
+      }
+    },
+    
+    async filterProductsByLabel(labelId) {
+      this.isLoading = true
+      await this._checkProducts()
+      const numericLabelId = Number(labelId)
+      this.filteredProducts = this.products.filter(({ labels }) => {
+        if (Array.isArray(labels)) {
+          return labels.some(label => label.id === numericLabelId)
+        }
+        return false
+      })
+      
+      this.isLoading = false
+    },
+    
+    async _checkProducts() {
+      if (!this.products.length) {
+        await this._getProductsFirebase()
       }
     }
   }

@@ -101,7 +101,12 @@ export function useFilters() {
   })
   
   onMounted(async () => {
-    await products.filterProductsByCategory(route.query.q)
+    if (route.query.q) {
+      await products.filterProductsByCategory(route.query.q)
+    }
+    if (route.query.label) {
+      await products.filterProductsByLabel(route.query.label)
+    }
     applyFilters()
     updateChips()
   })
