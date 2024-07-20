@@ -36,7 +36,7 @@ export function useFilters() {
       .then(() => applyFilters())
    }
   
-  const filterDiscount = (value) => {
+  const filterDiscount = async (value) => {
     discount.value = value ? value : null
     const query = { ...route.query }
     if (value) {
@@ -44,7 +44,7 @@ export function useFilters() {
     } else {
       delete query.descuento
     }
-    router.push({ query })
+    await router.push({ query })
   }
   
   const updateChips = () => {
@@ -64,7 +64,15 @@ export function useFilters() {
       isCollapsed.value = true
       applyFilters()
     }
-  }, { immediate: true })
+  })
+  
+  watch(() => route.query.label, async (newValue, oldValue) => {
+    if (newValue !== oldValue) {
+      await products.filterProductsByLabel(route.query.label)
+      isCollapsed.value = true
+      applyFilters()
+    }
+  })
   
   watch(() => [route.query.inventario, route.query.descuento], async (newValue, oldValue) => {
     if (newValue !== oldValue) {
