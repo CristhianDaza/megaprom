@@ -361,6 +361,7 @@ export const getDiscounts = (materials) => {
 
 export const services = {
   promocionales: {
+    pages: 2,
     page1: [
       {
         title: 'Tampografía',
@@ -397,6 +398,7 @@ export const services = {
     ]
   },
   offset: {
+    pages: 2,
     page1: [
       {
         title: 'Plastificadora mate o brillante',
@@ -433,6 +435,7 @@ export const services = {
     ]
   },
   digital: {
+    pages: 2,
     page1: [
       {
         title: 'Plastificadora mate o brillante',
