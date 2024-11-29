@@ -104,7 +104,7 @@ const slideTo = (index) => {
 }
 
 const handleError = (e) => {
-  e.target.src = 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/Default%20Image.webp?alt=media&token=33275052-af6f-47ab-8826-394691b96484'
+  e.target.src = 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/notFound.jpg?alt=media&token=dc6a597c-b70b-4e1d-b529-9a01ad548587'
 }
 
 onMounted(() => {
