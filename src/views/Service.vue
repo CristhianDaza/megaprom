@@ -43,7 +43,6 @@ const setPage = computed(() => {
 const disabledButtonPrev = computed(() => currentPage.value === 1)
 
 const disabledButtonNext = ({ pages }) => {
-  console.log(pages)
   return currentPage.value === pages
 }
 
@@ -59,7 +58,6 @@ const nextPage = () => {
 
 watch(() => route.query.page, () => {
   currentPage.value = Number(route.query.page || 1)
-  console.log(services[titleLower][setPage])
 }, { immediate: true })
 
 const getColor = (title) => {
@@ -110,6 +108,10 @@ useHead({
     :style="{ backgroundImage: titlePage.toLowerCase() === 'promocionales' ? `url('${imageBg}')` : '' }"
     class="bg-contain w-full h-full bg-right bg-no-repeat bg-blend-multiply"
   >
+    <img
+      src="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Fpromocionales%2Fheader.png?alt=media&token=a8ae8f4f-390b-4eab-81cb-2974093892f3"
+      :alt="`header-${titlePage.toLowerCase()}`"
+    >
     <h1
       class="float-right text-[2.7rem] font-extrabold mt-5 mr-12"
       :class="`text-${getColor(titlePage)}`"

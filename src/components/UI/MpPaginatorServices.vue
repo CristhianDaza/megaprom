@@ -1,8 +1,5 @@
 <script setup>
-import { ref } from 'vue'
-
 const emit = defineEmits(['next', 'prev'])
-
 const props = defineProps({
   page: {
     type: Number,
