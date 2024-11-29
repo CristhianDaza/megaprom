@@ -3,6 +3,7 @@ import { onMounted, ref, defineAsyncComponent, watch } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 import { useMenuStore } from '@/store/menu.js'
 import { useUserStore } from '@/store/user.js'
+import { useFeatureFlagsStore } from '@/store/featureFlags.js'
 import { useToast } from 'primevue/usetoast'
 
 const MpFooter = defineAsyncComponent(/* webpackChunkName: "mpFooter" */() => import('@/components/global/MpFooter.vue'))
@@ -14,6 +15,7 @@ const MpModalLoading = defineAsyncComponent(/* webpackChunkName: "mpModalLoading
 const products = useProductsStore()
 const menuStore = useMenuStore()
 const userStore = useUserStore()
+const featureFlags = useFeatureFlagsStore()
 
 const isOpen = ref(false)
 
@@ -47,6 +49,7 @@ watch(
 onMounted(async () => {
   await products.initProducts()
   await menuStore.getMenu()
+  await featureFlags.getFeatureFlags()
 })
 </script>
 
