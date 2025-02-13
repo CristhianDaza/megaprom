@@ -1,5 +1,5 @@
 <script setup>
-import { useFeatureFlagsStore } from '@/store/featureFlags.js'
+// import { useFeatureFlagsStore } from '@/store/featureFlags.js'
 
 const props = defineProps({
   title: String,
@@ -11,8 +11,9 @@ const props = defineProps({
   serviceId: String
 })
 
-const featureFlag = useFeatureFlagsStore()
-const isActiveServices = featureFlag.getFlagValue('isActiveServices')
+// const featureFlag = useFeatureFlagsStore()
+// const isActiveServices = featureFlag.getFlagValue('isActiveServices')
+const isActiveServices = false
 </script>
 
 <template>
