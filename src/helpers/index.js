@@ -167,7 +167,7 @@ export const constructTableQuantityMp = (materials) => {
     
     const item = {
       color: material.color_nombre,
-      colorName: `${material.color_nombre}${material.variedad ? ` (${material.variedad})` : ''}`,
+      colorName: `${material.color_nombre}${material.variedad?.trim() && material.variedad.trim() !== '' ? ` (${material.variedad.trim()})` : ''}`,
       quantity: material.inventario_almacen?.[0]?.cantidad,
       inTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].cantidad : null,
       statusTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].estado : null,
