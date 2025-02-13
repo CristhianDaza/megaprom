@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.5] - 13/02/2025
+
+### Fixed
+- Fixed versioning issues.
+- Fixed display variety color in product.
+
+### Added
+- Added feature flags (temporarily disabled).
+- Added `CardService` and `MpPaginationService` components.
+- Added helper with service data.
+- Added services (temporarily disabled).
+
+### Changed
+- Updated default error image.
+
+## [1.7.4] - 19/07/2024
+
+### Fixed
+- Fixed filtering by label in products.
+
 ## [1.7.4] - 19/07/2024
 
 ### Fixed
@@ -224,6 +244,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
+[1.7.5]: https://github.com/CristhianDaza/megaprom/pull/27/files
 [1.7.4]: https://github.com/CristhianDaza/megaprom/pull/26/files
 [1.7.3]: https://github.com/CristhianDaza/megaprom/pull/25/files
 [1.7.2]: https://github.com/CristhianDaza/megaprom/pull/24/files

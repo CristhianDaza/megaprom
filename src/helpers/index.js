@@ -167,7 +167,7 @@ export const constructTableQuantityMp = (materials) => {
     
     const item = {
       color: material.color_nombre,
-      colorName: `${material.color_nombre}${material.variedad ? ` (${material.variedad})` : ''}`,
+      colorName: `${material.color_nombre}${material.variedad?.trim() && material.variedad.trim() !== '' ? ` (${material.variedad.trim()})` : ''}`,
       quantity: material.inventario_almacen?.[0]?.cantidad,
       inTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].cantidad : null,
       statusTracking: material.trackings_importacion.length > 0 ? material.trackings_importacion[0].estado : null,
@@ -359,3 +359,116 @@ export const getDiscounts = (materials) => {
   return discounts.length > 0 ? discounts[0] : null
 }
 
+export const services = {
+  promocionales: {
+    pages: 2,
+    page1: [
+      {
+        title: 'Tampografía',
+        description: 'Es una técnica de estampado a base de tinta de larga duración. El proceso se realiza de forma manual y mecánica por color; esta técnica de impresión, es aplicada en diferentes materiales como: plástico, cartón, aluminio, bambo, madera, pvc o silicona. ',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Fpromocionales%2Ftampografia.png?alt=media&token=35cf4291-99f4-4b50-b1b8-49022f5f8076'
+      },
+      {
+        title: 'Sublimación',
+        description: 'Es otro tipo de modelo de estampado para personalización que permite transferir una imagen a una prenda 100% poliéster, o a un artículo con recubrimiento de poliéster, como: mug de cerámica, vasos metálicos, gorras, camisetas y paraguas. Esta transferencia se logra aplicando calor con una plancha en el producto.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Fpromocionales%2Fsublimacion.png?alt=media&token=596ac7d0-617c-40f4-8c48-71e3259744da'
+      },
+      {
+        title: 'Screen',
+        description: 'La serigrafía es un proceso de estampado que consiste en la impresión de imágenes por medio del paso de una determinada cantidad de tinta por una plantilla, la cual se encuentra unida a un bastidor, el proceso se realiza de forma manual y mecánica por color, es aplicada en diferentes materiales como: plástico, cartón y tela.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Fpromocionales%2Fscreen.png?alt=media&token=c5c9369a-83d5-4e27-a4ce-121afce6ad9b'
+      }
+    ],
+    page2: [
+      {
+        title: 'Laser',
+        description: 'Es una técnica utilizada en diversas industrias con la intención de marcar o grabar códigos, textos o imágenes vectorizadas en distintas piezas y materiales (metálicos, bambo y madera). Esto permite la trazabilidad de las piezas marcadas durante todo su ciclo de vida, ya que se trata de un método que emplea un láser de alta intensidad que quema o cambia la apariencia de la superficie del material trabajado.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Fpromocionales%2Flaser.png?alt=media&token=bab81841-4fa4-4af0-9575-bffb0f64f93f'
+      },
+      {
+        title: 'Termofijado DTF',
+        description: 'La impresión DTF permite imprimir diseños de alta calidad directamente sobre una película de transferencia especial. Esto significa que puedes obtener imágenes detalladas y vibrantes en una amplia gama de materiales, como: algodón, poliéster, y más; esta técnica se realiza termofíjado por medio de calor con una plancha en el producto.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Fpromocionales%2Ftermofijado.png?alt=media&token=7ec6e9de-93b5-4e75-9c68-3b27ac3806c4'
+      },
+      {
+        title: 'Impresión Rígidos',
+        description: 'Es otra de las alternativas que tenemos para marcar contenidos publicitarios personalizados. Es un método de impresión digital basado en tintas UV, que gracias a esta técnica consigue un secado especial al exponerlo a la luz ultravioleta y que permite una larga duración en la marca',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Fpromocionales%2Frigidos.png?alt=media&token=08c2c0a1-9933-4633-af25-7c0fa235e196'
+      }
+    ]
+  },
+  offset: {
+    pages: 2,
+    page1: [
+      {
+        title: 'Plastificadora mate o brillante',
+        description: `El plastificado mate consiste en recubrir el producto con una fina película de polipropileno mate que aporta un toque de elegancia y de alta calidad al producto final.<br /><br />El plastificado brillante se consigue recubriendo el material impreso con una película finísima de polipropileno brillante que protege el producto, dándole un aspecto de alta calidad.<br /><br />Este tipo de plastificado es especialmente indicado para los productos de carpetas de presentación, flyers, o cubiertas de revistas, libros y libretas.`,
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fplastificadora.png?alt=media&token=a042ae3a-7880-4699-a9fb-634681350c4f'
+      },
+      {
+        title: 'Cosedora caballete',
+        description: 'Esta encuadernación con las hojas unidas formando un cuadernillo grapado en el lomo, formando un pliegue central. Pensado para revistas, catálogos o folletos.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fcosedora.png?alt=media&token=80b41588-20d7-4ce6-b628-a40d8fc725c2'
+      },
+      {
+        title: 'Hotmlet',
+        description: 'La encuadernación hot melt consiste en fusionar los cuadernos de una revista o libro con la aplicación de un pegamento que, a alta temperatura, se vuelve líquido. Los resultados son de gran calidad con una mayor flexibilidad y agarre que se traduce en resultados más resistentes y duraderos.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fhotmel.png?alt=media&token=54ba633f-97c2-45a0-a229-c9dc54cf839e'
+      }
+    ],
+    page2: [
+      {
+        title: 'Argolladora',
+        description: `La encuadernación con anillas, como su propio nombre indica, consiste en la unión de diferentes hojas por medio de unas anillas específicamente diseñadas para ese fin.<br /><br /> Este tipo de encuadernación es de los más sencillos que existen`,
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fargolaldora.png?alt=media&token=29324a43-37cc-4c84-b660-6b80d16adaec'
+      },
+      {
+        title: 'Plegadora',
+        description: 'Contamos con máquinas para plegar todo tipo de documentos de papel como cartas, folletos, facturas u ofertas. Muy útiles en empresas donde se gestionan grandes cantidades de correspondencia o se realizan campañas de publicidad a través de correo postal directo como el mailing.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fplegadora.png?alt=media&token=6dff422a-444b-476e-8d06-cfb5bb04828e'
+      },
+      {
+        title: 'Encuadernación',
+        description: 'Contamos con un personal altamente calificado pera el debido proceso en terminado de los productos gráficos, gracias a esto podemos garantizar que tu trabajo esté perfectamente finalizado.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fencuadernacion.png?alt=media&token=ce59fb3c-b61a-4bf1-b29a-4aa0597fcf3a'
+      }
+    ]
+  },
+  digital: {
+    pages: 2,
+    page1: [
+      {
+        title: 'Plastificadora mate o brillante',
+        description: `El plastificado mate consiste en recubrir el producto con una fina película de polipropileno mate que aporta un toque de elegancia y de alta calidad al producto final.<br /><br />El plastificado brillante se consigue recubriendo el material impreso con una película finísima de polipropileno brillante que protege el producto, dándole un aspecto de alta calidad.<br /><br />Este tipo de plastificado es especialmente indicado para los productos de carpetas de presentación, flyers, o cubiertas de revistas, libros y libretas.`,
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fplastificadora.png?alt=media&token=a042ae3a-7880-4699-a9fb-634681350c4f'
+      },
+      {
+        title: 'Cosedora caballete',
+        description: 'Esta encuadernación con las hojas unidas formando un cuadernillo grapado en el lomo, formando un pliegue central. Pensado para revistas, catálogos o folletos.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fcosedora.png?alt=media&token=80b41588-20d7-4ce6-b628-a40d8fc725c2'
+      },
+      {
+        title: 'Hotmlet',
+        description: 'La encuadernación hot melt consiste en fusionar los cuadernos de una revista o libro con la aplicación de un pegamento que, a alta temperatura, se vuelve líquido. Los resultados son de gran calidad con una mayor flexibilidad y agarre que se traduce en resultados más resistentes y duraderos.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fhotmel.png?alt=media&token=54ba633f-97c2-45a0-a229-c9dc54cf839e'
+      }
+    ],
+    page2: [
+      {
+        title: 'Argolladora',
+        description: `La encuadernación con anillas, como su propio nombre indica, consiste en la unión de diferentes hojas por medio de unas anillas específicamente diseñadas para ese fin.<br /><br /> Este tipo de encuadernación es de los más sencillos que existen`,
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fargolaldora.png?alt=media&token=29324a43-37cc-4c84-b660-6b80d16adaec'
+      },
+      {
+        title: 'Plegadora',
+        description: 'Contamos con máquinas para plegar todo tipo de documentos de papel como cartas, folletos, facturas u ofertas. Muy útiles en empresas donde se gestionan grandes cantidades de correspondencia o se realizan campañas de publicidad a través de correo postal directo como el mailing.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fplegadora.png?alt=media&token=6dff422a-444b-476e-8d06-cfb5bb04828e'
+      },
+      {
+        title: 'Encuadernación',
+        description: 'Contamos con un personal altamente calificado pera el debido proceso en terminado de los productos gráficos, gracias a esto podemos garantizar que tu trabajo esté perfectamente finalizado.',
+        image: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/services%2Foffset%2Fencuadernacion.png?alt=media&token=ce59fb3c-b61a-4bf1-b29a-4aa0597fcf3a'
+      }
+    ]
+  },
+};

@@ -15,7 +15,7 @@ const images = [
     src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/cat-07.png?alt=media&token=67742bed-a013-46d9-b5ec-7abc9c617068',
     alt: 'Marcación promocionales',
     color: 'text-[#5BC5F2]',
-    serviceId: 'promocioanles',
+    serviceId: 'promocionales',
   },
   {
     id: 2,

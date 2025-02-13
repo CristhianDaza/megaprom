@@ -1,4 +1,6 @@
 <script setup>
+// import { useFeatureFlagsStore } from '@/store/featureFlags.js'
+
 const props = defineProps({
   title: String,
   description: String,
@@ -8,12 +10,16 @@ const props = defineProps({
   viewFirstButton: Boolean,
   serviceId: String
 })
+
+// const featureFlag = useFeatureFlagsStore()
+// const isActiveServices = featureFlag.getFlagValue('isActiveServices')
+const isActiveServices = false
 </script>
 
 <template>
   <div
     class="bg-white p-5 rounded-3xl drop-shadow-xl flex flex-col justify-between dark:bg-gray-800"
-    :class="`${viewFirstButton ? '' : 'cursor-pointer hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105'}`"
+    :class="`${isActiveServices ? '' : 'cursor-pointer hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105'}`"
   >
     <div>
       <h3 class="text-2xl font-bold pt-3 pb-5" :class="`${color}`">{{ title }}</h3>
@@ -31,17 +37,16 @@ const props = defineProps({
     <div class="flex gap-[4rem] mt-5 justify-center">
       <RouterLink
         :to="{ name: 'products' }"
-        v-if="viewFirstButton"
+        v-if="isActiveServices"
       >
         <Chip label="Productos" />
       </RouterLink>
-<!--      <RouterLink-->
-<!--        :to="{ name: 'service', params: { serviceId } }"-->
-<!--        v-if="viewFirstButton"-->
-<!--      >-->
-<!--        <Chip label="Servicios" />-->
-<!--      </RouterLink>-->
-      <Chip label="Servicios" />
+      <RouterLink
+        :to="{ name: 'service', params: { serviceId } }"
+        v-if="isActiveServices"
+      >
+        <Chip label="Servicios" />
+      </RouterLink>
     </div>
   </div>
 </template>
