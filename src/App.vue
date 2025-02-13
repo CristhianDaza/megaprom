@@ -47,9 +47,9 @@ watch(
 )
 
 onMounted(async () => {
+  await featureFlags.getFeatureFlags()
   await products.initProducts()
   await menuStore.getMenu()
-  await featureFlags.getFeatureFlags()
 })
 </script>
 
