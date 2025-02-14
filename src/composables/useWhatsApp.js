@@ -4,8 +4,7 @@ export const useWhatsApp = () => {
   const seeWp = () => {
     const phoneNumbers = [
       '573159274144',
-      '573159275144',
-      '573205855531'
+      '573159275144'
     ]
     const randomIndex = Math.floor(Math.random() * phoneNumbers.length)
     const number = phoneNumbers[randomIndex]
