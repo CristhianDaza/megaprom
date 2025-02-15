@@ -73,19 +73,15 @@ export const useProductsStore = defineStore('products', {
       this.products = await getProductsFirebase()
       this.isLoading = false
     },
+
     async getCategories() {
       this.isLoading = true
       await this._checkProducts()
-      const categories = this.products.flatMap(product => {
-        if (product?.category) {
-          return product.category.split('|').map(category => category.trim())
-        }
-        return []
-      })
-      const organizedCategories = [...new Set(categories)]
-      this.categories = organizedCategories.sort()
+      const categories = this.products.flatMap(product => product.category || [])
+      this.categories = [...new Set(categories)].sort()
       this.isLoading = false
     },
+    
     async filterProductsByCategory(searchTerm) {
       this.isLoading = true
       if (!searchTerm || searchTerm.trim().length < 3) {

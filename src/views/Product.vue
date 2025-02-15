@@ -47,7 +47,6 @@ watch(() => productsStore.isUpdatedTable, (newValue) => {
   }
 })
 
-
 onBeforeMount(async () => {
   await productsStore.getProductById(route.params.id)
 })

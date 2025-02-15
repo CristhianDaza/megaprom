@@ -58,19 +58,19 @@ export const normalizeAndFilterProducts = (products, searchTerm) => {
   const normalizeString = (str) => {
     if (!str) return ''
     if (Array.isArray(str)) str = str.join(' ')
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    return String(str).normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
   }
-  
-  const keywords = normalizeString(searchTerm).split('|').map(keyword => keyword.trim())
+
+  const keywords = normalizeString(searchTerm).split(' ').map(keyword => keyword.trim())
 
   return products.filter(product => {
     const productName = normalizeString(product.name)
     const productDescription = normalizeString(product.description)
     const productMaterial = normalizeString(product.material)
-    const productCategory = normalizeString(constructCategoryMp(product))
+    const productCategory = normalizeString(product.category || '')
     const productId = normalizeString(product.id)
 
-    return keywords.some(keyword =>
+    return keywords.every(keyword =>
       productName.includes(keyword) ||
       productDescription.includes(keyword) ||
       productMaterial.includes(keyword) ||
