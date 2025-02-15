@@ -24,7 +24,7 @@ export function useFilters() {
     productsToView.value = products.filteredProducts.filter(product => {
       const matchesQuantity = inventory.value ? product.tableQuantity.some(item => item.quantity >= inventory.value) : true
       const matchesDiscount = discount.value ? product.discount !== null : true
-      const matchesColor = route.query.color ? product.tableQuantity.some(item => item.color === route.query.color) : true
+      const matchesColor = color.value ? product.tableQuantity.some(item => item.color === color.value) : true
       return matchesQuantity && matchesDiscount && matchesColor
     })
     if (
