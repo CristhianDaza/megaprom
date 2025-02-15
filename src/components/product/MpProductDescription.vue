@@ -43,8 +43,13 @@ const props = defineProps({
   </p>
   <p v-if="product?.category">
     <span class="text-lg font-bold text-gray-900 dark:text-white">Categoria: </span>
-    <span class="text-lg font-normal text-gray-500 dark:text-gray-400">
-      <RouterLink :to="{ name: 'search', query: { q: product?.category } }" class="text-emerald-600 dark:text-sky-400">{{ product?.category }}</RouterLink>
+    <span
+      class="text-lg font-normal text-gray-500 dark:text-gray-400"
+      v-for="category in product?.category"
+      :key="category"
+    >
+      <RouterLink :to="{ name: 'search', query: { q: category } }" class="text-emerald-600 dark:text-sky-400">{{ category }}</RouterLink>
+      <span v-if="product?.category.indexOf(category) !== product?.category.length - 1"> | </span>
     </span>
   </p>
   <template v-if="product?.discount">

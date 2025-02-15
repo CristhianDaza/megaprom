@@ -68,17 +68,13 @@ export const constructPackagingMp = (packaging) => {
 }
 
 export const constructCategoryMp = (product) => {
-  const parts = []
-  if (product?.subcategoria_1) {
-    parts.push(product?.subcategoria_1?.nombre)
-  }
-  if (product?.subcategoria_2) {
-    parts.push(product.subcategoria_2?.nombre)
-  }
-  if (product?.subcategoria_3) {
-    parts.push(product.subcategoria_3?.nombre)
-  }
-  return parts.join(' | ')
+  return [
+    product?.subcategoria_1?.nombre,
+    product?.subcategoria_2?.nombre,
+    product?.subcategoria_3?.nombre,
+    product?.subcategoria_4?.nombre,
+    product?.subcategoria_5?.nombre
+  ].filter(Boolean)
 }
 
 export const constructLabelsMp = (product) => {
