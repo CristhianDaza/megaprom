@@ -61,13 +61,15 @@ export const normalizeAndFilterProducts = (products, searchTerm) => {
     return String(str).normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
   }
 
-  const keywords = normalizeString(searchTerm).split(' ').map(keyword => keyword.trim())
+  const keywords = normalizeString(searchTerm)
+    .split(/\s+/)
+    .map(keyword => _singularize(keyword.trim()))
 
   return products.filter(product => {
-    const productName = normalizeString(product.name)
-    const productDescription = normalizeString(product.description)
-    const productMaterial = normalizeString(product.material)
-    const productCategory = normalizeString(product.category || '')
+    const productName = normalizeString(product.name).split(/\s+/).map(_singularize).join(' ')
+    const productDescription = normalizeString(product.description).split(/\s+/).map(_singularize).join(' ')
+    const productMaterial = normalizeString(product.material).split(/\s+/).map(_singularize).join(' ')
+    const productCategory = normalizeString(product.category || '').split(/\s+/).map(_singularize).join(' ')
     const productId = normalizeString(product.id)
 
     return keywords.every(keyword =>
@@ -78,6 +80,10 @@ export const normalizeAndFilterProducts = (products, searchTerm) => {
       productId.includes(keyword)
     )
   })
+}
+
+const _singularize = (word) => {
+  return word.replace(/(as|es|os|is|us|s)$/, '')
 }
 
 export const normalizeProductsCA = (product, stock) => {
