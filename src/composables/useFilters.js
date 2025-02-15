@@ -11,6 +11,7 @@ export function useFilters() {
   const isCollapsed = ref(true)
   const inventory = ref(Number(route.query.inventario || 0))
   const discount = ref(route.query.descuento || null)
+  const color = ref(route.query.color || null)
   const chips = ref([])
   
   const productsToView = ref([])
@@ -23,9 +24,14 @@ export function useFilters() {
     productsToView.value = products.filteredProducts.filter(product => {
       const matchesQuantity = inventory.value ? product.tableQuantity.some(item => item.quantity >= inventory.value) : true
       const matchesDiscount = discount.value ? product.discount !== null : true
-      return matchesQuantity && matchesDiscount
+      const matchesColor = route.query.color ? product.tableQuantity.some(item => item.color === route.query.color) : true
+      return matchesQuantity && matchesDiscount && matchesColor
     })
-    if (route.query.inventario || route.query.descuento) {
+    if (
+      route.query.inventario ||
+      route.query.descuento ||
+      route.query.color
+    ) {
       isCollapsed.value = false
     }
   }
@@ -34,7 +40,7 @@ export function useFilters() {
     inventory.value = value
     router.push({query: {...route.query, inventario: value}})
       .then(() => applyFilters())
-   }
+  }
   
   const filterDiscount = async (value) => {
     discount.value = value ? value : null
@@ -55,6 +61,9 @@ export function useFilters() {
     if (route.query.descuento) {
       filters.push({ name: 'Con descuento', key: 'descuento' })
     }
+    if (route.query.color) {
+      filters.push({ name: `Color: ${route.query.color}`, key: 'color' })
+    }
     chips.value = filters
   }
   
@@ -73,11 +82,16 @@ export function useFilters() {
       applyFilters()
     }
   })
-  
-  watch(() => [route.query.inventario, route.query.descuento], async (newValue, oldValue) => {
+
+  watch(() => [
+    route.query.inventario,
+    route.query.descuento,
+    route.query.color,
+  ], async (newValue, oldValue) => {
     if (newValue !== oldValue) {
       inventory.value = Number(route.query.inventario || 0)
       discount.value = route.query.descuento || null
+      color.value = route.query.color || null
       applyFilters()
     }
   }, { immediate: true })
@@ -107,6 +121,34 @@ export function useFilters() {
     })
     return maxQuantity
   })
+
+  const getColors = computed(() => {
+    const colorCount = {};
+
+    productsToView.value.forEach(item => {
+      if (item?.tableQuantity) {
+        item.tableQuantity.forEach(quantityItem => {
+          const color = quantityItem.color;
+          colorCount[color] = (colorCount[color] || 0) + 1;
+        });
+      }
+    });
+  
+    return Object.keys(colorCount).map(color => ({
+      color,
+      quantity: colorCount[color]
+    }));
+  });
+  
+  const filterByColor = (color) => {
+    const query = { ...route.query }
+    if (query.color === color) {
+      delete query.color
+    } else {
+      query.color = color
+    }
+    router.push({ query })
+  }
   
   onMounted(async () => {
     if (route.query.q) {
@@ -120,18 +162,20 @@ export function useFilters() {
   })
   
   return {
-    isCollapsed,
-    inventory,
-    discount,
-    chips,
-    productsToView,
-    products,
-    route,
     changeCollapsed,
-    filterQuantity,
-    filterDiscount,
-    updateChips,
+    chips,
     countDiscountedProducts,
-    getMaxQuantity
+    discount,
+    filterByColor,
+    filterDiscount,
+    filterQuantity,
+    getColors,
+    getMaxQuantity,
+    inventory,
+    isCollapsed,
+    products,
+    productsToView,
+    route,
+    updateChips,
   }
 }

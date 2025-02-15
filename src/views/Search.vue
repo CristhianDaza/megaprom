@@ -8,6 +8,7 @@ const MpCardProduct = defineAsyncComponent(/* webpackChunkName: "mpCardProduct" 
 const MpChip = defineAsyncComponent(/* webpackChunkName: "mpChip" */() => import('@/components/UI/MpChip.vue'))
 const MpFilterDiscount = defineAsyncComponent(/* webpackChunkName: "mpFilterDiscount" */() => import('@/components/products/MpFilterDiscount.vue'))
 const MpFilterQuantity = defineAsyncComponent(/* webpackChunkName: "mpFilterQuantity" */() => import('@/components/products/MpFilterQuantity.vue'))
+const MpFilterColor = defineAsyncComponent(/* webpackChunkName: "mpFilterColor" */() => import('@/components/products/MpFilterColor.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
 
 const paramSearch = computed(() => route.query.q)
@@ -21,17 +22,19 @@ const breadcrumbItems = [
 ]
 
 const {
-  isCollapsed,
-  inventory,
-  chips,
-  productsToView,
-  products,
-  route,
   changeCollapsed,
-  filterQuantity,
-  filterDiscount,
+  chips,
   countDiscountedProducts,
-  getMaxQuantity
+  filterByColor,
+  filterDiscount,
+  filterQuantity,
+  getColors,
+  getMaxQuantity,
+  inventory,
+  isCollapsed,
+  products,
+  productsToView,
+  route,
 } = useFilters()
 
 const updateMeta = () => {
@@ -98,6 +101,12 @@ updateMeta()
           <MpFilterDiscount
             :totalProducts="countDiscountedProducts"
             @filterDiscount="filterDiscount"
+          />
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-full md:w-auto">
+          <MpFilterColor
+            :totalColor="getColors"
+            @filterByColor="filterByColor"
           />
         </div>
       </div>
