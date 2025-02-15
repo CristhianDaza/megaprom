@@ -94,7 +94,7 @@ updateMeta()
             @filterQuantity="filterQuantity"
           />
         </div>
-        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-full md:w-auto">
+        <div v-if="countDiscountedProducts > 0" class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-full md:w-auto">
           <MpFilterDiscount
             :totalProducts="countDiscountedProducts"
             @filterDiscount="filterDiscount"

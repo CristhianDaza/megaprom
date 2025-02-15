@@ -44,10 +44,12 @@ useHead({
     image="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-05.jpg?alt=media&token=87301a0d-ae85-49da-b8f3-c4c6be101f59"
   />
   <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-    <template v-if="products.isLoading" v-for="loader in 52" >
-      <Skeleton height="4.5rem">{{loader}}</Skeleton>
-    </template>
-    <RouterLink
+    <div v-if="products.isLoading">
+      <div v-for="loader in 52" :key="loader">
+        <Skeleton height="4.5rem">{{loader}}</Skeleton>
+      </div>
+    </div>
+    <router-link
       v-for="category in products.categories"
       :key="category"
       :to="{ name: 'search', query: { q: category } }"
@@ -63,7 +65,7 @@ useHead({
           {{ category }}
         </h3>
       </div>
-    </RouterLink>
+    </router-link>
   </div>
 </template>
 

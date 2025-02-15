@@ -83,6 +83,7 @@ export const normalizeProductsCA = (product, stock) => {
     api: 'promoopcion',
     areaPrinting: formatText(product?.impresion.areaImpresion),
     description: formatText(product?.descripcion, true),
+    discount: null,
     id: product?.skuPadre,
     images: constructImagesCa(product?.hijos, product?.imagenesPadre),
     mainImage: product?.imagenesPadre.length > 0 ? product?.imagenesPadre?.[0] : 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/notFound.jpg?alt=media&token=dc6a597c-b70b-4e1d-b529-9a01ad548587',
