@@ -57,7 +57,8 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <p>Cantidad por color:</p>
+    <p class="mr-3 text-lg font-semibold  text-gray-700 dark:text-gray-300">Cantidad por color:</p>
+    <hr class="mb-2" />
     <InputNumber
       id="quantity"
       v-model="value"

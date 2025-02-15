@@ -28,7 +28,8 @@ watch(() => route.query.descuento, async (newValue, oldValue) => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <p>Ver solo con descuentos:</p>
+    <p class="mr-3 text-lg font-semibold text-gray-700 dark:text-gray-300">Ver solo con descuentos:</p>
+    <hr class="mb-2"/>
     <ToggleButton
       id="toggle"
       v-model="checked"

@@ -90,20 +90,20 @@ updateMeta()
       @toggle="changeCollapsed"
     >
       <div class="flex w-full gap-2 flex-wrap">
-        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-full md:w-auto">
+        <div v-if="getMaxQuantity > 0" class="bg-gray-800/50 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterQuantity
             :value="inventory"
             :totalProducts="getMaxQuantity"
             @filterQuantity="filterQuantity"
           />
         </div>
-        <div v-if="countDiscountedProducts > 0" class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-full md:w-auto">
+        <div v-if="countDiscountedProducts > 0" class="bg-gray-800/50 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterDiscount
             :totalProducts="countDiscountedProducts"
             @filterDiscount="filterDiscount"
           />
         </div>
-        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-full md:w-auto">
+        <div class="bg-gray-800/50 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterColor
             :totalColor="getColors"
             @filterByColor="filterByColor"

@@ -17,8 +17,9 @@ const filterColor = (color) => {
 
 <template>
     <div>
-        <p class="font-bold mb-3">Filtrar por Colores:</p>
-        <div class="flex flex-row gap-1 flex-wrap w-[250px]">
+        <p class="mb-2 mr-3 text-lg font-semibold text-gray-700 dark:text-gray-300">Filtrar por Colores:</p>
+        <hr class="mb-3" />
+        <div class="flex flex-row gap-1 flex-wrap max-w-[250px]">
             <div v-for="{ color, quantity } in totalColor" :key="color">
                 <MpColor
                     class="cursor-pointer"
