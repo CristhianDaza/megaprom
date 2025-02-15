@@ -115,25 +115,29 @@ export const useProductsStore = defineStore('products', {
       this.product = this.products.find(product => product.id === id)
       this.isLoading = false
     },
-    async getSimilarProduct(name) {
+
+    async getSimilarProduct({ name, id: productId, category = [] }) {
       await this._checkProducts()
-      
+    
       const firstName = name?.split(' ')[0]
-      let similar = normalizeAndFilterProducts(this.products, firstName)
-      
-      if (similar.length <= 2) {
-        similar = []
-        while (similar.length < 10) {
-          const randomIndex = Math.floor(Math.random() * this.products.length)
-          const randomProduct = this.products[randomIndex]
-          if (!similar.includes(randomProduct)) {
-            similar.push(randomProduct)
-          }
-        }
+      const productCategory = category.length > 0 ? category[0] : null
+    
+      let similar = []
+    
+      if (productCategory) {
+        similar = this.products.filter(p => p.category?.includes(productCategory) && p.id !== productId)
       }
-      
-      this.similarProducts = similar.slice(0, 10)
+    
+      if (similar.length === 0) {
+        similar = normalizeAndFilterProducts(this.products, firstName).filter(p => p.id !== productId)
+      }
+      this.similarProducts = this._getRandomItems(similar, 12)
     },
+
+    _getRandomItems(array, num) {
+      return [...array].sort(() => Math.random() - 0.5).slice(0, num)
+    },
+    
     updateAttempts() {
       this.attempts++
     },

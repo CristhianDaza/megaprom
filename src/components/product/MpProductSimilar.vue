@@ -38,12 +38,12 @@ const responsiveOptions = ref([
 
 watch(() => route.params, async (newValue, oldValue) => {
   if (newValue !== oldValue) {
-    await products.getSimilarProduct(props.similar?.name ?? '')
+    await products.getSimilarProduct(props.similar ?? '')
   }
 })
 
 onMounted(async () => {
-  await products.getSimilarProduct(props.similar?.name ?? '')
+  await products.getSimilarProduct(props.similar ?? '')
 })
 </script>
 
