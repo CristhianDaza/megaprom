@@ -21,7 +21,3 @@ const removeChip = (chip) => {
 <template>
   <Chip :label="label.name" removable @remove="removeChip(label)"/>
 </template>
-
-<style scoped>
-
-</style>

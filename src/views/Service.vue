@@ -121,6 +121,7 @@ useHead({
     <div class="mt-[8rem]">
       <div
         v-for="{ image, title, description } in services[titleLower][setPage]"
+        :key="title"
         class="container mx-auto flex flex-row justify-center mb-3"
       >
         <CardService
@@ -142,7 +143,3 @@ useHead({
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

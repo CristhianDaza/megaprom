@@ -116,7 +116,3 @@ watch(idPage, updateMeta);
     :similar="product"
   />
 </template>
-
-<style scoped>
-
-</style>

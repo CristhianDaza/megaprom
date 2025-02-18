@@ -50,7 +50,3 @@ const isActiveServices = false
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

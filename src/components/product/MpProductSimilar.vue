@@ -62,7 +62,3 @@ onMounted(async () => {
     </CarouselP>
   </div>
 </template>
-
-<style scoped>
-
-</style>

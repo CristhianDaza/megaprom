@@ -28,7 +28,3 @@ useHead({
   <MpAbout />
   <MpServicesImg view-first-button />
 </template>
-
-<style scoped>
-
-</style>

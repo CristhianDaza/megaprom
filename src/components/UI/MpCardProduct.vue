@@ -55,7 +55,3 @@ const props = defineProps({
     </div>
   </RouterLink>
 </template>
-
-<style scoped>
-
-</style>

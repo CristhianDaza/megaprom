@@ -38,6 +38,3 @@ const message = computed(() =>{
   </div>
 </template>
 
-<style scoped>
-
-</style>

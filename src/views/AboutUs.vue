@@ -44,16 +44,11 @@ useHead({
         </div>
         <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
           <h2 class="text-gray-900 dark:text-white text-4xl font-extrabold mb-2">Visión</h2>
-          <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">Consolidarnos como una empresa líder en el mercado de artículos promocionales, ampliar nuestros horizontes e introducir al mercado productos de marca propia atendiendo a las necesidades de nuestros clientes, utilizando tecnología e ideas nuevas que nos permitan ofrecer un excelente servicio, con precios competitivos, conservando la calidez y responsabilidad social como pilares de nuestro crecimiento personal y económico mejorando calidad de vida de nuestros colaboradores directos e indirectos.
-
+          <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
+            Consolidarnos como una empresa líder en el mercado de artículos promocionales, ampliar nuestros horizontes e introducir al mercado productos de marca propia atendiendo a las necesidades de nuestros clientes, utilizando tecnología e ideas nuevas que nos permitan ofrecer un excelente servicio, con precios competitivos, conservando la calidez y responsabilidad social como pilares de nuestro crecimiento personal y económico mejorando calidad de vida de nuestros colaboradores directos e indirectos.
           </p>
         </div>
       </div>
     </div>
   </section>
-
 </template>
-
-<style scoped>
-
-</style>

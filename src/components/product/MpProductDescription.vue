@@ -56,7 +56,3 @@ const props = defineProps({
     <MpBadgeDiscount :discount="product?.discount"/>
   </template>
 </template>
-
-<style scoped>
-
-</style>

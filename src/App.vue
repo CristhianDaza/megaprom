@@ -68,6 +68,3 @@ onMounted(async () => {
   <MpWhatsApp v-if="!userStore.isLogged" />
   <Toast position="top-left"/>
 </template>
-
-<style scoped>
-</style>

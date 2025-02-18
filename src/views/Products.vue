@@ -65,9 +65,4 @@ useHead({
       </router-link>
     </div>
   </div>
-
 </template>
-
-<style scoped>
-
-</style>

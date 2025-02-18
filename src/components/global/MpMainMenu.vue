@@ -66,7 +66,3 @@ const userStore = useUserStore()
     <div class="bg-[#E6007D] h-3 w-[15%]"></div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

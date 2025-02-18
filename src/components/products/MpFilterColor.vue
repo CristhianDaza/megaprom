@@ -33,6 +33,3 @@ const filterColor = (color) => {
     </div>
 </template>
 
-<style scoped>
-
-</style>

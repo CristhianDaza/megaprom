@@ -49,7 +49,3 @@ const prevPage = () => {
     :disabled="disabledButtonNext"
   />
 </template>
-
-<style scoped>
-
-</style>

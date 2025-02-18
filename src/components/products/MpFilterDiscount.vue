@@ -48,6 +48,3 @@ watch(() => route.query.descuento, async (newValue, oldValue) => {
   </div>
 </template>
 
-<style scoped>
-
-</style>

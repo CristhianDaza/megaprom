@@ -40,8 +40,9 @@ const images = [
 
 <template>
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[2rem] px-[1rem] xl:px-[2rem] container mx-auto text-center mt-5">
-    <template
+    <div
       v-for="{ src, alt, title, description, color, serviceId } in images"
+      :key="serviceId"
     >
       <MpService
         :src="src"
@@ -63,10 +64,6 @@ const images = [
           :serviceId="serviceId"
         />
       </RouterLink>
-    </template>
+    </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

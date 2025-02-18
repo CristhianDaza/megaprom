@@ -30,7 +30,3 @@ onMounted(() => {
   </carousel>
   <Skeleton v-else width="100%" height="469px"></Skeleton>
 </template>
-
-<style scoped>
-
-</style>

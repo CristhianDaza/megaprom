@@ -75,7 +75,3 @@ const _updateProducts = async () => {
     </TabView>
   </div>
 </template>
-
-<style scoped>
-
-</style>

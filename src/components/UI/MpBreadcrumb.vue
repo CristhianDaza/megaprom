@@ -27,7 +27,3 @@ const home = ref({
     </Breadcrumb>
   </div>
 </template>
-
-<style scoped>
-
-</style>
