@@ -50,7 +50,7 @@ onMounted(() => {
   <div v-else class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6">
     <div v-for="catalog in catalogsStore.catalogs" :key="catalog.id" class="border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
       <a :href="catalog.link" target="_blank">
-        <img :src="catalog.image" alt="Producto" class="w-full h-[16rem] bg-cover">
+        <img :src="catalog.image" alt="Producto" class="w-full h-[14rem] bg-cover">
       </a>
     </div>
   </div>
