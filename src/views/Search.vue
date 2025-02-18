@@ -32,6 +32,7 @@ const {
   getMaxQuantity,
   inventory,
   isCollapsed,
+  isEmptyFilters,
   products,
   productsToView,
   route,
@@ -68,7 +69,7 @@ updateMeta()
 <template>
   <MpBreadcrumb :model="breadcrumbItems" />
   <MpTitle
-    :title="route.query.q ? route.query.q : route.query.pageName"
+    :title="route.query.q ? `Busqueda: ${route.query.q}` : route.query.pageName"
     image="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-06.jpg?alt=media&token=9215aac9-b073-4482-ae77-b1d17a3f662a"
   />
   <div v-if="products.isLoading" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-10">
@@ -116,7 +117,7 @@ updateMeta()
         </template>
       </div>
     </Fieldset>
-    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
+    <div v-if="!isEmptyFilters" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
       <template
         v-for="product in productsToView"
         :key="product.id"
@@ -124,6 +125,20 @@ updateMeta()
         <MpCardProduct :product="product" />
       </template>
     </div>
+    <template v-else>
+      <div class="text-center">
+        <p class="dark:text-gray-400 text-stone-800 mt-5">No encontramos productos para "<strong>{{ paramSearch }}</strong>".</p>
+        <p class="dark:text-gray-500 text-stone-900 mt-2">Aquí tienes algunas opciones:</p>
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
+          <template
+            v-for="product in productsToView"
+            :key="product.id"
+          >
+            <MpCardProduct :product="product" />
+          </template>
+        </div>
+      </div>
+    </template>
   </template>
 </template>
 

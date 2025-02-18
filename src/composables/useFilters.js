@@ -13,6 +13,7 @@ export function useFilters() {
   const discount = ref(route.query.descuento || null)
   const color = ref(route.query.color || null)
   const chips = ref([])
+  const isEmptyFilters = ref(false)
   
   const productsToView = ref([])
   
@@ -27,6 +28,11 @@ export function useFilters() {
       const matchesColor = color.value ? product.tableQuantity.some(item => item.color === color.value) : true
       return matchesQuantity && matchesDiscount && matchesColor
     })
+    isEmptyFilters.value = false
+    if (!productsToView.value.length) {
+      isEmptyFilters.value = true
+      _setSimilarProducts()
+    }
     if (
       route.query.inventario ||
       route.query.descuento ||
@@ -35,7 +41,25 @@ export function useFilters() {
       isCollapsed.value = false
     }
   }
+
+  const _setSimilarProducts = () => {
+    let availableProducts = [...products.products]
+    let similarProducts = ref([])
+
+    if (availableProducts.length <= 25) {
+      similarProducts.value = availableProducts
+      return
+    }
+
+    productsToView.value = _getRandomItems(availableProducts, 25)
+  }
   
+
+  const _getRandomItems = (array, numItems) => {
+    const shuffled = array.sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, numItems)
+  }
+
   const filterQuantity = (value) => {
     inventory.value = value
     router.push({query: {...route.query, inventario: value}})
@@ -173,6 +197,7 @@ export function useFilters() {
     getMaxQuantity,
     inventory,
     isCollapsed,
+    isEmptyFilters,
     products,
     productsToView,
     route,
