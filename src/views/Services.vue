@@ -38,3 +38,4 @@ useHead({
   <div class="container mx-auto py-10">
     <MpServicesImg />
   </div>
+</template>
