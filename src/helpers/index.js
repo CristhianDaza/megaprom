@@ -127,10 +127,20 @@ const _decodeHtmlEntities = (text) => {
   return text.replace(/&[A-Za-z]+;/g, match => htmlEntities[match] || match)
 }
 
-export const formatText = (text) => {
-  let decodedText = _decodeHtmlEntities(text)
-  if (!decodedText) return ''
-  return decodedText
+const _alwaysUppercase = ['USB', 'LED', 'ID', 'mAh', 'GB', 'TB', 'HD', 'TV']
+
+export const formatText = (text, isUpperCase = false) => {
+  const decodedText = _decodeHtmlEntities(text);
+  if (!decodedText) return '';
+
+  if (isUpperCase) {
+    const words = decodedText.toLowerCase().split(' ');
+    const formattedText = words
+      .map(word => _alwaysUppercase.includes(word.toUpperCase()) ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    return formattedText;
+  }
+  return decodedText;
 }
 
 export const constructTotalProductsMp = (materials) => {
