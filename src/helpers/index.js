@@ -127,10 +127,10 @@ const _decodeHtmlEntities = (text) => {
   return text.replace(/&[A-Za-z]+;/g, match => htmlEntities[match] || match)
 }
 
-export const formatText = (text, isDescription = false) => {
+export const formatText = (text) => {
   let decodedText = _decodeHtmlEntities(text)
   if (!decodedText) return ''
-  return isDescription ? decodedText : decodedText.charAt(0).toUpperCase() + decodedText.slice(1).toLowerCase()
+  return decodedText
 }
 
 export const constructTotalProductsMp = (materials) => {

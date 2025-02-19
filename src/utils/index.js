@@ -111,7 +111,7 @@ export const normalizeProductsMP = (product) => {
     api: 'marpico',
     areaPrinting: product?.area_impresion,
     category: constructCategoryMp(product),
-    description: formatText(product?.descripcion_larga, true),
+    description: formatText(product?.descripcion_larga),
     discount: getDiscounts(product?.materiales),
     id: product?.familia,
     images: product?.imagenes,
