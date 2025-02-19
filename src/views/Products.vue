@@ -53,7 +53,7 @@ useHead({
       <router-link
         v-for="category in products.categories"
         :key="category"
-        :to="{ name: 'search', query: { q: category } }"
+        :to="{ name: 'search', query: { q: category, isCategory: true } }"
         class="relative flex items-center space-x-2 bg-white/80 dark:bg-gray-900/80 border border-gray-300 dark:border-gray-700 p-5 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition-all duration-300 backdrop-blur-md"
       >
         <div>

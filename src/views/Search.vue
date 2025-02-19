@@ -1,5 +1,5 @@
 <script setup>
-import {computed, defineAsyncComponent, watch} from 'vue'
+import { computed, defineAsyncComponent, watch } from 'vue'
 import { useFilters } from '@/composables/useFilters'
 import { useHead } from '@unhead/vue'
 
@@ -13,6 +13,8 @@ const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => impo
 
 const paramSearch = computed(() => route.query.q)
 const paramLabel = computed(() => route.query.label)
+const isCategory = computed(() => route.query.isCategory)
+const pageName = computed(() => route.query.pageName)
 
 const breadcrumbItems = [
   {
@@ -55,6 +57,13 @@ const updateMeta = () => {
   })
 }
 
+const titlePage = computed(() => {
+  return isCategory.value ? paramSearch.value :
+  pageName.value ? pageName.value :
+  paramSearch.value ? `Búsqueda: ${paramSearch.value}` :
+  'Productos'
+})
+
 watch(paramSearch, () => {
   updateMeta()
 }, { immediate: true })
@@ -69,7 +78,7 @@ updateMeta()
 <template>
   <MpBreadcrumb :model="breadcrumbItems" />
   <MpTitle
-    :title="route.query.q ? `Busqueda: ${route.query.q}` : route.query.pageName"
+    :title="titlePage"
     image="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-06.jpg?alt=media&token=9215aac9-b073-4482-ae77-b1d17a3f662a"
   />
   <div v-if="products.isLoading" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-10">
