@@ -42,7 +42,9 @@ const props = defineProps({
     <span class="text-lg font-normal text-gray-500 dark:text-gray-400">{{ formatNumber(product?.totalProducts) }}</span>
   </p>
   <p v-if="product?.category">
-    <span class="text-lg font-bold text-gray-900 dark:text-white">Categoria: </span>
+    <span class="text-lg font-bold text-gray-900 dark:text-white">
+      {{ product?.category.length > 1 ? 'Categorías: ' : 'Categoría: ' }}
+    </span>
     <span
       class="text-lg font-normal text-gray-500 dark:text-gray-400"
       v-for="category in product?.category"
