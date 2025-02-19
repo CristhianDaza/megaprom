@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.X] - XX/XX/XXXX
+
+#### Fixed
+- The discount in the promo app is fixed
+- Fixes similar products
+- Fixed `v-for` errors where the `:key` was missing
+- Unused style template is removed
+- Alt attribute of catalog images is fixed
+
+### Added
+- Validation is added to not show the filter when there are no discounts
+- Color filter is added
+- Plural filter added
+- Add products to view when you can't find anything in your search
+- Enhance similar product retrieval logic to ensure a minimum of 12 items
+
+### Changed
+- Change filter styles
+- The categories are changed to show them separately in the product details
+- The list of products has been changed
+- Image size is changed in catalogs
+- Category is changed by categories when there is more than one
+- Update search query to include isCategory parameter for better filtering
+- The titles are changed as originally arrived from the api
+
 ## [1.7.6] - 13/02/2025
 
 ### Fixed
@@ -249,6 +274,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
+[1.8.X]: https://github.com/CristhianDaza/megaprom/compare/master...develop
 [1.7.6]: https://github.com/CristhianDaza/megaprom/pull/28/files
 [1.7.5]: https://github.com/CristhianDaza/megaprom/pull/27/files
 [1.7.4]: https://github.com/CristhianDaza/megaprom/pull/26/files
