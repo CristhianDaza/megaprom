@@ -7,28 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.8.X] - XX/XX/XXXX
 
-#### Fixed
-- The discount in the promo app is fixed
-- Fixes similar products
+### Fixed
+- Fixed discount issue in the promo app
+- Fixed issue with similar product selection
 - Fixed `v-for` errors where the `:key` was missing
-- Unused style template is removed
-- Alt attribute of catalog images is fixed
+- Removed unused style template
+- Fixed missing `alt` attributes in catalog images
 
 ### Added
-- Validation is added to not show the filter when there are no discounts
-- Color filter is added
-- Plural filter added
-- Add products to view when you can't find anything in your search
-- Enhance similar product retrieval logic to ensure a minimum of 12 items
+- Added validation to hide the filter when no discounts are available
+- Added color filter
+- Added pluralization filter
+- Added fallback products when no search results are found
+- Enhanced similar product retrieval logic to ensure a minimum of 12 items
+- Added Paginator component to improve product navigation in Search view
 
 ### Changed
-- Change filter styles
-- The categories are changed to show them separately in the product details
-- The list of products has been changed
-- Image size is changed in catalogs
-- Category is changed by categories when there is more than one
-- Update search query to include isCategory parameter for better filtering
-- The titles are changed as originally arrived from the api
+- Updated filter styles
+- Categories now display separately in product details
+- Updated product list display
+- Changed image sizes in catalogs
+- Display 'Categories' instead of 'Category' when multiple categories exist
+- Updated search query to include `isCategory` parameter for better filtering
+- Titles now match their original format from the API
 
 ## [1.7.6] - 13/02/2025
 
