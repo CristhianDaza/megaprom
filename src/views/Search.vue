@@ -135,9 +135,14 @@ watch(paramLabel, () => {
   updateMeta()
 }, { immediate: true })
 
-watch(vueRoute, () => {
-  if (vueRoute.query.inventario || vueRoute.query.color || vueRoute.query.descuento || vueRoute.query.material) {
-    _resetPagination()
+watch(() => ({
+  inventario: vueRoute.query.inventario,
+  color: vueRoute.query.color,
+  descuento: vueRoute.query.descuento,
+  material: vueRoute.query.material
+}), (newFilters, oldFilters) => {
+  if (JSON.stringify(newFilters) !== JSON.stringify(oldFilters)) {
+    _resetPagination();
   }
 }, { immediate: true })
 
