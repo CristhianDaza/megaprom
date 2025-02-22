@@ -192,7 +192,7 @@ updateMeta()
           />
         </div>
       </div>
-      <div class="mt-2 flex gap-2">
+      <div class="mt-4 flex gap-2">
         <template v-for="filter in chips" :key="filter.key">
           <MpChip :label="filter" />
         </template>
