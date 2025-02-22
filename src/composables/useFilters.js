@@ -23,20 +23,17 @@ export function useFilters() {
   
   const applyFilters = () => {
     productsToView.value = products.filteredProducts.filter(product => {
-      isEmptyFilters.value = false
-      const matchesQuantity = inventory.value
-        ? product.tableQuantity.some(item => item.quantity >= inventory.value)
-        : true
-      const matchesDiscount = discount.value
-        ? product.discount !== null
-        : true
-      const matchesColor = color.value
-        ? product.tableQuantity.some(item => item.color.toLowerCase() === color.value.toLowerCase())
-        : true
-      return matchesQuantity && matchesDiscount && matchesColor
+      const matchesQuantityAndColor = product.tableQuantity.some(item =>
+        (!inventory.value || item.quantity >= inventory.value) &&
+        (!color.value || item.color === color.value)
+      )
+      const matchesDiscount = !discount.value || product.discount !== null
+      return matchesQuantityAndColor && matchesDiscount
     })
-    if (!productsToView.value.length) {
-      isEmptyFilters.value = true
+    
+    isEmptyFilters.value = productsToView.value.length === 0
+    
+    if (isEmptyFilters.value) {
       _setSimilarProducts()
     }
     if (route.query.inventario || route.query.descuento || route.query.color) {

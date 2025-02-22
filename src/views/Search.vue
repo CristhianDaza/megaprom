@@ -129,7 +129,6 @@ watch(paramLabel, () => {
 }, { immediate: true })
 
 watch(vueRoute, () => {
-  console.log('route.query', vueRoute.query)
   if (vueRoute.query.inventario || vueRoute.query.color || vueRoute.query.descuento) {
     _resetPagination()
   }
