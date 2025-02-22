@@ -6,7 +6,7 @@ import './style.css'
 import App from './App.vue'
 import Wind from '@/presets/wind'
 import 'primeicons/primeicons.css'
-import '@github/relative-time-element';
+import '@github/relative-time-element'
 import { VueHeadMixin, createHead } from '@unhead/vue'
 const app = createApp(App)
 
@@ -19,12 +19,12 @@ app.use(pinia)
 
 // import 'primevue/resources/themes/saga-blue/theme.css'       // theme
 
-const head = createHead();
-app.use(head);
+const head = createHead()
+app.use(head)
 app.mixin(VueHeadMixin)
 
 const userStore = useUserStore()
-const auth = getAuth();
+const auth = getAuth()
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -111,7 +111,7 @@ app.component('TabPanel', TabPanel)
 app.component('TabView', TabView)
 app.component('Toast', Toast)
 app.component('ToggleButton', ToggleButton)
-app.use(ConfirmationService);
+app.use(ConfirmationService)
 app.use(ToastService)
 app.use(router)
 app.directive('tooltip', Tooltip)

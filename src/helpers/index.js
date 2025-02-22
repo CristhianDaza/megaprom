@@ -130,17 +130,17 @@ const _decodeHtmlEntities = (text) => {
 const _alwaysUppercase = ['USB', 'LED', 'ID', 'mAh', 'GB', 'TB', 'HD', 'TV']
 
 export const formatText = (text, isUpperCase = false) => {
-  const decodedText = _decodeHtmlEntities(text);
-  if (!decodedText) return '';
+  const decodedText = _decodeHtmlEntities(text)
+  if (!decodedText) return ''
 
   if (isUpperCase) {
-    const words = decodedText.toLowerCase().split(' ');
+    const words = decodedText.toLowerCase().split(' ')
     const formattedText = words
       .map(word => _alwaysUppercase.includes(word.toUpperCase()) ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-    return formattedText;
+      .join(' ')
+    return formattedText
   }
-  return decodedText;
+  return decodedText
 }
 
 export const constructTotalProductsMp = (materials) => {
@@ -477,4 +477,4 @@ export const services = {
       }
     ]
   },
-};
+}

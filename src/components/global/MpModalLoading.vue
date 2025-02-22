@@ -4,9 +4,9 @@ import { useProductsStore } from '@/store/products.js'
 
 const products = useProductsStore()
 
-const countdown = ref(60);
-const progress = ref(0);
-let timer;
+const countdown = ref(60)
+const progress = ref(0)
+let timer
 
 const startCountdown = () => {
   countdown.value = 60
@@ -14,7 +14,7 @@ const startCountdown = () => {
   timer = setInterval(() => {
     if (countdown.value > 0) {
       countdown.value -= 1
-      progress.value = Math.floor(((60 - countdown.value) / 60) * 100);
+      progress.value = Math.floor(((60 - countdown.value) / 60) * 100)
     } else {
       clearInterval(timer)
     }
@@ -36,7 +36,7 @@ const updateProducts = async () => {
 }
 
 onMounted(() => {
-  clearInterval(timer);
+  clearInterval(timer)
 })
 </script>
 

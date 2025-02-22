@@ -13,7 +13,7 @@ const products = useProductsStore()
 const toast = useToast()
 
 const searchProduct = () => {
-  if (!inputSearch) return;
+  if (!inputSearch) return
   if (inputSearch.value.trim() === '') {
     showToastSearch('warn', 'Campo vacío', 'Por favor ingrese un valor para buscar.')
     return
@@ -51,13 +51,13 @@ watch(() => route.path, async () => {
 onMounted(() => {
   isMac.value = (function() {
     if (navigator?.userAgentData) {
-      return navigator.userAgentData.platform.includes('Mac');
+      return navigator.userAgentData.platform.includes('Mac')
     } else if (navigator.userAgent) {
-      return /Mac|iPod|iPhone|iPad/.test(navigator.userAgent);
+      return /Mac|iPod|iPhone|iPad/.test(navigator.userAgent)
     } else {
-      return false;
+      return false
     }
-  })();
+  })()
 
   const handleKeydown = (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {

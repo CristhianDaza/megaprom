@@ -202,7 +202,7 @@ export const useProductsStore = defineStore('products', {
               ...docData.products[productIndex],
               ...productData,
               lastUpdate: new Date().toISOString()
-            };
+            }
             docData.products[productIndex] = updatedProduct
             
             await updateDoc(docSnapshot.ref, { products: docData.products })

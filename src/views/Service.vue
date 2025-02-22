@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { useHead } from '@unhead/vue'
-import { ref, defineAsyncComponent, computed, watch } from "vue";
+import { ref, defineAsyncComponent, computed, watch } from 'vue'
 
 import { services } from '@/helpers'
 
@@ -99,7 +99,7 @@ useHead({
     { name: 'twitter:description', content: `Conoce los servicios que ofrecemos en Megapromocionales para ${route.params.serviceId}.` },
     { name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-06.jpg?alt=media&token=9215aac9-b073-4482-ae77-b1d17a3f662a' }
   ]
-});
+})
 </script>
 
 <template>

@@ -19,7 +19,7 @@ useHead({
     { name: 'twitter:description', content: 'Bienvenido a Megapromocionales, tu tienda de productos promocionales de calidad.' },
     { name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/megapromocionales2020.appspot.com/o/logoWeb.webp?alt=media&token=72bc41b4-57ed-4b55-b92f-0df6c335e685' }
   ]
-});
+})
 
 </script>
 

@@ -2,21 +2,21 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-const emit = defineEmits({ filterDiscount: null });
+const emit = defineEmits({ filterDiscount: null })
 
 const props = defineProps({
   totalProducts: {
     type: Number,
     required: true
   }
-});
+})
 
-const route = useRoute();
+const route = useRoute()
 
-const checked = ref(false);
+const checked = ref(false)
 
 const filterDiscount = () => {
-  emit('filterDiscount', checked.value);
+  emit('filterDiscount', checked.value)
 }
 
 watch(() => route.query.descuento, async (newValue, oldValue) => {

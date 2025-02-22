@@ -1,5 +1,5 @@
 <script setup>
-import {defineAsyncComponent} from "vue";
+import {defineAsyncComponent} from 'vue'
 
 const MpThemeButton = defineAsyncComponent(/* webpackChunkName: "mpThemeButton" */() => import('@/components/global/MpThemeButton.vue'))
 const MpSocialMedia = defineAsyncComponent(/* webpackChunkName: "mpSocialMedia" */() => import('@/components/global/MpSocialMedia.vue'))

@@ -25,7 +25,7 @@ useHead({
     { name: 'twitter:description', content: 'Conoce más sobre Megapromocionales y nuestro compromiso con la calidad y el servicio.' },
     { name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/megapromocionales2020.appspot.com/o/logoWeb.webp?alt=media&token=72bc41b4-57ed-4b55-b92f-0df6c335e685' }
   ]
-});
+})
 
 </script>
 

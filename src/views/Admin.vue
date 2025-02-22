@@ -14,7 +14,7 @@ const MpAdminMenu = defineAsyncComponent(/* webpackChunkName: "mpAdminMenu" */()
 
 useHead({
   title: 'Admin | Megapromocionales',
-});
+})
 
 const userStore = useUserStore()
 const router = useRouter()
