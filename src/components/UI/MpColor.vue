@@ -21,7 +21,7 @@ const props = defineProps({
 
 const message = computed(() =>{
   if (props.isSearch) {
-    return `Total Productos: ${formatNumber(props.quantity)} (${props.color})`
+    return `Color: ${props.color}`
   }
 
   return `${props.quantity ? `Cantidad: ${formatNumber(props.quantity)} (${props.color})` : ''}`
