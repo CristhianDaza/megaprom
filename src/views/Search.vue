@@ -165,7 +165,7 @@ updateMeta()
             @filterDiscount="filterDiscount"
           />
         </div>
-        <div class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
+        <div class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4  md:w-[320px] w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterColor
             :totalColor="getColors"
             @filterByColor="filterByColor"
