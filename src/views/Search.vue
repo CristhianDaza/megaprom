@@ -145,7 +145,7 @@ updateMeta()
   />
   <div v-if="products.isLoading" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-10">
     <div v-for="(loader, index) in 20" :key="index">
-      <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4">
+      <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-dark-mp dark:border-gray-700 p-4">
         <Skeleton height="15rem" class="mb-2">{{loader}}</Skeleton>
         <Skeleton height="2rem" class="mb-2"></Skeleton>
         <Skeleton height="2rem" class="mb-2"></Skeleton>
@@ -153,29 +153,25 @@ updateMeta()
     </div>
   </div>
   <template v-else>
-    <Fieldset
+    <div
       v-if="products.filteredProducts.length > 1"
-      legend="Filtros"
-      :toggleable="true"
       class="container mx-auto mt-8"
-      :collapsed="isCollapsed"
-      @toggle="changeCollapsed"
     >
       <div class="flex w-full gap-2 flex-wrap">
-        <div v-if="getMaxQuantity > 0" class="bg-gray-800/50 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
+        <div v-if="getMaxQuantity > 0" class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterQuantity
             :value="inventory"
             :totalProducts="getMaxQuantity"
             @filterQuantity="filterQuantity"
           />
         </div>
-        <div v-if="countDiscountedProducts > 0" class="bg-gray-800/50 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
+        <div v-if="countDiscountedProducts > 0" class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterDiscount
             :totalProducts="countDiscountedProducts"
             @filterDiscount="filterDiscount"
           />
         </div>
-        <div class="bg-gray-800/50 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
+        <div class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterColor
             :totalColor="getColors"
             @filterByColor="filterByColor"
@@ -187,7 +183,7 @@ updateMeta()
           <MpChip :label="filter" />
         </template>
       </div>
-    </Fieldset>
+    </div>
     <template v-if="!isEmptyFilters">
       <Paginator
         v-if="productsToView.length > 15"

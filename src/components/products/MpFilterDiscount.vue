@@ -28,7 +28,7 @@ watch(() => route.query.descuento, async (newValue, oldValue) => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <p class="mr-3 text-lg font-semibold text-gray-700 dark:text-gray-300">Ver solo con descuentos:</p>
+    <p class="mr-3 text-lg font-semibold text-[#1D1D1B] dark:text-white/70">Ver solo con descuentos:</p>
     <hr class="mb-2"/>
     <ToggleButton
       id="toggle"
@@ -42,7 +42,7 @@ watch(() => route.query.descuento, async (newValue, oldValue) => {
       :disabled="totalProducts === 0"
       @change="filterDiscount"
     />
-    <small id="toggle-help">
+    <small id="toggle-help" class="text-[#1D1D1B] dark:text-white/70">
       Productos con descuento: {{ totalProducts }}.
     </small>
   </div>
