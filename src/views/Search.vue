@@ -174,35 +174,37 @@ updateMeta()
         </template>
       </div>
     </Fieldset>
-    <Paginator
-      v-if="productsToView.length > 15"
-      :rows="pageSize"
-      :totalRecords="productsToView.length"
-      :rowsPerPageOptions="generatePageSizeOptions(productsToView.length)"
-      :first="(currentPage - 1) * pageSize"
-      :pageLinkSize="10"
-      @page="changePage"
-      class="mt-4"
-    />
-    <div v-if="!isEmptyFilters" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 my-4">
-      <template
-        v-for="product in paginatedProducts"
-        :key="product.id"
-      >
-        <MpCardProduct :product="product" />
-      </template>
-    </div>
-    <Paginator
-      v-if="productsToView.length > 15"
-      :rows="pageSize"
-      :totalRecords="productsToView.length"
-      :rowsPerPageOptions="generatePageSizeOptions(productsToView.length)"
-      :first="(currentPage - 1) * pageSize"
-      :pageLinkSize="10"
-      @page="changePage"
-      class="mb-0"
-    />
-    <template v-if="isEmptyFilters">
+    <template v-if="!isEmptyFilters">
+      <Paginator
+        v-if="productsToView.length > 15"
+        :rows="pageSize"
+        :totalRecords="productsToView.length"
+        :rowsPerPageOptions="generatePageSizeOptions(productsToView.length)"
+        :first="(currentPage - 1) * pageSize"
+        :pageLinkSize="10"
+        @page="changePage"
+        class="mt-4"
+      />
+      <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 my-4">
+        <template
+          v-for="product in paginatedProducts"
+          :key="product.id"
+        >
+          <MpCardProduct :product="product" />
+        </template>
+      </div>
+      <Paginator
+        v-if="productsToView.length > 15"
+        :rows="pageSize"
+        :totalRecords="productsToView.length"
+        :rowsPerPageOptions="generatePageSizeOptions(productsToView.length)"
+        :first="(currentPage - 1) * pageSize"
+        :pageLinkSize="10"
+        @page="changePage"
+        class="mb-0"
+      />
+    </template>
+    <template v-else>
       <div class="text-center">
         <p class="dark:text-gray-400 text-stone-800 mt-5">No encontramos productos para "<strong>{{ paramSearch }}</strong>".</p>
         <p class="dark:text-gray-500 text-stone-900 mt-2">Aquí tienes algunas opciones:</p>
