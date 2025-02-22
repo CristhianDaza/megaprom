@@ -1,5 +1,6 @@
 <script setup>
-import { computed, defineAsyncComponent, watch } from 'vue'
+import { computed, defineAsyncComponent, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useFilters } from '@/composables/useFilters'
 import { useHead } from '@unhead/vue'
 
@@ -10,6 +11,8 @@ const MpFilterDiscount = defineAsyncComponent(/* webpackChunkName: "mpFilterDisc
 const MpFilterQuantity = defineAsyncComponent(/* webpackChunkName: "mpFilterQuantity" */() => import('@/components/products/MpFilterQuantity.vue'))
 const MpFilterColor = defineAsyncComponent(/* webpackChunkName: "mpFilterColor" */() => import('@/components/products/MpFilterColor.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
+
+const vueRouter = useRouter()
 
 const paramSearch = computed(() => route.query.q)
 const paramLabel = computed(() => route.query.label)
@@ -39,6 +42,51 @@ const {
   productsToView,
   route,
 } = useFilters()
+
+const currentPage = ref(Number(route.query.page) || 1)
+const pageSize = ref(Number(route.query.size) || 15)
+const totalPages = computed(() => Math.ceil(products.filteredProducts.length / pageSize.value))
+
+const paginatedProducts = computed(() => {
+  const start = (currentPage.value - 1) * pageSize.value
+  const end = start + pageSize.value
+  return products.filteredProducts.slice(start, end)
+})
+
+const changePage = (newPage) => {
+  const page = newPage.page + 1
+  if (pageSize.value !== newPage.rows) {
+    changePageSize(newPage.rows)
+  }
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page
+    vueRouter.push({ query: { ...route.query, page, size: pageSize.value } })
+  }
+}
+
+const changePageSize = (newSize) => {
+  pageSize.value = newSize
+  currentPage.value = 1
+  vueRouter.push({ query: { ...route.query, page: currentPage.value, size: newSize } })
+}
+
+const generatePageSizeOptions = (totalProducts) => {
+  const options = []
+  let step = 15
+
+  while (step < totalProducts) {
+    options.push(step)
+    step += 15
+  }
+
+  options.push(totalProducts)
+  return options
+}
+
+watch(() => route?.query, (newQuery) => {
+  currentPage.value = Number(newQuery.page) || 1
+  pageSize.value = Number(newQuery.size) || 15
+}, { immediate: true })
 
 const updateMeta = () => {
   useHead({
@@ -126,15 +174,35 @@ updateMeta()
         </template>
       </div>
     </Fieldset>
-    <div v-if="!isEmptyFilters" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
+    <Paginator
+      v-if="productsToView.length > 15"
+      :rows="pageSize"
+      :totalRecords="productsToView.length"
+      :rowsPerPageOptions="generatePageSizeOptions(productsToView.length)"
+      :first="(currentPage - 1) * pageSize"
+      :pageLinkSize="10"
+      @page="changePage"
+      class="mt-4"
+    />
+    <div v-if="!isEmptyFilters" class="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 my-4">
       <template
-        v-for="product in productsToView"
+        v-for="product in paginatedProducts"
         :key="product.id"
       >
         <MpCardProduct :product="product" />
       </template>
     </div>
-    <template v-else>
+    <Paginator
+      v-if="productsToView.length > 15"
+      :rows="pageSize"
+      :totalRecords="productsToView.length"
+      :rowsPerPageOptions="generatePageSizeOptions(productsToView.length)"
+      :first="(currentPage - 1) * pageSize"
+      :pageLinkSize="10"
+      @page="changePage"
+      class="mb-0"
+    />
+    <template v-if="isEmptyFilters">
       <div class="text-center">
         <p class="dark:text-gray-400 text-stone-800 mt-5">No encontramos productos para "<strong>{{ paramSearch }}</strong>".</p>
         <p class="dark:text-gray-500 text-stone-900 mt-2">Aquí tienes algunas opciones:</p>
