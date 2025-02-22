@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineAsyncComponent, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useFilters } from '@/composables/useFilters'
 import { useHead } from '@unhead/vue'
 
@@ -13,18 +13,7 @@ const MpFilterColor = defineAsyncComponent(/* webpackChunkName: "mpFilterColor" 
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
 
 const vueRouter = useRouter()
-
-const paramSearch = computed(() => route.query.q)
-const paramLabel = computed(() => route.query.label)
-const isCategory = computed(() => route.query.isCategory)
-const pageName = computed(() => route.query.pageName)
-
-const breadcrumbItems = [
-  {
-    icon: 'pi pi-search',
-    label: 'Busqueda'
-  }
-]
+const vueRoute = useRoute()
 
 const {
   changeCollapsed,
@@ -42,6 +31,18 @@ const {
   productsToView,
   route,
 } = useFilters()
+
+const paramSearch = computed(() => route.query.q)
+const paramLabel = computed(() => route.query.label)
+const isCategory = computed(() => route.query.isCategory)
+const pageName = computed(() => route.query.pageName)
+
+const breadcrumbItems = [
+  {
+    icon: 'pi pi-search',
+    label: 'Busqueda'
+  }
+]
 
 const currentPage = ref(Number(route.query.page) || 1)
 const pageSize = ref(Number(route.query.size) || 15)
@@ -112,12 +113,26 @@ const titlePage = computed(() => {
   'Productos'
 })
 
+const _resetPagination = () => {
+  const updatedQuery = { ...route.query }
+  delete updatedQuery['page']
+  delete updatedQuery['size']
+  vueRouter.replace({ query: updatedQuery })
+}
+
 watch(paramSearch, () => {
   updateMeta()
 }, { immediate: true })
 
 watch(paramLabel, () => {
   updateMeta()
+}, { immediate: true })
+
+watch(vueRoute, () => {
+  console.log('route.query', vueRoute.query)
+  if (vueRoute.query.inventario || vueRoute.query.color || vueRoute.query.descuento) {
+    _resetPagination()
+  }
 }, { immediate: true })
 
 updateMeta()
