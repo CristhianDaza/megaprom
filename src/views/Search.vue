@@ -11,6 +11,7 @@ const MpFilterDiscount = defineAsyncComponent(/* webpackChunkName: "mpFilterDisc
 const MpFilterQuantity = defineAsyncComponent(/* webpackChunkName: "mpFilterQuantity" */() => import('@/components/products/MpFilterQuantity.vue'))
 const MpFilterColor = defineAsyncComponent(/* webpackChunkName: "mpFilterColor" */() => import('@/components/products/MpFilterColor.vue'))
 const MpTitle = defineAsyncComponent(/* webpackChunkName: "mpTitle" */() => import('@/components/UI/MpTitle.vue'))
+const MpFilterMaterial = defineAsyncComponent(/* webpackChunkName: "mpFilterMaterial" */() => import('@/components/products/MpFilterMaterial.vue'))
 
 const vueRouter = useRouter()
 const vueRoute = useRoute()
@@ -20,6 +21,7 @@ const {
   chips,
   countDiscountedProducts,
   filterByColor,
+  filterByMaterial,
   filterDiscount,
   filterQuantity,
   getColors,
@@ -84,6 +86,11 @@ const generatePageSizeOptions = (totalProducts) => {
   return options
 }
 
+const availableMaterials = computed(() => {
+  const materials = productsToView.value.map(product => product.material)
+  return [...new Set(materials.filter(Boolean))].sort()
+})
+
 watch(() => route?.query, (newQuery) => {
   currentPage.value = Number(newQuery.page) || 1
   pageSize.value = Number(newQuery.size) || 15
@@ -129,7 +136,7 @@ watch(paramLabel, () => {
 }, { immediate: true })
 
 watch(vueRoute, () => {
-  if (vueRoute.query.inventario || vueRoute.query.color || vueRoute.query.descuento) {
+  if (vueRoute.query.inventario || vueRoute.query.color || vueRoute.query.descuento || vueRoute.query.material) {
     _resetPagination()
   }
 }, { immediate: true })
@@ -175,6 +182,13 @@ updateMeta()
           <MpFilterColor
             :totalColor="getColors"
             @filterByColor="filterByColor"
+          />
+        </div>
+        <div class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
+          <MpFilterMaterial
+            :materials="availableMaterials"
+            :totalProducts="productsToView.length"
+            @filterMaterial="filterByMaterial"
           />
         </div>
       </div>
