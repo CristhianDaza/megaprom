@@ -279,7 +279,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new version of the project. With products and services.
 
-[1.8.X]: https://github.com/CristhianDaza/megaprom/compare/master...develop
+[1.8.0]: https://github.com/CristhianDaza/megaprom/pull/29/files
 [1.7.6]: https://github.com/CristhianDaza/megaprom/pull/28/files
 [1.7.5]: https://github.com/CristhianDaza/megaprom/pull/27/files
 [1.7.4]: https://github.com/CristhianDaza/megaprom/pull/26/files
