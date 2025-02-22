@@ -120,30 +120,12 @@ const titlePage = computed(() => {
   'Productos'
 })
 
-const _resetPagination = () => {
-  const updatedQuery = { ...route.query }
-  delete updatedQuery['page']
-  delete updatedQuery['size']
-  vueRouter.replace({ query: updatedQuery })
-}
-
 watch(paramSearch, () => {
   updateMeta()
 }, { immediate: true })
 
 watch(paramLabel, () => {
   updateMeta()
-}, { immediate: true })
-
-watch(() => ({
-  inventario: vueRoute.query.inventario,
-  color: vueRoute.query.color,
-  descuento: vueRoute.query.descuento,
-  material: vueRoute.query.material
-}), (newFilters, oldFilters) => {
-  if (JSON.stringify(newFilters) !== JSON.stringify(oldFilters)) {
-    _resetPagination();
-  }
 }, { immediate: true })
 
 updateMeta()
