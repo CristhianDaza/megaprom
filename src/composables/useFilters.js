@@ -65,7 +65,10 @@ export function useFilters() {
 
   const filterQuantity = (value) => {
     inventory.value = value
-    router.push({query: {...route.query, inventario: value}})
+    const query = { ...route.query }
+    delete query['page']
+    delete query['size']
+    router.push({query: { ...query, inventario: value}})
       .then(() => applyFilters())
   }
   
@@ -77,6 +80,8 @@ export function useFilters() {
     } else {
       delete query.descuento
     }
+    delete query['page']
+    delete query['size']
     await router.push({ query })
   }
   
@@ -179,6 +184,8 @@ export function useFilters() {
     } else {
       query.color = color
     }
+    delete query['page']
+    delete query['size']
     router.push({ query })
   }
   
@@ -191,6 +198,8 @@ export function useFilters() {
     } else {
       delete query.material
     }
+    delete query['page']
+    delete query['size']
     router.push({ query }).then(() => applyFilters())
   }
   

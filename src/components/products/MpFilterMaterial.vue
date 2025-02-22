@@ -22,6 +22,13 @@ const filterMaterial = () => {
   emit('filterMaterial', selectedMaterial.value)
 }
 
+const trimmedString = (str, maxLength = 22) => {
+  if (str.length > maxLength) {
+    return str.slice(0, maxLength) + '...'
+  }
+  return str
+}
+
 watch(() => route.query.material, async (newValue, oldValue) => {
   if (newValue !== oldValue) {
     selectedMaterial.value = newValue || ''
@@ -41,7 +48,7 @@ watch(() => route.query.material, async (newValue, oldValue) => {
     >
       <option value="">Todos</option>
       <option v-for="material in materials" :key="material" :value="material">
-        {{ material }}
+        {{ trimmedString(material) }}
       </option>
     </select>
     <small class="text-[#1D1D1B] dark:text-white/70">
