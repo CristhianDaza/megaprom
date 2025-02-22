@@ -23,21 +23,23 @@ export function useFilters() {
   
   const applyFilters = () => {
     productsToView.value = products.filteredProducts.filter(product => {
-      const matchesQuantity = inventory.value ? product.tableQuantity.some(item => item.quantity >= inventory.value) : true
-      const matchesDiscount = discount.value ? product.discount !== null : true
-      const matchesColor = color.value ? product.tableQuantity.some(item => item.color === color.value) : true
+      isEmptyFilters.value = false
+      const matchesQuantity = inventory.value
+        ? product.tableQuantity.some(item => item.quantity >= inventory.value)
+        : true
+      const matchesDiscount = discount.value
+        ? product.discount !== null
+        : true
+      const matchesColor = color.value
+        ? product.tableQuantity.some(item => item.color.toLowerCase() === color.value.toLowerCase())
+        : true
       return matchesQuantity && matchesDiscount && matchesColor
     })
-    isEmptyFilters.value = false
     if (!productsToView.value.length) {
       isEmptyFilters.value = true
       _setSimilarProducts()
     }
-    if (
-      route.query.inventario ||
-      route.query.descuento ||
-      route.query.color
-    ) {
+    if (route.query.inventario || route.query.descuento || route.query.color) {
       isCollapsed.value = false
     }
   }

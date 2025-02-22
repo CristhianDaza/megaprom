@@ -50,7 +50,7 @@ const totalPages = computed(() => Math.ceil(products.filteredProducts.length / p
 const paginatedProducts = computed(() => {
   const start = (currentPage.value - 1) * pageSize.value
   const end = start + pageSize.value
-  return products.filteredProducts.slice(start, end)
+  return productsToView.value.slice(start, end)
 })
 
 const changePage = (newPage) => {
