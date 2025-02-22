@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.8.X] - XX/XX/XXXX
+## [1.8.0] - 22/02/2025
 
 ### Fixed
 - Fixed discount issue in the promo app
@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed `v-for` errors where the `:key` was missing
 - Removed unused style template
 - Fixed missing `alt` attributes in catalog images
+- Fixed filter product
+- Fixed syntax errors in various Vue components and JavaScript files
 
 ### Added
 - Added validation to hide the filter when no discounts are available
@@ -21,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added fallback products when no search results are found
 - Enhanced similar product retrieval logic to ensure a minimum of 12 items
 - Added Paginator component to improve product navigation in Search view
+- Added material filter component and integrate with existing filter logic
 
 ### Changed
 - Updated filter styles
@@ -30,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Display 'Categories' instead of 'Category' when multiple categories exist
 - Updated search query to include `isCategory` parameter for better filtering
 - Titles now match their original format from the API
+- Updated text colors for better visibility in filters and loading states
 
 ## [1.7.6] - 13/02/2025
 
