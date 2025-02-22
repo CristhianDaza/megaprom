@@ -22,7 +22,7 @@ const filterMaterial = () => {
   emit('filterMaterial', selectedMaterial.value)
 }
 
-const trimmedString = (str, maxLength = 30) => {
+const trimmedString = (str, maxLength = 22) => {
   if (str.length > maxLength) {
     return str.slice(0, maxLength) + '...'
   }

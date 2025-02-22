@@ -152,26 +152,26 @@ updateMeta()
       class="container mx-auto mt-8"
     >
       <div class="flex w-full gap-2 flex-wrap">
-        <div v-if="getMaxQuantity > 0" class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
+        <div v-if="getMaxQuantity > 0" class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 md:w-[280px] w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterQuantity
             :value="inventory"
             :totalProducts="getMaxQuantity"
             @filterQuantity="filterQuantity"
           />
         </div>
-        <div v-if="countDiscountedProducts > 0" class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
+        <div v-if="countDiscountedProducts > 0" class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 md:w-[280px] w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterDiscount
             :totalProducts="countDiscountedProducts"
             @filterDiscount="filterDiscount"
           />
         </div>
-        <div class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4  md:w-[320px] w-auto shadow-lg transition-all duration-300 ease-in-out">
+        <div class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4  md:w-[280px] w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterColor
             :totalColor="getColors"
             @filterByColor="filterByColor"
           />
         </div>
-        <div class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 w-full md:w-auto shadow-lg transition-all duration-300 ease-in-out">
+        <div class="bg-[#E7E7E7] dark:bg-dark-mp border border-gray-600 dark:border-gray-700 rounded-xl p-4 md:w-[280px] w-auto shadow-lg transition-all duration-300 ease-in-out">
           <MpFilterMaterial
             :materials="availableMaterials"
             :totalProducts="productsToView.length"
