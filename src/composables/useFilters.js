@@ -11,9 +11,12 @@ export function useFilters() {
   const isCollapsed = ref(true)
   const inventory = ref(Number(route.query.inventario || 0))
   const discount = ref(route.query.descuento || null)
+  const color = ref(route.query.color || null)
   const chips = ref([])
+  const isEmptyFilters = ref(false)
   
   const productsToView = ref([])
+  const selectedMaterial = ref(null)
   
   const changeCollapsed = (toggle) => {
     isCollapsed.value = toggle.value
@@ -21,20 +24,50 @@ export function useFilters() {
   
   const applyFilters = () => {
     productsToView.value = products.filteredProducts.filter(product => {
-      const matchesQuantity = inventory.value ? product.tableQuantity.some(item => item.quantity >= inventory.value) : true
-      const matchesDiscount = discount.value ? product.discount !== null : true
-      return matchesQuantity && matchesDiscount
+      const matchesQuantityAndColor = product.tableQuantity.some(item =>
+        (!inventory.value || item.quantity >= inventory.value) &&
+        (!color.value || item.color.trim().toLowerCase() === color.value?.trim().toLowerCase())
+      )
+      const matchesDiscount = !discount.value || product.discount !== null
+      const matchesMaterial = !selectedMaterial.value ||
+        _normalizeString(product.material).includes(_normalizeString(selectedMaterial.value))
+      return matchesQuantityAndColor && matchesDiscount && matchesMaterial
     })
-    if (route.query.inventario || route.query.descuento) {
+    
+    isEmptyFilters.value = productsToView.value.length === 0;
+    if (isEmptyFilters.value) {
+      _setSimilarProducts()
+    }
+    if (route.query.inventario || route.query.descuento || route.query.color || route.query.material) {
       isCollapsed.value = false
     }
   }
   
+  const _normalizeString = (str) => str ? str.trim().toLowerCase() : ''
+
+  const _setSimilarProducts = () => {
+    let availableProducts = [...products.products]
+    let similarProducts = ref([])
+
+    if (availableProducts.length <= 25) {
+      similarProducts.value = availableProducts
+      return
+    }
+
+    productsToView.value = _getRandomItems(availableProducts, 25)
+  }
+  
+
+  const _getRandomItems = (array, numItems) => {
+    const shuffled = array.sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, numItems)
+  }
+
   const filterQuantity = (value) => {
     inventory.value = value
     router.push({query: {...route.query, inventario: value}})
       .then(() => applyFilters())
-   }
+  }
   
   const filterDiscount = async (value) => {
     discount.value = value ? value : null
@@ -55,6 +88,12 @@ export function useFilters() {
     if (route.query.descuento) {
       filters.push({ name: 'Con descuento', key: 'descuento' })
     }
+    if (route.query.color) {
+      filters.push({ name: `Color: ${route.query.color}`, key: 'color' })
+    }
+    if (route.query.material) {
+      filters.push({ name: `Material: ${route.query.material}`, key: 'material' })
+    }
     chips.value = filters
   }
   
@@ -73,11 +112,18 @@ export function useFilters() {
       applyFilters()
     }
   })
-  
-  watch(() => [route.query.inventario, route.query.descuento], async (newValue, oldValue) => {
+
+  watch(() => [
+    route.query.inventario,
+    route.query.descuento,
+    route.query.color,
+    route.query.material,
+  ], async (newValue, oldValue) => {
     if (newValue !== oldValue) {
       inventory.value = Number(route.query.inventario || 0)
       discount.value = route.query.descuento || null
+      color.value = route.query.color || null
+      selectedMaterial.value = route.query.material || null
       applyFilters()
     }
   }, { immediate: true })
@@ -107,6 +153,46 @@ export function useFilters() {
     })
     return maxQuantity
   })
+
+  const getColors = computed(() => {
+    const colorCount = {};
+
+    productsToView.value.forEach(item => {
+      if (item?.tableQuantity) {
+        item.tableQuantity.forEach(quantityItem => {
+          const color = quantityItem.color;
+          colorCount[color] = (colorCount[color] || 0) + 1;
+        });
+      }
+    });
+  
+    return Object.keys(colorCount).map(color => ({
+      color,
+      quantity: colorCount[color]
+    }));
+  });
+  
+  const filterByColor = (color) => {
+    const query = { ...route.query }
+    if (query.color === color) {
+      delete query.color
+    } else {
+      query.color = color
+    }
+    router.push({ query })
+  }
+  
+  const filterByMaterial = (material) => {
+    selectedMaterial.value = material
+    const query = { ...route.query }
+    
+    if (material) {
+      query.material = material
+    } else {
+      delete query.material
+    }
+    router.push({ query }).then(() => applyFilters())
+  }
   
   onMounted(async () => {
     if (route.query.q) {
@@ -120,18 +206,22 @@ export function useFilters() {
   })
   
   return {
-    isCollapsed,
-    inventory,
-    discount,
-    chips,
-    productsToView,
-    products,
-    route,
     changeCollapsed,
-    filterQuantity,
-    filterDiscount,
-    updateChips,
+    chips,
     countDiscountedProducts,
-    getMaxQuantity
+    discount,
+    filterByColor,
+    filterByMaterial,
+    filterDiscount,
+    filterQuantity,
+    getColors,
+    getMaxQuantity,
+    inventory,
+    isCollapsed,
+    isEmptyFilters,
+    products,
+    productsToView,
+    route,
+    updateChips,
   }
 }

@@ -189,7 +189,3 @@ watch(() => props.images, (newValue) => {
     </template>
   </Carousel>
 </template>
-
-<style scoped>
-
-</style>

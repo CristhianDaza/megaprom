@@ -68,17 +68,13 @@ export const constructPackagingMp = (packaging) => {
 }
 
 export const constructCategoryMp = (product) => {
-  const parts = []
-  if (product?.subcategoria_1) {
-    parts.push(product?.subcategoria_1?.nombre)
-  }
-  if (product?.subcategoria_2) {
-    parts.push(product.subcategoria_2?.nombre)
-  }
-  if (product?.subcategoria_3) {
-    parts.push(product.subcategoria_3?.nombre)
-  }
-  return parts.join(' | ')
+  return [
+    product?.subcategoria_1?.nombre,
+    product?.subcategoria_2?.nombre,
+    product?.subcategoria_3?.nombre,
+    product?.subcategoria_4?.nombre,
+    product?.subcategoria_5?.nombre
+  ].filter(Boolean)
 }
 
 export const constructLabelsMp = (product) => {
@@ -131,10 +127,20 @@ const _decodeHtmlEntities = (text) => {
   return text.replace(/&[A-Za-z]+;/g, match => htmlEntities[match] || match)
 }
 
-export const formatText = (text, isDescription = false) => {
-  let decodedText = _decodeHtmlEntities(text)
+const _alwaysUppercase = ['USB', 'LED', 'ID', 'mAh', 'GB', 'TB', 'HD', 'TV']
+
+export const formatText = (text, isUpperCase = false) => {
+  const decodedText = _decodeHtmlEntities(text)
   if (!decodedText) return ''
-  return isDescription ? decodedText : decodedText.charAt(0).toUpperCase() + decodedText.slice(1).toLowerCase()
+
+  if (isUpperCase) {
+    const words = decodedText.toLowerCase().split(' ')
+    const formattedText = words
+      .map(word => _alwaysUppercase.includes(word.toUpperCase()) ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+    return formattedText
+  }
+  return decodedText
 }
 
 export const constructTotalProductsMp = (materials) => {
@@ -471,4 +477,4 @@ export const services = {
       }
     ]
   },
-};
+}

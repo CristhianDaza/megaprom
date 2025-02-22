@@ -18,7 +18,7 @@ export const useCarouselStore = defineStore('carousel', {
                 if (carouselLocalStorage && lastUpdateLocalStorage) {
                     const lastUpdateDate = new Date(lastUpdateLocalStorage)
                     const now = new Date()
-                    const diffInDays = daysDifferenceFromMidnight(lastUpdateDate, now);
+                    const diffInDays = daysDifferenceFromMidnight(lastUpdateDate, now)
                     if (diffInDays < 1) {
                         this.carousel = JSON.parse(carouselLocalStorage)
                         this.isLoading = false
@@ -34,7 +34,7 @@ export const useCarouselStore = defineStore('carousel', {
                 items.push({ id: doc.id, ...doc.data() })
             })
 
-            this.carousel = items;
+            this.carousel = items
             localStorage.setItem('carousel', JSON.stringify(items))
             localStorage.setItem('carouselLastUpdate', new Date().toISOString())
             this.isLoading = false
@@ -58,7 +58,7 @@ export const useCarouselStore = defineStore('carousel', {
         async _uploadImageCarousel (file) {
             if (!file) return
             
-            const storage = getStorage();
+            const storage = getStorage()
             const fileRef = storageRef(storage, `carousel/${file.name}`)
             await uploadBytes(fileRef, file)
             return await getDownloadURL(fileRef)

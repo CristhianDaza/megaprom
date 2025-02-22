@@ -6,7 +6,7 @@ import './style.css'
 import App from './App.vue'
 import Wind from '@/presets/wind'
 import 'primeicons/primeicons.css'
-import '@github/relative-time-element';
+import '@github/relative-time-element'
 import { VueHeadMixin, createHead } from '@unhead/vue'
 const app = createApp(App)
 
@@ -19,12 +19,12 @@ app.use(pinia)
 
 // import 'primevue/resources/themes/saga-blue/theme.css'       // theme
 
-const head = createHead();
-app.use(head);
+const head = createHead()
+app.use(head)
 app.mixin(VueHeadMixin)
 
 const userStore = useUserStore()
-const auth = getAuth();
+const auth = getAuth()
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -64,6 +64,7 @@ import InputIcon from 'primevue/inputicon'
 import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
 import Menubar from 'primevue/menubar'
+import Paginator from 'primevue/paginator'
 import Password from 'primevue/password'
 import ProgressBar from 'primevue/Progressbar'
 import ProgressSpinner from 'primevue/progressspinner'
@@ -99,6 +100,7 @@ app.component('InputIcon', InputIcon)
 app.component('InputNumber', InputNumber)
 app.component('InputText', InputText)
 app.component('Menubar', Menubar)
+app.component('Paginator', Paginator)
 app.component('Password', Password)
 app.component('ProgressBar', ProgressBar)
 app.component('ProgressSpinner', ProgressSpinner)
@@ -109,7 +111,7 @@ app.component('TabPanel', TabPanel)
 app.component('TabView', TabView)
 app.component('Toast', Toast)
 app.component('ToggleButton', ToggleButton)
-app.use(ConfirmationService);
+app.use(ConfirmationService)
 app.use(ToastService)
 app.use(router)
 app.directive('tooltip', Tooltip)

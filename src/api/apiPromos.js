@@ -3,7 +3,7 @@ import { apiConfigPromos} from '@/services/apiConfig.js'
 const userData = {
   user: import.meta.env.VITE_USER_API_PROMOS,
   password: import.meta.env.VITE_PASSWORD_API_PROMOS
-};
+}
 
 /**
  * @description This POST request is used to obtain the Stock list of all active products. It is displayed by Products, Stock and Warehouse.

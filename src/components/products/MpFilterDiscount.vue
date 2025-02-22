@@ -2,21 +2,21 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-const emit = defineEmits({ filterDiscount: null });
+const emit = defineEmits({ filterDiscount: null })
 
 const props = defineProps({
   totalProducts: {
     type: Number,
     required: true
   }
-});
+})
 
-const route = useRoute();
+const route = useRoute()
 
-const checked = ref(false);
+const checked = ref(false)
 
 const filterDiscount = () => {
-  emit('filterDiscount', checked.value);
+  emit('filterDiscount', checked.value)
 }
 
 watch(() => route.query.descuento, async (newValue, oldValue) => {
@@ -28,7 +28,8 @@ watch(() => route.query.descuento, async (newValue, oldValue) => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <p>Ver solo con descuentos:</p>
+    <p class="mr-3 text-lg font-semibold text-[#1D1D1B] dark:text-white/70">Ver solo con descuentos:</p>
+    <hr class="mb-2"/>
     <ToggleButton
       id="toggle"
       v-model="checked"
@@ -41,12 +42,9 @@ watch(() => route.query.descuento, async (newValue, oldValue) => {
       :disabled="totalProducts === 0"
       @change="filterDiscount"
     />
-    <small id="toggle-help">
+    <small id="toggle-help" class="text-[#1D1D1B] dark:text-white/70">
       Productos con descuento: {{ totalProducts }}.
     </small>
   </div>
 </template>
 
-<style scoped>
-
-</style>

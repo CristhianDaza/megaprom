@@ -26,7 +26,3 @@ const MpCarousel = defineAsyncComponent(/* webpackChunkName: "mpCarousel" */() =
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

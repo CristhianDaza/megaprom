@@ -61,7 +61,7 @@ export const useCatalogsStore = defineStore('catalogs', {
 			async _uploadImage (file) {
 				if (!file) return
 				
-				const storage = getStorage();
+				const storage = getStorage()
 				const fileRef = storageRef(storage, `catalogs/${file.name}`)
 				await uploadBytes(fileRef, file)
 				return await getDownloadURL(fileRef)

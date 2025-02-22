@@ -14,7 +14,7 @@ import { useProductsStore } from '@/store/products.js'
 
 const productsStore = useProductsStore()
 const route = useRoute()
-const idPage = computed(() => route.params.id);
+const idPage = computed(() => route.params.id)
 
 const breadcrumbItems = [
   {
@@ -38,7 +38,7 @@ watch(async () => route.params.id, async (newValue, oldValue) => {
 
 watch(() => productsStore.product, (newValue) => {
   product.value = newValue
-  updateMeta();
+  updateMeta()
 })
 
 watch(() => productsStore.isUpdatedTable, (newValue) => {
@@ -46,7 +46,6 @@ watch(() => productsStore.isUpdatedTable, (newValue) => {
     productsStore.getProductById(route.params.id)
   }
 })
-
 
 onBeforeMount(async () => {
   await productsStore.getProductById(route.params.id)
@@ -66,9 +65,9 @@ const updateMeta = () => {
       { name: 'twitter:description', content: productsStore.product?.description },
       { name: 'twitter:image', content: productsStore.product?.mainImage }
     ]
-  });
+  })
 }
-watch(idPage, updateMeta);
+watch(idPage, updateMeta)
 </script>
 
 <template>
@@ -117,7 +116,3 @@ watch(idPage, updateMeta);
     :similar="product"
   />
 </template>
-
-<style scoped>
-
-</style>

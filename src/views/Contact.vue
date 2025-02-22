@@ -24,7 +24,7 @@ useHead({
     { name: 'twitter:description', content: 'Ponte en contacto con nosotros en Megapromocionales para cualquier consulta o pedido.' },
     { name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/megapromocionales2020.appspot.com/o/logoWeb.webp?alt=media&token=72bc41b4-57ed-4b55-b92f-0df6c335e685' }
   ]
-});
+})
 
 </script>
 
@@ -34,7 +34,3 @@ useHead({
     <h1>Contact</h1>
   </div>
 </template>
-
-<style scoped>
-
-</style>

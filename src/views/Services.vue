@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue'
 import { useHead } from '@unhead/vue'
 
 const MpBreadcrumb = defineAsyncComponent(/* webpackChunkName: "mpBreadcrumb" */() => import('@/components/UI/MpBreadcrumb.vue'))
@@ -26,7 +26,7 @@ useHead({
     { name: 'twitter:description', content: 'Conoce los servicios que ofrecemos en Megapromocionales.' },
     { name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-06.jpg?alt=media&token=9215aac9-b073-4482-ae77-b1d17a3f662a' }
   ]
-});
+})
 </script>
 
 <template>
@@ -39,7 +39,3 @@ useHead({
     <MpServicesImg />
   </div>
 </template>
-
-<style scoped>
-
-</style>

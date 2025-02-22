@@ -22,7 +22,3 @@ const { seeWp, showTooltip } = useWhatsApp()
     </button>
   </div>
 </template>
-
-<style scoped>
-
-</style>

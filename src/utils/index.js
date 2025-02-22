@@ -56,19 +56,23 @@ export const combineProducts = (docs) => {
 
 export const normalizeAndFilterProducts = (products, searchTerm) => {
   const normalizeString = (str) => {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    if (!str) return ''
+    if (Array.isArray(str)) str = str.join(' ')
+    return String(str).normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
   }
-  
-  const keywords = normalizeString(searchTerm).split('|').map(keyword => keyword.trim())
-  
+
+  const keywords = normalizeString(searchTerm)
+    .split(/\s+/)
+    .map(keyword => _singularize(keyword.trim()))
+
   return products.filter(product => {
-    const productName = normalizeString(product.name)
-    const productDescription = normalizeString(product.description)
-    const productMaterial = normalizeString(product.material)
-    const productCategory = product.category ? normalizeString(product.category) : ''
+    const productName = normalizeString(product.name).split(/\s+/).map(_singularize).join(' ')
+    const productDescription = normalizeString(product.description).split(/\s+/).map(_singularize).join(' ')
+    const productMaterial = normalizeString(product.material).split(/\s+/).map(_singularize).join(' ')
+    const productCategory = normalizeString(product.category || '').split(/\s+/).map(_singularize).join(' ')
     const productId = normalizeString(product.id)
-    
-    return keywords.some(keyword =>
+
+    return keywords.every(keyword =>
       productName.includes(keyword) ||
       productDescription.includes(keyword) ||
       productMaterial.includes(keyword) ||
@@ -78,16 +82,21 @@ export const normalizeAndFilterProducts = (products, searchTerm) => {
   })
 }
 
+const _singularize = (word) => {
+  return word.replace(/(as|es|os|is|us|s)$/, '')
+}
+
 export const normalizeProductsCA = (product, stock) => {
   return {
     api: 'promoopcion',
     areaPrinting: formatText(product?.impresion.areaImpresion),
-    description: formatText(product?.descripcion, true),
+    description: formatText(product?.descripcion),
+    discount: null,
     id: product?.skuPadre,
     images: constructImagesCa(product?.hijos, product?.imagenesPadre),
     mainImage: product?.imagenesPadre.length > 0 ? product?.imagenesPadre?.[0] : 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/notFound.jpg?alt=media&token=dc6a597c-b70b-4e1d-b529-9a01ad548587',
     material: formatText(product?.material),
-    name: `${formatText(product?.nombrePadre)}${product?.capacidad !== '' ? ` - ${product?.capacidad}` : ''}`,
+    name: `${formatText(product?.nombrePadre, true)}${product?.capacidad !== '' ? ` - ${product?.capacidad}` : ''}`,
     packaging: constructPackagingCa(product?.paquete),
     printing: formatText(product?.impresion.tecnicaImpresion),
     size: product?.medidas,
@@ -102,7 +111,7 @@ export const normalizeProductsMP = (product) => {
     api: 'marpico',
     areaPrinting: product?.area_impresion,
     category: constructCategoryMp(product),
-    description: formatText(product?.descripcion_larga, true),
+    description: formatText(product?.descripcion_larga),
     discount: getDiscounts(product?.materiales),
     id: product?.familia,
     images: product?.imagenes,
@@ -119,8 +128,8 @@ export const normalizeProductsMP = (product) => {
 }
 
 export function daysDifferenceFromMidnight(date1, date2) {
-  const date1Midnight = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
-  const date2Midnight = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
-  const diffInMs = date2Midnight - date1Midnight;
-  return diffInMs / (1000 * 60 * 60 * 24);
+  const date1Midnight = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate())
+  const date2Midnight = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate())
+  const diffInMs = date2Midnight - date1Midnight
+  return diffInMs / (1000 * 60 * 60 * 24)
 }

@@ -152,7 +152,3 @@ const hasLastUpdateTracking = computed(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

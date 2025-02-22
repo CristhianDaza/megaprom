@@ -58,7 +58,3 @@ watch(() => props.visible, (value) => {
     </Dialog>
   </div>
 </template>
-
-<style scoped>
-
-</style>

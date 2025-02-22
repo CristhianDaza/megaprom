@@ -14,7 +14,7 @@ const MpAdminMenu = defineAsyncComponent(/* webpackChunkName: "mpAdminMenu" */()
 
 useHead({
   title: 'Admin | Megapromocionales',
-});
+})
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -75,7 +75,3 @@ const _updateProducts = async () => {
     </TabView>
   </div>
 </template>
-
-<style scoped>
-
-</style>

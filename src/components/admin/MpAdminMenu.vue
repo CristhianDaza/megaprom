@@ -76,9 +76,9 @@ onMounted(() => {
     @manageModal="manageValueModal"
   />
   <div v-if="menuStore.isLoading" class="container mx-auto grid gap-4 mt-1">
-    <template v-for="loader in 12">
+    <div v-for="loader in 12" :key="loader">
       <Skeleton height="2rem" class="mb-2">{{loader}}</Skeleton>
-    </template>
+    </div>
   </div>
   <template v-else>
     <DataTable :value="menuStore.menu">
@@ -151,7 +151,3 @@ onMounted(() => {
     </DataTable>
   </template>
 </template>
-
-<style scoped>
-
-</style>

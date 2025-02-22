@@ -5,7 +5,7 @@ const checkbox = ref(false)
 const theme = ref('Oscuro')
 
 const setTheme = (themeName) => {
-  localStorage.setItem('theme', themeName);
+  localStorage.setItem('theme', themeName)
 
   if (themeName === 'theme-dark') {
     theme.value = 'Claro'
@@ -25,7 +25,7 @@ const toggleTheme = () => {
 }
 
 onMounted(() => {
-  const storedTheme = localStorage.getItem('theme');
+  const storedTheme = localStorage.getItem('theme')
   if (storedTheme === 'theme-dark') {
     setTheme(storedTheme)
     checkbox.value = true

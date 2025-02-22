@@ -17,7 +17,7 @@ const home = ref({
   <div class="flex justify-left py-5 pl-5 md:pl-2 container mx-auto">
     <Breadcrumb :home="home" :model="model">
       <template #item="{ item, props }">
-        <router-link v-slot="{ href, navigate }" :to="{ name: item.name }" custom>
+        <router-link v-slot="{ navigate }" :to="{ name: item.name }" custom>
           <span v-bind="props.action" @click="navigate" :class="{'cursor-pointer': item.name}">
             <span :class="[item.icon, 'text-color']" />
             <span class="text-primary font-semibold">{{ item.label }}</span>
@@ -27,7 +27,3 @@ const home = ref({
     </Breadcrumb>
   </div>
 </template>
-
-<style scoped>
-
-</style>

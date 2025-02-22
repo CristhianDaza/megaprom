@@ -57,7 +57,8 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <p>Cantidad por color:</p>
+    <p class="mr-3 text-lg font-semibold  text-[#1D1D1B] dark:text-white/70">Cantidad por color:</p>
+    <hr class="mb-2" />
     <InputNumber
       id="quantity"
       v-model="value"
@@ -72,12 +73,8 @@ onMounted(() => {
       label="Filtrar"
       @click="filterProduct"
     />
-    <small id="quantity-help">
+    <small id="quantity-help" class="text-[#1D1D1B] dark:text-white/70">
       Hasta {{ formatNumber(maxQuantityNumber) }}
     </small>
   </div>
 </template>
-
-<style scoped>
-
-</style>

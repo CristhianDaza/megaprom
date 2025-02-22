@@ -168,7 +168,3 @@ const isInvalid = computed(() => {
     </div>
   </Dialog>
 </template>
-
-<style scoped>
-
-</style>
