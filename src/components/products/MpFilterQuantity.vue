@@ -1,4 +1,5 @@
 <script setup>
+import TvButton from "@todovue/tvbutton";
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { formatNumber } from '@/utils'
@@ -69,10 +70,13 @@ onMounted(() => {
       name="quantity"
       aria-label="Cantidad"
     />
-    <Button
-      label="Filtrar"
+    <tv-button
+      full
+      small
+      info
+      rounded
       @click="filterProduct"
-    />
+    >Filtrar</tv-button>
     <small id="quantity-help" class="text-[#1D1D1B] dark:text-white/70">
       Hasta {{ formatNumber(maxQuantityNumber) }}
     </small>

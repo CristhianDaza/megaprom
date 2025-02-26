@@ -1,4 +1,5 @@
 <script setup>
+import  TvButton from '@todovue/tvbutton'
 import { defineAsyncComponent } from 'vue'
 import { useHead } from '@unhead/vue'
 import { useConfirm } from 'primevue/useconfirm'
@@ -52,16 +53,23 @@ const _updateProducts = async () => {
 <template>
   <ConfirmDialog />
   <div class="container mx-auto lg:py-5">
-    <Button label="Cerrar sesión" class="mb-4 float-right" @click="logout" severity="danger" text />
-    <Button
-      label="Actualizar inventario"
-      class="mb-4"
-      @click="confirmUpdated"
-      severity="info"
-      outlined
-      :disabled="products.attempts === 3"
-      :loading="products.isLoadingAllProducts"
-    />
+    <div class="mb-4">
+      <tv-button
+        class="float-right"
+        outlined
+        rounded
+        @click="logout"
+      >Cerrar Sesión</tv-button>
+  <!--      :loading="products.isLoadingAllProducts"-->
+      <tv-button
+        rounded
+        info
+        @click="confirmUpdated"
+        :disabled="products.attempts === 3"
+      >
+        Actualizar Inventario
+      </tv-button>
+    </div>
     <TabView>
       <TabPanel header="Menú">
         <MpAdminMenu />

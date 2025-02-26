@@ -1,4 +1,5 @@
 <script setup>
+import TvButton from "@todovue/tvbutton";
 import { ref, watch, computed } from 'vue'
 import { useCatalogsStore } from '@/store/catalogs.js'
 import { useCarouselStore } from '@/store/carousel.js'
@@ -153,18 +154,20 @@ const isInvalid = computed(() => {
       </div>
     </template>
     <div class="flex justify-content-end gap-2">
-      <Button
-        type="button"
-        :label="configModal?.cancelButton"
-        severity="secondary"
+      <tv-button
+        rounded
         @click="valueModal(false)"
-      />
-      <Button
-        type="button"
-        :label="configModal?.acceptButton"
-        @click="acceptButton"
+      >
+        {{ configModal?.cancelButton }}
+      </tv-button>
+      <tv-button
+        rounded
+        success
         :disabled="isInvalid"
-      />
+        @click="acceptButton"
+      >
+        {{ configModal?.acceptButton }}
+      </tv-button>
     </div>
   </Dialog>
 </template>

@@ -87,17 +87,40 @@ export function useFilters() {
   
   const updateChips = () => {
     const filters = []
+    const filterColors = {
+      inventario: "#4A90E2",
+      descuento: "#D0021B",
+      color: "#F5A623",
+      material: "#7ED321",
+    };
+    
     if (route.query.inventario) {
-      filters.push({ name: `Inventario: hasta ${formatNumber(route.query.inventario)}`, key: 'inventario' })
+      filters.push({
+        name: `Inventario: hasta ${formatNumber(route.query.inventario)}`,
+        key: "inventario",
+        color: filterColors["inventario"]
+      });
     }
     if (route.query.descuento) {
-      filters.push({ name: 'Con descuento', key: 'descuento' })
+      filters.push({
+        name: "Con descuento",
+        key: "descuento",
+        color: filterColors["descuento"]
+      });
     }
     if (route.query.color) {
-      filters.push({ name: `Color: ${route.query.color}`, key: 'color' })
+      filters.push({
+        name: `Color: ${route.query.color}`,
+        key: "color",
+        color: filterColors["color"]
+      });
     }
     if (route.query.material) {
-      filters.push({ name: `Material: ${route.query.material}`, key: 'material' })
+      filters.push({
+        name: `Material: ${route.query.material}`,
+        key: "material",
+        color: filterColors["material"]
+      });
     }
     chips.value = filters
   }

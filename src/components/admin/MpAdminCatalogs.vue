@@ -3,6 +3,7 @@ import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import { useCatalogsStore} from '@/store/catalogs.js'
+import TvButton from "@todovue/tvbutton";
 
 const MpAdminModal = defineAsyncComponent(/* webpackChunkName: "mpAdminModal" */() => import('@/components/admin/MpAdminModal.vue'))
 
@@ -87,18 +88,19 @@ onMounted(() => {
       <template #header>
         <div class="flex flex-wrap justify-end gap-2 mt-[-25px]">
           <div class="flex gap-2">
-            <Button
-              icon="pi pi-refresh"
-              raised
+            <tv-button
+              :disabled="catalogsStore.catalogs.length === 0"
+              icon="update"
+              success
+              type="icon"
               v-tooltip.top="`Actualizar catálogos`"
               @click="catalogsStore.getCatalogs(true)"
-              :disabled="catalogsStore.catalogs.length === 0"
             />
-            <Button
-              icon="pi pi-plus"
-              raised
+            <tv-button
+              icon="plus"
+              info
+              type="icon"
               v-tooltip.top="`Agregar catálogo`"
-              severity="info"
               @click="manageCatalog('add', 'catalog')"
             />
           </div>
@@ -124,23 +126,18 @@ onMounted(() => {
       <Column header="Acción">
         <template #body="slotProps">
           <div class="flex gap-2">
-            <Button
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success p-button-outlined"
+            <tv-button
+              icon="edit"
+              info
+              type="icon"
               v-tooltip.top="`Editar catálogo`"
-              severity="info"
-              rounded
-              aria-label="Editar catálogo"
               @click="manageCatalog('edit', 'catalog', slotProps.data)"
             />
-            <Button
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-danger p-button-outlined"
-              v-tooltip.top="`Eliminar catálogo`"
-              severity="danger"
+            <tv-button
+              icon="remove"
+              type="icon"
               outlined
-              rounded
-              aria-label="Eliminar catálogo"
+              v-tooltip.top="`Eliminar catálogo`"
               @click="confirmDelete(slotProps.data.id, slotProps.data.image)"
             />
           </div>

@@ -1,4 +1,5 @@
 <script setup>
+import TvButton from "@todovue/tvbutton";
 const emit = defineEmits(['next', 'prev'])
 const props = defineProps({
   page: {
@@ -25,26 +26,20 @@ const prevPage = () => {
 </script>
 
 <template>
-  <Button
-    icon="pi pi-angle-left"
-    text
-    rounded
-    aria-label="Left"
-    severity="info"
+  <tv-button
+    type="icon"
+    icon="arrow-left"
+    info
+    v-tooltip.bottom="`Página anterior`"
     @click="prevPage"
     :disabled="disabledButtonPrev"
   />
-  <Button
-    aria-label="Page"
-    :label="`${page}`"
-    severity="info"
-  />
-  <Button
-    icon="pi pi-angle-right"
-    text
-    rounded
-    aria-label="Right"
-    severity="info"
+  <p>{{ page }}</p>
+  <tv-button
+    type="icon"
+    icon="arrow-right"
+    info
+    v-tooltip.bottom="`Página siguiente`"
     @click="nextPage"
     :disabled="disabledButtonNext"
   />
