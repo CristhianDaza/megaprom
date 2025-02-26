@@ -1,4 +1,5 @@
 <script setup>
+import TvButton from "@todovue/tvbutton";
 import { computed, ref, defineAsyncComponent } from 'vue'
 import { formatNumber, formatPrice } from '@/utils'
 
@@ -59,21 +60,22 @@ const hasLastUpdateTracking = computed(() => {
   <div class="container mx-auto">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div v-if="userStore.isLogged" class="flex flex-wrap items-center justify-between gap-2 m-2 pb-2">
-        <Button
-          icon="pi pi-refresh"
-          rounded
-          raised
+        <tv-button
+          type="icon"
+          icon="update"
+          info
           v-tooltip.bottom="`Actualizar inventario`"
-          severity="info"
           @click="updateInventory"
         />
         <span></span>
-        <Button
-          :label="`Ver precios ${includeIva ? 'sin iva' : 'con iva'}`"
-          @click="toggleIva"
-          severity="info"
+        <tv-button
+          rounded
+          info
           outlined
-        />
+          @click="toggleIva"
+        >
+          {{ `Ver precios ${includeIva ? 'sin iva' : 'con iva'}` }}
+        </tv-button>
       </div>
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

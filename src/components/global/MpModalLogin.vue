@@ -1,4 +1,5 @@
 <script setup>
+import TvButton from "@todovue/tvbutton";
 import { ref, watch } from 'vue'
 import { useUserStore } from '@/store/user.js'
 import { useRouter } from 'vue-router'
@@ -52,8 +53,8 @@ watch(() => props.visible, (value) => {
         <Password v-model="user.password" toggleMask :feedback="false" class="flex-auto" />
       </div>
       <div class="flex justify-end gap-2">
-        <Button type="button" label="Cancelar" severity="secondary" @click="() => { valueModal(false) }"></Button>
-        <Button type="button" label="Iniciar Sesión" @click="login"></Button>
+        <tv-button rounded small @click="() => { valueModal(false) }">Cancelar</tv-button>
+        <tv-button rounded success small @click="login">Iniciar Sesión</tv-button>
       </div>
     </Dialog>
   </div>

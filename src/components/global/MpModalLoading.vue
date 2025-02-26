@@ -1,4 +1,5 @@
 <script setup>
+import TvButton from "@todovue/tvbutton";
 import { onMounted, ref } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 
@@ -111,14 +112,14 @@ onMounted(() => {
           <p v-if="products.attempts < 3" class="font-semibold text-red-500 dark:text-red-400 pt-5">
             Hubo un error al actualizar la base de datos, por favor intenta de nuevo.
           </p>
-          <Button
-            label="Actualizar inventario nuevamente"
-            class="mt-4 w-full"
-            @click="updateProducts"
-            severity="info"
-            outlined
+          <tv-button
             v-if="products.attempts < 3"
-          />
+            rounded
+            outlined
+            info
+            full
+            @click="updateProducts"
+          ></tv-button>
           <template v-else>
             <p class="font-semibold text-red-500 dark:text-red-400">
               <ProgressBar :value="progress" />

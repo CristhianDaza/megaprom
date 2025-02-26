@@ -44,7 +44,6 @@ onAuthStateChanged(auth, (user) => {
 // PrimeVue components
 import Badge from 'primevue/badge'
 import Breadcrumb from 'primevue/breadcrumb'
-import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Carousel from 'primevue/carousel'
 import Checkbox from 'primevue/checkbox'
@@ -81,7 +80,6 @@ import Tooltip from 'primevue/tooltip'
 app.use(PrimeVue, { pt: Wind })
 app.component('Badge', Badge)
 app.component('Breadcrumb', Breadcrumb)
-app.component('Button', Button)
 app.component('Card', Card)
 app.component('CarouselP', Carousel)
 app.component('Checkbox', Checkbox)

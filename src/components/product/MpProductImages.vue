@@ -1,4 +1,5 @@
 <script setup>
+import TvButton from "@todovue/tvbutton";
 import {ref, onMounted, watch} from 'vue'
 import { useToast } from 'primevue/usetoast'
 
@@ -121,23 +122,22 @@ watch(() => props.images, (newValue) => {
 
 <template>
   <div class="w-full mx-auto flex justify-center pb-4 gap-2">
-    <Button
+    <tv-button
       v-if="api === 'marpico'"
-      icon="pi pi-copy"
-      aria-label="Copiar"
+      icon="clone"
+      type="icon"
+      success
+      outlined
       @click="save(images[currentSlide])"
-      outlined
-      rounded
-      v-tooltip.top="`Copiar imagen ${currentSlide + 1} en portapapeles`"
+      v-tooltip.top="`Copiar imagen ${currentSlide + 1} en portapapeles.`"
     />
-    <Button
+    <tv-button
       v-if="api === 'marpico'"
-      icon="pi pi-download"
-      aria-label="Copiar"
-      @click="downloadImage(images[currentSlide])"
+      icon="download"
+      type="icon"
+      info
       outlined
-      rounded
-      severity="info"
+      @click="downloadImage(images[currentSlide])"
       v-tooltip.top="`Descarga imagen ${currentSlide + 1}.`"
     />
   </div>

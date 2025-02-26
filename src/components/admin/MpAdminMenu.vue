@@ -3,6 +3,7 @@ import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import { useMenuStore } from '@/store/menu.js'
+import TvButton from "@todovue/tvbutton";
 
 const MpAdminModal = defineAsyncComponent(/* webpackChunkName: "mpAdminModal" */() => import('@/components/admin/MpAdminModal.vue'))
 
@@ -85,18 +86,19 @@ onMounted(() => {
       <template #header>
         <div class="flex flex-wrap justify-end gap-2 mt-[-25px]">
           <div class="flex gap-2">
-            <Button
-              icon="pi pi-refresh"
-              raised
+            <tv-button
+              :disabled="menuStore.menu.length === 0"
+              icon="update"
+              success
+              type="icon"
               v-tooltip.top="`Actualizar menú`"
               @click="menuStore.getMenu(true)"
-              :disabled="menuStore.menu.length === 0"
             />
-            <Button
-              icon="pi pi-plus"
-              raised
+            <tv-button
+              icon="plus"
+              info
+              type="icon"
               v-tooltip.top="`Agregar menú`"
-              severity="info"
               @click="manageModalMenu('add', 'menu')"
             />
           </div>
@@ -126,24 +128,19 @@ onMounted(() => {
       <Column header="Acción">
         <template #body="slotProps">
           <div class="flex gap-2">
-            <Button
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success p-button-outlined"
+            <tv-button
+              icon="edit"
+              info
+              type="icon"
               v-tooltip.top="`Editar menú`"
-              severity="info" rounded
-              aria-label="Editar menú"
               @click="manageModalMenu('edit', 'menu', slotProps.data)"
             />
-            <Button
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-danger p-button-outlined"
-              v-tooltip.top="`Eliminar menú`"
-              severity="danger"
-              outlined
-              rounded
-              aria-label="`Eliminar menú"
+            <tv-button
+              :is-disabled="slotProps.data.readOnly"
+              icon="remove"
+              type="icon"
+              v-tooltip.top="slotProps.data.readOnly ? '' : 'Eliminar menú'"
               @click="confirmDeleteMenu(slotProps.data.id)"
-              :disabled="slotProps.data.readOnly"
             />
           </div>
         </template>

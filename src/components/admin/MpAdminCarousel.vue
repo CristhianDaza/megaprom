@@ -1,4 +1,6 @@
 <script setup>
+import  TvButton from '@todovue/tvbutton'
+
 import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
@@ -87,18 +89,19 @@ onMounted(() => {
       <template #header>
         <div class="flex flex-wrap justify-end gap-2 mt-[-25px]">
           <div class="flex gap-2">
-            <Button
-              icon="pi pi-refresh"
-              raised
+            <tv-button
+              :disabled="carouselStore.carousel.length === 0"
+              icon="update"
+              success
+              type="icon"
               v-tooltip.top="`Actualizar imágenes en el carrusel`"
               @click="carouselStore.getCarousel(true)"
-              :disabled="carouselStore.carousel.length === 0"
             />
-            <Button
-              icon="pi pi-plus"
-              raised
+            <tv-button
+              icon="plus"
+              info
+              type="icon"
               v-tooltip.top="`Agregar imagen en el carrusel`"
-              severity="info"
               @click="manageModalCarousel('add', 'carousel')"
             />
           </div>
@@ -129,23 +132,18 @@ onMounted(() => {
       <Column header="Acción">
         <template #body="slotProps">
           <div class="flex gap-2">
-            <Button
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success p-button-outlined"
+            <tv-button
+              :disabled="carouselStore.carousel.length === 0"
+              icon="edit"
+              info
+              type="icon"
               v-tooltip.top="`Editar imagen del carrusel`"
-              severity="info"
-              rounded
-              aria-label="Editar imagen del carrusel"
               @click="manageModalCarousel('edit', 'carousel', slotProps.data)"
             />
-            <Button
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-danger p-button-outlined"
+            <tv-button
+              icon="remove"
+              type="icon"
               v-tooltip.top="`Eliminar imagen del carrusel`"
-              severity="danger"
-              outlined
-              rounded
-              aria-label="Eliminar imagen del carrusel"
               @click="confirmDeleteCarousel(slotProps.data.id, slotProps.data.image)"
             />
           </div>

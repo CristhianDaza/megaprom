@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@github/relative-time-element": "4.4.5",
+    "@todovue/tvbutton": "^1.1.0",
     "@unhead/vue": "1.11.18",
     "axios": "1.7.9",
     "dotenv": "16.4.7",
