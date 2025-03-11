@@ -16,30 +16,21 @@ export const constructSizeMp = (size) => {
 }
 
 export const constructPackagingCa = (packaging) => {
-  const parts = []
-  if (packaging?.alto) {
-    parts.push(`${packaging.alto} alto`)
-  }
-  if (packaging?.largo) {
-    parts.push(`${packaging.largo} largo`)
-  }
-  if (packaging?.ancho) {
-    parts.push(`${packaging.ancho} ancho`)
-  }
-  if (packaging?.pesoBruto) {
-    parts.push(`${packaging.pesoBruto}${packaging.unidadPeso} peso bruto`)
-  }
-  if (packaging?.pesoNeto) {
-    parts.push(`${packaging.pesoNeto}${packaging.unidadPeso} peso neto`)
-  }
-  if (packaging?.PiezasCaja) {
-    parts.push(`${packaging.PiezasCaja} piezas por caja`)
-  }
-  if (packaging?.cajaIndividual) {
-    parts.push(`Caga individual: ${packaging.cajaIndividual}`)
-  }
-  return parts.join(' - ')
-}
+  if (!packaging) return '';
+  
+  const parts = [];
+  
+  if (packaging.alto) parts.push(`${packaging.alto} cm de altura`);
+  if (packaging.largo) parts.push(`${packaging.largo} cm de largo`);
+  if (packaging.ancho) parts.push(`${packaging.ancho} cm de ancho`);
+  if (packaging.pesoBruto) parts.push(`Peso bruto: ${packaging.pesoBruto} ${packaging.unidadPeso}`);
+  if (packaging.pesoNeto) parts.push(`Peso neto: ${packaging.pesoNeto} ${packaging.unidadPeso}`);
+  if (packaging.PiezasCaja) parts.push(`Contiene ${packaging.PiezasCaja} piezas por caja`);
+  if (packaging.cajaIndividual) parts.push(`Caja individual: ${packaging.cajaIndividual === 'SI' ? 'Sí' : 'No'}`);
+  
+  return parts.join(' | ');
+};
+
 
 export const constructPackagingMp = (packaging) => {
   const parts = []
