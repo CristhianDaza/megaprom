@@ -33,29 +33,19 @@ export const constructPackagingCa = (packaging) => {
 
 
 export const constructPackagingMp = (packaging) => {
-  const parts = []
-  if (packaging?.empaque_unds_caja) {
-    parts.push(`${packaging.empaque_unds_caja} unidades por caja`)
-  }
-  if (packaging?.empaque_largo) {
-    parts.push(`${packaging.empaque_largo} largo`)
-  }
-  if (packaging?.empaque_ancho) {
-    parts.push(`${packaging.empaque_ancho} ancho`)
-  }
-  if (packaging?.empaque_alto) {
-    parts.push(`${packaging.empaque_alto} alto`)
-  }
-  if (packaging?.empaque_peso_neto) {
-    parts.push(`${packaging.empaque_peso_neto}G peso neto`)
-  }
-  if (packaging?.empaque_peso_bruto) {
-    parts.push(`${packaging.empaque_peso_bruto}G peso bruto`)
-  }
-  if (packaging?.cajas_individuales) {
-    parts.push(`${packaging.cajas_individuales} cajas individuales`)
-  }
-  return parts.join(' - ')
+  if (!packaging) return '';
+  
+  const parts = [];
+  
+  if (packaging.empaque_unds_caja) parts.push(`${packaging.empaque_unds_caja} unidades por caja`);
+  if (packaging.empaque_largo) parts.push(`Largo: ${packaging.empaque_largo} cm`);
+  if (packaging.empaque_ancho) parts.push(`Ancho: ${packaging.empaque_ancho} cm`);
+  if (packaging.empaque_alto) parts.push(`Alto: ${packaging.empaque_alto} cm`);
+  if (packaging.empaque_peso_neto) parts.push(`Peso neto: ${packaging.empaque_peso_neto} g`);
+  if (packaging.empaque_peso_bruto) parts.push(`Peso bruto: ${packaging.empaque_peso_bruto} g`);
+  if (packaging.cajas_individuales) parts.push(`Cajas individuales: ${packaging.cajas_individuales}`);
+  
+  return parts.join(' | ');
 }
 
 export const constructCategoryMp = (product) => {
