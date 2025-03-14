@@ -1,19 +1,16 @@
 export const constructSizeMp = (size) => {
-  const parts = []
-  if (size?.medidas_largo) {
-    parts.push(`${Math.trunc(size.medidas_largo)}cm largo`)
-  }
-  if (size?.medidas_ancho) {
-    parts.push(`${Math.trunc(size.medidas_ancho)}cm ancho`)
-  }
-  if (size?.medidas_alto) {
-    parts.push(`${Math.trunc(size.medidas_alto)}cm alto`)
-  }
-  if (size?.medidas_diametro) {
-    parts.push(`${size.medidas_diametro} de diámetro`)
-  }
-  return parts.join(' x ')
-}
+  if (!size) return '';
+  
+  const parts = [];
+  
+  if (size.medidas_largo) parts.push(`Largo: ${Math.trunc(size.medidas_largo)} cm`);
+  if (size.medidas_ancho) parts.push(`Ancho: ${Math.trunc(size.medidas_ancho)} cm`);
+  if (size.medidas_alto) parts.push(`Alto: ${Math.trunc(size.medidas_alto)} cm`);
+  if (size.medidas_diametro) parts.push(`Diámetro: ${size.medidas_diametro} cm`);
+  
+  return parts.join(' | ');
+};
+
 
 export const constructPackagingCa = (packaging) => {
   if (!packaging) return '';
