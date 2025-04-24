@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unrelease]
 
 ### Changed
-- The relative time component is changed to an eigenfunction
+- Added MpRelativeTime component to display time along with its tooltip
 
 ## [1.8.3] - 10/03/2025
 
