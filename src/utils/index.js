@@ -14,7 +14,7 @@ import {
 } from '../helpers'
 
 export const formatNumber = (value, isTable = false) => {
-  if (value == null) return ''
+  if (value == null) return `${isTable ? '-' : ''}`
   if (value < 0) return '0'
   if (value > 10) {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + `${isTable ? '' : ' unds.'}`

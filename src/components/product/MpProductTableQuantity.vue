@@ -4,10 +4,10 @@ import { computed, ref, defineAsyncComponent } from 'vue'
 import { formatNumber, formatPrice } from '@/utils'
 
 const MpColor = defineAsyncComponent(/* webpackChunkName: "mpColor" */() => import('@/components/UI/MpColor.vue'))
+const MpRelativeTime = defineAsyncComponent(/* webpackChunkName: "mpRelativeTime" */() => import('@/components/UI/MpRelativeTime.vue'))
 
 import { useUserStore } from '@/store/user.js'
 import { useProductsStore } from '@/store/products.js'
-import { getRelativeTime } from "@/helpers/index.js";
 
 const userStore = useUserStore()
 const products = useProductsStore()
@@ -123,16 +123,22 @@ const hasLastUpdateTracking = computed(() => {
             {{ formatNumber(item.quantity, true) }}
           </td>
           <td v-if="hasInTracking" class="px-6 py-4">
-            {{ formatNumber(item.inTracking, true) }}
+            {{ formatNumber(item.inTracking, true)}}
           </td>
           <td v-if="hasStatusTracking" class="px-6 py-4">
-            {{ item.statusTracking }}
+            {{ item.statusTracking ?? '-' }}
           </td>
           <td v-if="hasDataTracking" class="px-6 py-4">
-            {{ getRelativeTime(item.dataTracking) }}
+            <MpRelativeTime
+              :date-string="item.dataTracking"
+              is-table-quantity
+            />
           </td>
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
-            {{ getRelativeTime(item.lastUpdateTracking) }}
+            <MpRelativeTime
+              :date-string="item.lastUpdateTracking"
+              is-table-quantity
+            />
           </td>
           <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
@@ -152,7 +158,10 @@ const hasLastUpdateTracking = computed(() => {
     </div>
     <div class="float-right mt-5 text-gray-900 whitespace-nowrap dark:text-white">
       Inventario actualizado: <span class="font-bold">
-      {{ getRelativeTime(product?.lastUpdate ?? products.lastUpdateProducts) }}
+      <MpRelativeTime
+        :date-string="product?.lastUpdate ?? products.lastUpdateProducts"
+        is-table-quantity
+      />
     </span>
     </div>
   </div>

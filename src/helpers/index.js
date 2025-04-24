@@ -343,10 +343,16 @@ export const getDiscounts = (materials) => {
   return discounts.length > 0 ? discounts[0] : null
 }
 
-export const getRelativeTime = (dateString) => {
-  if (!dateString) return 'Sin fecha'
+export const getRelativeTime = (dateString, isTableQuantity = false) => {
+  if (!dateString) return `${isTableQuantity ? '-' : 'Sin fecha'}`
   const date = new Date(dateString)
   const now = new Date()
+  
+  const fullDate = new Intl.DateTimeFormat('es-CO', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date)
   
   const diffInSeconds = Math.floor((date.getTime() - now.getTime()) / 1000)
   
@@ -363,14 +369,14 @@ export const getRelativeTime = (dateString) => {
     const ruleFuture = timeRulesFuture.find(rule => diffInSeconds < rule.limit)
     
     if (!ruleFuture || diffInSeconds >= 31536000) {
-      return 'Más de 1 año'
+      return {text: 'Más de 1 año', tooltip: fullDate}
     }
     
-    if (ruleFuture.immediate) return 'En ' + ruleFuture.unit[0]
+    if (ruleFuture.immediate) return {text: 'En ' + ruleFuture.unit[0], tooltip: fullDate}
     const value = Math.floor(diffInSeconds / ruleFuture.divisor)
-    if (value === 0) return 'En ' + ruleFuture.unit[0]
+    if (value === 0) return {text: 'En ' + ruleFuture.unit[0], tooltip: fullDate}
     const unit = value === 1 ? ruleFuture.unit[0] : ruleFuture.unit[1]
-    return `En ${value} ${unit}`
+    return {text: `En ${value} ${unit}`, tooltip: fullDate}
   }
   
   const pastDiffInSeconds = Math.abs(diffInSeconds)
@@ -388,13 +394,13 @@ export const getRelativeTime = (dateString) => {
   const rule = timeRules.find(rule => pastDiffInSeconds < rule.limit)
   if (!rule) {
     console.error('No se encontró una regla de tiempo para:', dateString, pastDiffInSeconds)
-    return 'Fecha inválida'
+    return {text: 'Fecha inválida', tooltip: fullDate}
   }
-  if (rule.immediate) return 'Hace ' + rule.unit[0]
+  if (rule.immediate) return {text: 'Hace ' + rule.unit[0], tooltip: fullDate}
   const value = Math.floor(pastDiffInSeconds / rule.divisor)
-  if (value === 0) return 'Hace ' + rule.unit[0]
+  if (value === 0) return {text: 'Hace ' + rule.unit[0], tooltip: fullDate}
   const unit = value === 1 ? rule.unit[0] : rule.unit[1]
-  return `Hace ${value} ${unit}`
+  return {text: `Hace ${value} ${unit}`, tooltip: fullDate}
 }
 
 export const services = {
