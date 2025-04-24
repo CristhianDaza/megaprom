@@ -343,6 +343,37 @@ export const getDiscounts = (materials) => {
   return discounts.length > 0 ? discounts[0] : null
 }
 
+export const getRelativeTime = (dateString) => {
+  if (!dateString) return 'Sin fecha'
+  const date = new Date(dateString)
+  const now = new Date()
+  if (date > now) {
+    return 'En el futuro'
+  }
+  
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000)
+  
+  const timeRules = [
+    { limit: 60, divisor: 1, unit: ['un momento', 'un momento'], immediate: true },
+    { limit: 3600, divisor: 60, unit: ['minuto', 'minutos'] },
+    { limit: 86400, divisor: 3600, unit: ['hora', 'horas'] },
+    { limit: 604800, divisor: 86400, unit: ['día', 'días'] },
+    { limit: 2592000, divisor: 604800, unit: ['semana', 'semanas'] },
+    { limit: 31536000, divisor: 2592000, unit: ['mes', 'meses'] },
+    { limit: Infinity, divisor: 31536000, unit: ['año', 'años'] }
+  ]
+  const rule = timeRules.find(rule => diffInSeconds < rule.limit)
+  if (!rule) {
+    console.error('No se encontró una regla de tiempo para:', dateString, diffInSeconds)
+    return 'Fecha inválida'
+  }
+  if (rule.immediate) return 'Hace ' + rule.unit[0]
+  const value = Math.floor(diffInSeconds / rule.divisor)
+  if (value === 0) return 'Hace ' + rule.unit[0]
+  const unit = value === 1 ? rule.unit[0] : rule.unit[1]
+  return `Hace ${value} ${unit}`
+}
+
 export const services = {
   promocionales: {
     pages: 2,
