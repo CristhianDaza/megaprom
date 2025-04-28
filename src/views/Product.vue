@@ -38,7 +38,7 @@ watch(async () => route.params.id, async (newValue, oldValue) => {
 
 watch(() => productsStore.product, (newValue) => {
   product.value = newValue
-  updateMeta()
+  // useHead(productMeta)
 })
 
 watch(() => productsStore.isUpdatedTable, (newValue) => {
@@ -51,23 +51,27 @@ onBeforeMount(async () => {
   await productsStore.getProductById(route.params.id)
 })
 
-const updateMeta = () => {
-  useHead({
-    title: `${route.params.id} ${productsStore.product?.name ? `- ${productsStore.product?.name}` : ''} | Megapromocionales`,
+const productMeta = computed(() => {
+  const name = productsStore.product?.name || ''
+  const description = productsStore.product?.description || ''
+  const mainImage = productsStore.product?.mainImage || ''
+
+  return {
+    title: `${route.params.id} ${name ? `- ${name}` : ''} | Megapromocionales`,
     meta: [
-      { name: 'description', content: productsStore.product?.description },
-      { property: 'og:title', content: `${productsStore.product?.name} | Megapromocionales` },
-      { property: 'og:description', content: productsStore.product?.description },
-      { property: 'og:image', content: productsStore.product?.mainImage },
+      { name: 'description', content: description },
+      { property: 'og:title', content: `${name} | Megapromocionales` },
+      { property: 'og:description', content: description },
+      { property: 'og:image', content: mainImage },
       { property: 'og:url', content: `https://megapromocionales.com.co/productos/${route.params.id}` },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: `${productsStore.product?.name} | Megapromocionales` },
-      { name: 'twitter:description', content: productsStore.product?.description },
-      { name: 'twitter:image', content: productsStore.product?.mainImage }
+      { name: 'twitter:title', content: `${name} | Megapromocionales` },
+      { name: 'twitter:description', content: description },
+      { name: 'twitter:image', content: mainImage }
     ]
-  })
-}
-watch(idPage, updateMeta)
+  }
+})
+useHead(productMeta)
 </script>
 
 <template>

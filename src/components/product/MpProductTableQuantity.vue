@@ -130,13 +130,13 @@ const hasLastUpdateTracking = computed(() => {
           </td>
           <td v-if="hasDataTracking" class="px-6 py-4">
             <MpRelativeTime
-              :date-string="item.dataTracking"
+              :date-string="item.dataTracking || null"
               is-table-quantity
             />
           </td>
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
             <MpRelativeTime
-              :date-string="item.lastUpdateTracking"
+              :date-string="item.lastUpdateTracking || null"
               is-table-quantity
             />
           </td>
@@ -159,7 +159,7 @@ const hasLastUpdateTracking = computed(() => {
     <div class="float-right mt-5 text-gray-900 whitespace-nowrap dark:text-white">
       Inventario actualizado: <span class="font-bold">
       <MpRelativeTime
-        :date-string="product?.lastUpdate ?? products.lastUpdateProducts"
+        :date-string="products?.lastUpdateProducts || null"
         is-table-quantity
       />
     </span>

@@ -4,8 +4,9 @@ import { getRelativeTime } from '@/helpers/index.js'
 
 const props = defineProps({
   dateString: {
-    type: [String, null, Number],
-    required: true
+    type: [String, Number, null],
+    required: true,
+    default: null
   },
   isTableQuantity: {
     type: Boolean,
@@ -14,6 +15,9 @@ const props = defineProps({
 })
 
 const timeInfo = computed(() => {
+  if (props.dateString == null) {
+    return { text: '-', tooltip: 'Fecha no disponible' };
+  }
   const result = getRelativeTime(props.dateString, props.isTableQuantity);
 
   if (typeof result === 'object' && result !== null && 'text' in result && 'tooltip' in result) {
