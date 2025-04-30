@@ -1,5 +1,7 @@
 <script setup>
 // import { useFeatureFlagsStore } from '@/store/featureFlags.js'
+import { ref } from 'vue';
+import TvButton from '@todovue/tvbutton';
 
 const props = defineProps({
   title: String,
@@ -13,17 +15,27 @@ const props = defineProps({
 
 // const featureFlag = useFeatureFlagsStore()
 // const isActiveServices = featureFlag.getFlagValue('isActiveServices')
-const isActiveServices = false
+const isActiveServices = true
+
+const customStyleButtonProducts = ref({
+  backgroundColor: '#0E2050',
+  color: '#fff',
+})
+
+const customStyleButtonServices = ref({
+  backgroundColor: '#E6007D',
+  color: '#fff',
+})
 </script>
 
 <template>
   <div
-    class="bg-white p-5 rounded-3xl drop-shadow-xl flex flex-col justify-between dark:bg-gray-800"
+    class="bg-white p-5 rounded-3xl drop-shadow-xl flex flex-col justify-between dark:bg-gray-800 min-h-[560px]"
     :class="`${isActiveServices ? '' : 'cursor-pointer hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105'}`"
   >
     <div>
-      <h3 class="text-2xl font-bold pt-3 pb-5" :class="`${color}`">{{ title }}</h3>
-      <p class="text-[#0E2050] text-[1rem] text-justify pb-5 dark:text-white">{{ description }}</p>
+      <h3 class="text-2xl font-bold pt-3 pb-8" :class="`${color}`">{{ title }}</h3>
+      <p class="text-[#0E2050] text-[1rem] text-justify pb-10 dark:text-white">{{ description }}</p>
       <div class="flex justify-center items-center text-center pt-3">
         <img
           :src="src"
@@ -34,18 +46,32 @@ const isActiveServices = false
         />
       </div>
     </div>
-    <div class="flex gap-[4rem] mt-5 justify-center">
+    <div class="flex gap-[4rem] mt-8 justify-center">
       <RouterLink
         :to="{ name: 'products' }"
         v-if="isActiveServices"
       >
-        <Chip label="Productos" />
+<!--        <Chip label="Productos" />-->
+        <TvButton
+          label="Productos"
+          outlined
+          rounded
+          small
+          :custom-style="customStyleButtonProducts"
+        >Productos</TvButton>
       </RouterLink>
       <RouterLink
         :to="{ name: 'service', params: { serviceId } }"
         v-if="isActiveServices"
       >
-        <Chip label="Servicios" />
+<!--        <Chip label="Servicios" />-->
+        <TvButton
+          label="Servicios"
+          outlined
+          rounded
+          small
+          :custom-style="customStyleButtonServices"
+        >Servicios</TvButton>
       </RouterLink>
     </div>
   </div>

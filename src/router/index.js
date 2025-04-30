@@ -53,10 +53,15 @@ const routes = [
         component: () => import(/* webpackChunkName: "services" */ '@/views/Services.vue'),
         name: 'services'
     },
+    // {
+    //     path: '/servicios/:serviceId',
+    //     component: () => import(/* webpackChunkName: "service" */ '@/views/Service.vue'),
+    //     name: 'service'
+    // },
     {
-        path: '/servicios/:serviceId',
-        component: () => import(/* webpackChunkName: "service" */ '@/views/Service.vue'),
-        name: 'service'
+        path: '/servicios/promocionales',
+        component: () => import(/* webpackChunkName: "promotional-services" */ '@/views/services/PromotionalView.vue'),
+        name: 'promotional-services'
     }
 ]
 

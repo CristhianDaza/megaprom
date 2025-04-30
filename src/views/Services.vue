@@ -36,6 +36,6 @@ useHead({
     image="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/web1-02.jpg?alt=media&token=43bc7305-f41f-45e2-be52-e3a065bf2cef"
   />
   <div class="container mx-auto py-10">
-    <MpServicesImg />
+    <MpServicesImg viewFirstButton/>
   </div>
 </template>

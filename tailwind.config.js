@@ -34,6 +34,11 @@ export default {
       },
       minHeight: {
         'screen-60': 'calc(100vh - 64px)',
+      },
+      fontFamily: {
+        creamy: ['creamy', 'sans-serif'],
+        futura: ['futura', 'sans-serif'],
+        roboto: ['roboto', 'sans-serif'],
       }
     }
   },
