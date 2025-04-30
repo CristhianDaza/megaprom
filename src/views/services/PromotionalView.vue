@@ -43,21 +43,21 @@
       <p class="text-center mt-10">¡Haz que todos la vean y la recuerden!</p>
     </div>
 
-    <div class="relative mt-10 overflow-hidden">
+    <div class="relative mt-[80px] overflow-hidden">
       <div
-        class="absolute z-20 left-10 top-0 leading-none text-[80px] lg:text-[100px] font-bold pointer-events-none select-none">
-        <p class="text-pink-600 stroke-outline">BOLÍGRAFOS</p>
-        <p class="text-pink-600 stroke-outline mt-[-20px]">PUBLICITARIOS!</p>
+        class="absolute z-20 left-10 top-0 leading-none text-[80px] lg:text-[110px] font-extrabold pointer-events-none select-none">
+        <p class="stroke-outline">BOLÍGRAFOS</p>
+        <p class="stroke-outline mt-[-20px]">PUBLICITARIOS!</p>
       </div>
 
       <img src="@/assets/img/products/BOLIGRAFOS.png" alt="Bolígrafos publicitarios"
         class="absolute right-0 bottom-0 w-[60%] max-w-[700px] pointer-events-none select-none z-10" />
 
       <div class="relative z-0 px-10">
-        <div class="flex justify-between items-start flex-wrap">
-          <div class="leading-none text-[80px] lg:text-[100px] font-bold">
+        <div class="flex justify-between items-start flex-wrap items-center">
+          <div class="leading-none text-[110px] font-extrabold">
             <p class="text-[#0e2050]">BOLÍGRAFOS</p>
-            <p class="text-pink-600 mt-[-20px]">PUBLICITARIOS</p>
+            <p class="text-[#ff00c8] mt-[-20px]">PUBLICITARIOS</p>
           </div>
 
           <div class="flex flex-col text-center leading-none mt-4">
@@ -81,19 +81,19 @@
           <p class="text-[#0e2050] text-[18px] md:text-[22px] font-medium max-w-[500px] mt-[-20px]">
             Destaca con nuestros bolígrafos publicitarios, una opción práctica y efectiva para promocionar tu empresa.
           </p>
-          <p class="text-[#0e2050] text-[18px] md:text-[22px] font-medium max-w-[400px] text-right pt-[100px]">
+          <p class="text-[#0e2050] text-[18px] font-medium max-w-[250px] text-right pt-[100px]">
             Personalízalos con tu logo y mantén tu marca presente en el día a día de tus clientes.
             ¡Útiles, elegantes y perfectos para cualquier ocasión!
           </p>
         </div>
 
         <div class="border-l-2 border-b-2 border-[#0e2050] pl-4 pb-4 w-fit text-right ml-[70px] mt-[-100px]">
-          <p class="text-[#0e2050] font-bold leading-none text-[60px] md:text-[80px]">TU</p>
+          <p class="text-[#0e2050] font-medium leading-none text-[60px] md:text-[80px]">TU</p>
           <span
-            class="bg-[#0e2050] text-white px-2 font-extrabold text-[60px] md:text-[80px] inline-block leading-none">
+            class="bg-[#0e2050] text-white px-2 font-medium text-[60px] md:text-[80px] inline-block leading-none">
             MARCA
           </span>
-          <p class="text-[#0e2050] font-bold leading-none text-[60px] md:text-[80px] mt-1 pb-[100px]">AQUÍ</p>
+          <p class="text-[#0e2050] font-medium leading-none text-[60px] md:text-[80px] mt-1 pb-[70px]">AQUÍ</p>
         </div>
       </div>
     </div>
