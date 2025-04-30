@@ -172,6 +172,13 @@
     font-display: swap;
 }
 
+@layer utilities {
+    .stroke-outline {
+        -webkit-text-stroke: 2px #fff;
+        color: transparent;
+    }
+}
+
 :root {
     --primary-50: 236 253 245;
     --primary-100: 209 250 229;
@@ -216,7 +223,8 @@ h1 {
     opacity: 0.8 !important;
 }
 
-.carousel__next, .carousel__prev {
+.carousel__next,
+.carousel__prev {
     transition: all .3s !important;
     color: white !important;
 }
@@ -225,11 +233,13 @@ h1 {
     right: -40px !important;
 }
 
-.product.carousel__prev, .product.carousel__next {
+.product.carousel__prev,
+.product.carousel__next {
     color: black !important;
 }
 
-.dark .product.carousel__next, .dark .product.carousel__prev {
+.dark .product.carousel__next,
+.dark .product.carousel__prev {
     color: white !important;
 }
 
@@ -237,7 +247,8 @@ h1 {
     left: -40px !important;
 }
 
-.carousel__next:hover, .carousel__prev:hover {
+.carousel__next:hover,
+.carousel__prev:hover {
     color: black !important;
 }
 
@@ -249,7 +260,7 @@ h1 {
     background-color: #111827 !important;
 }
 
-.before\:border-surface-200::before{
+.before\:border-surface-200::before {
     border-color: gray !important;
 }
 
@@ -262,7 +273,12 @@ h1 {
         left: -10px !important;
     }
 
-    .carousel__prev, .carousel__next, .product .carousel__prev, .product .carousel__next, .dark .product.carousel__next, .dark .product.carousel__prev {
+    .carousel__prev,
+    .carousel__next,
+    .product .carousel__prev,
+    .product .carousel__next,
+    .dark .product.carousel__next,
+    .dark .product.carousel__prev {
         color: #111827 !important;
     }
 }

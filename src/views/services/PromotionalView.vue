@@ -44,17 +44,22 @@
     </div>
 
     <div class="relative mt-10 overflow-hidden">
-      <img
-        src="@/assets/img/products/BOLIGRAFOS.png"
-        alt="Bolígrafos publicitarios"
-        class="absolute right-0 bottom-0 w-[60%] max-w-[700px] pointer-events-none select-none z-0"
-      />
-      <div class="relative z-10 px-10">
+      <div
+        class="absolute z-20 left-10 top-0 leading-none text-[80px] lg:text-[100px] font-bold pointer-events-none select-none">
+        <p class="text-pink-600 stroke-outline">BOLÍGRAFOS</p>
+        <p class="text-pink-600 stroke-outline mt-[-20px]">PUBLICITARIOS!</p>
+      </div>
+
+      <img src="@/assets/img/products/BOLIGRAFOS.png" alt="Bolígrafos publicitarios"
+        class="absolute right-0 bottom-0 w-[60%] max-w-[700px] pointer-events-none select-none z-10" />
+
+      <div class="relative z-0 px-10">
         <div class="flex justify-between items-start flex-wrap">
           <div class="leading-none text-[80px] lg:text-[100px] font-bold">
             <p class="text-[#0e2050]">BOLÍGRAFOS</p>
             <p class="text-pink-600 mt-[-20px]">PUBLICITARIOS</p>
           </div>
+
           <div class="flex flex-col text-center leading-none mt-4">
             <div class="text-pink-600 flex justify-center gap-[60px] mr-[-45px] text-[20px] font-futura font-medium">
               <p>Tu Marca</p>
@@ -97,8 +102,5 @@
 
 
 <style scoped>
-.text-stroke {
-  -webkit-text-stroke: 1px #fff;
-  /* Borde de 1px gris claro */
-}
+
 </style>
