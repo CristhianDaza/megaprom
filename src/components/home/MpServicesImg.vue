@@ -14,7 +14,7 @@ const images = [
     description: 'Para tu marca y clientes la línea más fina en mercshandising, set de regalo, escritura, bebidas, herramientas y mucho más. ',
     src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/cat-07.png?alt=media&token=67742bed-a013-46d9-b5ec-7abc9c617068',
     alt: 'Marcación promocionales',
-    color: 'text-[#5BC5F2]',
+    color: 'text-light-blue-mp',
     serviceId: 'promocionales',
   },
   {
@@ -23,7 +23,7 @@ const images = [
     description: 'Te ofrecemos la más alta calidad en impresión formato 1/2 pliegos 5 colores, ya que contamos con maquinaria moderna y un equipo de trabajo calificado para cumplír con el nivel de calidad que nuestros cliente requieren. ',
     src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/revistas.png?alt=media&token=dfa11190-530a-4d5d-adf8-788ab89890b5',
     alt: 'Offset impresión 5 colores',
-    color: 'text-[#FFCC00]',
+    color: 'text-yellow-mp',
     serviceId: 'offset',
   },
   {
@@ -32,7 +32,7 @@ const images = [
     description: 'Siéntete libre de crear y realizar personalizaciones, contamos con equipos de última generación en impresión de mínima cantidad en formato no convencional, variedad en sustratos, papel fino, metalizado e impresión en materiales pesados hasta calibre 20.',
     src: 'https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/tarjeta.png?alt=media&token=d1a54f94-deb5-4127-80c3-11c4fc2027ca',
     alt: 'Impresión digital',
-    color: 'text-[#E6007D]',
+    color: 'text-pink-mp',
     serviceId: 'digital',
   }
 ]

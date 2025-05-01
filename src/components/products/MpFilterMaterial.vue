@@ -38,7 +38,7 @@ watch(() => route.query.material, async (newValue, oldValue) => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <p class="mr-3 text-lg font-semibold text-[#1D1D1B] dark:text-white/70">Filtrar por Material:</p>
+    <p class="mr-3 text-lg font-semibold text-black-mp dark:text-white/70">Filtrar por Material:</p>
     <hr class="mb-2"/>
     <select
       v-model="selectedMaterial"
@@ -51,7 +51,7 @@ watch(() => route.query.material, async (newValue, oldValue) => {
         {{ trimmedString(material) }}
       </option>
     </select>
-    <small class="text-[#1D1D1B] dark:text-white/70">
+    <small class="text-black-mp dark:text-white/70">
       Productos disponibles: {{ totalProducts }}.
     </small>
   </div>

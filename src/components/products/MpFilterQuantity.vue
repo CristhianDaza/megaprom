@@ -58,7 +58,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <p class="mr-3 text-lg font-semibold  text-[#1D1D1B] dark:text-white/70">Cantidad por color:</p>
+    <p class="mr-3 text-lg font-semibold text-black-mp dark:text-white/70">Cantidad por color:</p>
     <hr class="mb-2" />
     <InputNumber
       id="quantity"
@@ -77,7 +77,7 @@ onMounted(() => {
       rounded
       @click="filterProduct"
     >Filtrar</tv-button>
-    <small id="quantity-help" class="text-[#1D1D1B] dark:text-white/70">
+    <small id="quantity-help" class="text-black-mp dark:text-white/70">
       Hasta {{ formatNumber(maxQuantityNumber) }}
     </small>
   </div>

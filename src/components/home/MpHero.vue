@@ -13,9 +13,9 @@ const MpCarousel = defineAsyncComponent(/* webpackChunkName: "mpCarousel" */() =
           <div>
             <h1 class="text-3xl md:text-[3.2rem] lg:text-[4.5rem] font-bold text-white">¡TODO AQUÍ!</h1>
             <div class="font-bold text-xl tracking-wide lg:mt-3">
-              <span class="text-sm lg:text-xl text-[#5BC5F2] mr-2">PROMOCIONALES</span>
-              <span class="text-sm lg:text-xl text-[#FFCC00] mr-2">OFFSET</span>
-              <span class="text-sm lg:text-xl text-[#E6007D]">DIGITAL</span>
+              <span class="text-sm lg:text-xl text-light-blue-mp mr-2">PROMOCIONALES</span>
+              <span class="text-sm lg:text-xl text-yellow-mp mr-2">OFFSET</span>
+              <span class="text-sm lg:text-xl text-pink-mp">DIGITAL</span>
             </div>
           </div>
         </div>

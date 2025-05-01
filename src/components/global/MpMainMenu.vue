@@ -20,7 +20,7 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <Menubar :model="menu ? menu : []" breakpoint="640px" class="rounded-none bg-[#E7E7E7] px-4 py-2 w-full justify-evenly">
+  <Menubar :model="menu ? menu : []" breakpoint="640px" class="rounded-none bg-white-mp px-4 py-2 w-full justify-evenly">
     <template #start>
       <RouterLink :to="{ name: 'home' }">
         <img alt="Logo" class="w-12 md:w-7" src="https://firebasestorage.googleapis.com/v0/b/mega2024-6a453.appspot.com/o/mega%203.png?alt=media&token=38b171d2-7ebe-431c-9d92-a772fd86e626" />
@@ -30,12 +30,12 @@ const userStore = useUserStore()
       <template v-if="item.name === 'admin'">
         <RouterLink v-if="userStore.isLogged" :to="item.readOnly ? { name: item.name } : { path: item.link }">
           <div class="flex align-items-center" v-bind="props.action">
-            <span class="text-[#1D1D1B] dark:text-white/70 px-5">{{ item.title }}</span>
+            <span class="text-black-mp dark:text-white/70 px-5">{{ item.title }}</span>
           </div>
         </RouterLink>
         <template v-else>
           <div
-            class="p-menuitem-content rounded-md text-[#1D1D1B] dark:text-white/70 hover:bg-surface-50 dark:hover:bg-surface-800 transition-all duration-200"
+            class="p-menuitem-content rounded-md text-black-mp dark:text-white/70 hover:bg-surface-50 dark:hover:bg-surface-800 transition-all duration-200"
             @click="openModal"
           >
             <div class="flex align-items-center p-menuitem-link relative sm:text-sm font-medium items-center py-2 px-3 my-1 sm:my-0 select-none cursor-pointer no-underline overflow-hidden">
@@ -46,7 +46,7 @@ const userStore = useUserStore()
       </template>
       <RouterLink v-else-if="item.isVisible" :to="item.readOnly ? { name: item.name } : item.link">
         <div class="flex align-items-center" v-bind="props.action">
-          <span class="text-[#1D1D1B] dark:text-white/70 px-5">{{ item.title }}</span>
+          <span class="text-black-mp dark:text-white/70 px-5">{{ item.title }}</span>
         </div>
       </RouterLink>
     </template>
@@ -60,9 +60,9 @@ const userStore = useUserStore()
     </template>
   </Menubar>
   <div class="flex">
-    <div class="bg-[#0E2050] h-3 w-[55%]"></div>
-    <div class="bg-[#5BC5F2] h-3 w-[15%]"></div>
-    <div class="bg-[#FFCC00] h-3 w-[15%]"></div>
-    <div class="bg-[#E6007D] h-3 w-[15%]"></div>
+    <div class="bg-blue-mp h-3 w-[55%]"></div>
+    <div class="bg-light-blue-mp h-3 w-[15%]"></div>
+    <div class="bg-yellow-mp h-3 w-[15%]"></div>
+    <div class="bg-pink-mp h-3 w-[15%]"></div>
   </div>
 </template>

@@ -63,11 +63,11 @@ watch(() => route.query.page, () => {
 const getColor = (title) => {
   switch (title.toLowerCase()) {
     case 'promocionales':
-      return '[#5BC5F2]'
+      return 'light-blue-mp'
     case 'offset':
-      return '[#FFCC00]'
+      return 'yellow-mp'
     case 'digital':
-      return '[#E6007D]'
+      return 'pink-mp'
     default:
       return 'black'
   }
@@ -76,11 +76,11 @@ const getColor = (title) => {
 const colorGradient = (title) => {
   switch (title.toLowerCase()) {
     case 'promocionales':
-      return 'from-[#49C9F4] to-[#134B92]'
+      return 'from-light-blue-mp to-blue-mp'
     case 'offset':
-      return 'from-[#7A2D74] to-[#143E88]'
+      return 'from-yellow-mp to-yellow-mp'
     case 'digital':
-      return 'from-pink-500 to-pink-600'
+      return 'from-pink-mp to-pink-mp'
     default:
       return 'from-gray-500 to-gray-600'
   }

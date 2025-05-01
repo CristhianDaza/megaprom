@@ -35,7 +35,7 @@ const customStyleButtonServices = ref({
   >
     <div>
       <h3 class="text-2xl font-bold pt-3 pb-8" :class="`${color}`">{{ title }}</h3>
-      <p class="text-[#0E2050] text-[1rem] text-justify pb-10 dark:text-white">{{ description }}</p>
+      <p class="text-blue-mp text-[1rem] text-justify pb-10 dark:text-white">{{ description }}</p>
       <div class="flex justify-center items-center text-center pt-3">
         <img
           :src="src"
