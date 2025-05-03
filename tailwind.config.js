@@ -32,7 +32,7 @@ export default {
         'surface-900': 'rgb(var(--surface-900))',
         'surface-950': 'rgb(var(--surface-950))',
         'blue-mp': '#0e2050',
-        'pink-mp': '#ff00c8',
+        'pink-mp': '#EB1E79',
         'light-blue-mp': '#5BC5F2',
         'fuchsia-mp': '#ff00c8',
         'yellow-mp': '#FFCC00',
@@ -48,7 +48,7 @@ export default {
         roboto: ['roboto', 'sans-serif'],
       },
       screens: {
-        xs: '480px',
+        xs: '425px',
       },
     }
   },
