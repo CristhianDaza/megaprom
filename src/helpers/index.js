@@ -345,62 +345,115 @@ export const getDiscounts = (materials) => {
 
 export const getRelativeTime = (dateString, isTableQuantity = false) => {
   if (!dateString) return `${isTableQuantity ? '-' : 'Sin fecha'}`
+  
   const date = new Date(dateString)
   const now = new Date()
-  
   const fullDate = new Intl.DateTimeFormat('es-CO', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   }).format(date)
   
-  const diffInSeconds = Math.floor((date.getTime() - now.getTime()) / 1000)
+  const diffInSeconds = Math.floor((date - now) / 1000)
+  const diffInDays = Math.floor(diffInSeconds / 86400)
+  const sameDay = date.toDateString() === now.toDateString()
   
-  if (diffInSeconds > 0) {
-    const timeRulesFuture = [
-      {limit: 60, divisor: 1, unit: ['un momento', 'un momento'], immediate: true},
-      {limit: 3600, divisor: 60, unit: ['minuto', 'minutos']},
-      {limit: 86400, divisor: 3600, unit: ['hora', 'horas']},
-      {limit: 604800, divisor: 86400, unit: ['día', 'días']},
-      {limit: 2592000, divisor: 604800, unit: ['semana', 'semanas']},
-      {limit: 31536000, divisor: 2592000, unit: ['mes', 'meses']}
-    ]
+  const getDayName = (d) =>
+    new Intl.DateTimeFormat('es-CO', { weekday: 'long' }).format(d)
+  
+  const getDetailedBreakdown = (start, end) => {
+    const totalDays = Math.floor((end - start) / 86400000)
+    let remainingDays = totalDays
     
-    const ruleFuture = timeRulesFuture.find(rule => diffInSeconds < rule.limit)
+    const months = Math.floor(remainingDays / 30)
+    remainingDays %= 30
+    const weeks = Math.floor(remainingDays / 7)
+    const days = remainingDays % 7
     
-    if (!ruleFuture || diffInSeconds >= 31536000) {
-      return {text: 'Más de 1 año', tooltip: fullDate}
+    return { months, weeks, days }
+  }
+  
+  const formatDetail = ({ months, weeks, days }) => {
+    const parts = []
+    if (months) parts.push(`${months} ${months === 1 ? 'mes' : 'meses'}`)
+    if (weeks) parts.push(`${weeks} ${weeks === 1 ? 'semana' : 'semanas'}`)
+    if (days) parts.push(`${days} ${days === 1 ? 'día' : 'días'}`)
+    return parts.join(', ')
+  }
+  
+  // ✅ Soporte detallado dentro del mismo día (reemplazo de "Hoy")
+  if (sameDay) {
+    const absSeconds = Math.abs(diffInSeconds)
+    
+    if (absSeconds < 60)
+      return {
+        text: diffInSeconds > 0 ? 'En un momento' : 'Hace un momento',
+        tooltip: fullDate
+      }
+    
+    if (absSeconds < 3600) {
+      const minutes = Math.floor(absSeconds / 60)
+      const label = minutes === 1 ? 'minuto' : 'minutos'
+      return {
+        text: diffInSeconds > 0
+          ? `En ${minutes} ${label}`
+          : `Hace ${minutes} ${label}`,
+        tooltip: fullDate
+      }
     }
     
-    if (ruleFuture.immediate) return {text: 'En ' + ruleFuture.unit[0], tooltip: fullDate}
-    const value = Math.floor(diffInSeconds / ruleFuture.divisor)
-    if (value === 0) return {text: 'En ' + ruleFuture.unit[0], tooltip: fullDate}
-    const unit = value === 1 ? ruleFuture.unit[0] : ruleFuture.unit[1]
-    return {text: `En ${value} ${unit}`, tooltip: fullDate}
+    if (absSeconds < 86400) {
+      const hours = Math.floor(absSeconds / 3600)
+      const label = hours === 1 ? 'hora' : 'horas'
+      return {
+        text: diffInSeconds > 0
+          ? `En ${hours} ${label}`
+          : `Hace ${hours} ${label}`,
+        tooltip: fullDate
+      }
+    }
+    
+    return { text: 'Hoy', tooltip: fullDate }
   }
   
-  const pastDiffInSeconds = Math.abs(diffInSeconds)
-  
-  const timeRules = [
-    {limit: 60, divisor: 1, unit: ['un momento', 'un momento'], immediate: true},
-    {limit: 3600, divisor: 60, unit: ['minuto', 'minutos']},
-    {limit: 86400, divisor: 3600, unit: ['hora', 'horas']},
-    {limit: 604800, divisor: 86400, unit: ['día', 'días']},
-    {limit: 2592000, divisor: 604800, unit: ['semana', 'semanas']},
-    {limit: 31536000, divisor: 2592000, unit: ['mes', 'meses']},
-    {limit: Infinity, divisor: 31536000, unit: ['año', 'años']}
-  ]
-  
-  const rule = timeRules.find(rule => pastDiffInSeconds < rule.limit)
-  if (!rule) {
-    console.error('No se encontró una regla de tiempo para:', dateString, pastDiffInSeconds)
-    return {text: 'Fecha inválida', tooltip: fullDate}
+  if (diffInSeconds > 0) {
+    // FUTURO
+    if (diffInDays === 1) return { text: 'Mañana', tooltip: fullDate }
+    if (diffInDays === 2) return { text: 'Pasado mañana', tooltip: fullDate }
+    
+    const nowDay = now.getDay()
+    const dateDay = date.getDay()
+    if (diffInDays < 7 && dateDay > nowDay)
+      return { text: `Este ${getDayName(date)}`, tooltip: fullDate }
+    
+    if (diffInDays < 14) return { text: 'La próxima semana', tooltip: fullDate }
+    if (diffInDays < 60) return { text: `En ${Math.round(diffInDays / 7)} semanas`, tooltip: fullDate }
+    
+    const detail = getDetailedBreakdown(now, date)
+    return {
+      text: `En ${formatDetail(detail)}`,
+      tooltip: fullDate
+    }
+  } else {
+    // PASADO
+    const absDays = Math.abs(diffInDays)
+    if (absDays === 1) return { text: 'Ayer', tooltip: fullDate }
+    if (absDays === 2) return { text: 'Antes de ayer', tooltip: fullDate }
+    
+    const nowDay = now.getDay()
+    const dateDay = date.getDay()
+    if (absDays < 7 && dateDay < nowDay)
+      return { text: `El ${getDayName(date)} pasado`, tooltip: fullDate }
+    
+    if (absDays < 14) return { text: 'La semana pasada', tooltip: fullDate }
+    if (absDays < 60) return { text: `Hace ${Math.round(absDays / 7)} semanas`, tooltip: fullDate }
+    
+    const detail = getDetailedBreakdown(date, now)
+    return {
+      text: `Hace ${formatDetail(detail)}`,
+      tooltip: fullDate
+    }
   }
-  if (rule.immediate) return {text: 'Hace ' + rule.unit[0], tooltip: fullDate}
-  const value = Math.floor(pastDiffInSeconds / rule.divisor)
-  if (value === 0) return {text: 'Hace ' + rule.unit[0], tooltip: fullDate}
-  const unit = value === 1 ? rule.unit[0] : rule.unit[1]
-  return {text: `Hace ${value} ${unit}`, tooltip: fullDate}
 }
 
 export const services = {

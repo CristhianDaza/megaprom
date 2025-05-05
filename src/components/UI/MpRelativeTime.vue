@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { getRelativeTime } from '@/helpers/index.js'
 
 const props = defineProps({
@@ -11,22 +11,44 @@ const props = defineProps({
   isTableQuantity: {
     type: Boolean,
     default: false
+  },
+  intervalMs: {
+    type: Number,
+    default: 60000 // actualiza cada 60 segundos
   }
 })
 
-const timeInfo = computed(() => {
+const timeInfo = ref({
+  text: '-',
+  tooltip: 'Fecha no disponible'
+})
+
+let intervalId = null
+
+const updateTime = () => {
   if (props.dateString == null) {
-    return { text: '-', tooltip: 'Fecha no disponible' };
+    timeInfo.value = { text: '-', tooltip: 'Fecha no disponible' }
+    return
   }
-  const result = getRelativeTime(props.dateString, props.isTableQuantity);
+
+  const result = getRelativeTime(props.dateString, props.isTableQuantity)
 
   if (typeof result === 'object' && result !== null && 'text' in result && 'tooltip' in result) {
-    return result;
+    timeInfo.value = result
   } else {
-    console.warn('getRelativeTime no devolvió el objeto esperado para:', props.dateString);
-    const fallbackText = props.isTableQuantity ? '-' : 'Error fecha';
-    return { text: fallbackText, tooltip: 'No se pudo procesar la fecha' };
+    console.warn('getRelativeTime no devolvió el objeto esperado para:', props.dateString)
+    const fallbackText = props.isTableQuantity ? '-' : 'Error fecha'
+    timeInfo.value = { text: fallbackText, tooltip: 'No se pudo procesar la fecha' }
   }
+}
+
+onMounted(() => {
+  updateTime()
+  intervalId = setInterval(updateTime, props.intervalMs)
+})
+
+onBeforeUnmount(() => {
+  if (intervalId) clearInterval(intervalId)
 })
 </script>
 
