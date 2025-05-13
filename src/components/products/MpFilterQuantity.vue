@@ -1,5 +1,5 @@
 <script setup>
-import TvButton from "@todovue/tvbutton";
+import TvButton from "@todovue/tv-button";
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { formatNumber } from '@/utils'

@@ -1,7 +1,7 @@
 <script setup>
 // import { useFeatureFlagsStore } from '@/store/featureFlags.js'
 import { ref } from 'vue';
-import TvButton from '@todovue/tvbutton';
+import TvButton from '@todovue/tv-button';
 
 const props = defineProps({
   title: String,

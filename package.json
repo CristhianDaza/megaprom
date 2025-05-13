@@ -9,8 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@todovue/tvbutton": "^1.1.2",
-    "@todovue/tvlabel": "^1.0.2",
+    "@todovue/tv-relative-time": "^1.1.0",
+    "@todovue/tv-button": "^1.1.0",
+    "@todovue/tv-label": "^1.0.0",
     "@unhead/vue": "1.11.18",
     "axios": "1.8.2",
     "dotenv": "16.4.7",

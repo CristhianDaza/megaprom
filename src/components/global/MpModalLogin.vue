@@ -1,5 +1,5 @@
 <script setup>
-import TvButton from "@todovue/tvbutton";
+import TvButton from "@todovue/tv-button";
 import { ref, watch } from 'vue'
 import { useUserStore } from '@/store/user.js'
 import { useRouter } from 'vue-router'

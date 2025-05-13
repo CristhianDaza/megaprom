@@ -7,8 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unrelease]
 
-### Changed
-- Added MpRelativeTime component to display time along with its tooltip
+### Added
+- Added `TvRelativeTime` component to display time along with its tooltip
+- Update color styles across multiple components for consistency
+- Enhance getRelativeTime function and implement auto-update in `TvRelativeTime` component
+
+### Fixed
+- Handle null date strings in the `TvRelativeTime` component and update product metadata handling
+
+### Dependencies
+- Updated version `@vitejs/plugin-vue` to `5.2.3`
+- Updated version `autoprefixer` to `10.4.21`
+- Updated version `axios` to `1.8.2`
+- Updated version `firebase` to `11.6.1`
+- Updated version `pinia` to `3.0.2`
+- Updated version `postcss` to `8.5.3`
+- Updated version `vite` to `6.2.6`
+- Updated version `vue-router` to `4.5.1`
+- Updated version `vue3-carousel` to `0.15.0`
+- Change dependency `@todovue/tvbutton` to `@todovue/tv-button`
+- Change dependency `@todovue/tvlabel` to `@todovue/tv-label`
 
 ## [1.8.3] - 10/03/2025
 

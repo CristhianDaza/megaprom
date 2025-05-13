@@ -3,7 +3,7 @@ import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import { useMenuStore } from '@/store/menu.js'
-import TvButton from "@todovue/tvbutton";
+import TvButton from "@todovue/tv-button";
 
 const MpAdminModal = defineAsyncComponent(/* webpackChunkName: "mpAdminModal" */() => import('@/components/admin/MpAdminModal.vue'))
 

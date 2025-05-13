@@ -1,5 +1,5 @@
 <script setup>
-import TvButton from "@todovue/tvbutton";
+import TvButton from "@todovue/tv-button";
 const emit = defineEmits(['next', 'prev'])
 const props = defineProps({
   page: {

@@ -1,5 +1,5 @@
 <script setup>
-import TvLabel from '@todovue/tvlabel'
+import TvLabel from '@todovue/tv-label'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 

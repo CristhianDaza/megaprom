@@ -1,10 +1,10 @@
 <script setup>
-import TvButton from "@todovue/tvbutton";
+import TvButton from "@todovue/tv-button";
+import TvRelativeTime from '@todovue/tv-relative-time';
 import { computed, ref, defineAsyncComponent } from 'vue'
 import { formatNumber, formatPrice } from '@/utils'
 
 const MpColor = defineAsyncComponent(/* webpackChunkName: "mpColor" */() => import('@/components/UI/MpColor.vue'))
-const MpRelativeTime = defineAsyncComponent(/* webpackChunkName: "mpRelativeTime" */() => import('@/components/UI/MpRelativeTime.vue'))
 
 import { useUserStore } from '@/store/user.js'
 import { useProductsStore } from '@/store/products.js'
@@ -129,15 +129,15 @@ const hasLastUpdateTracking = computed(() => {
             {{ item.statusTracking ?? '-' }}
           </td>
           <td v-if="hasDataTracking" class="px-6 py-4">
-            <MpRelativeTime
-              :date-string="item.dataTracking || null"
-              is-table-quantity
+            <TvRelativeTime
+              lang="es"
+              :date="item.dataTracking"
             />
           </td>
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
-            <MpRelativeTime
-              :date-string="item.lastUpdateTracking || null"
-              is-table-quantity
+            <TvRelativeTime
+              lang="es"
+              :date="item.lastUpdateTracking"
             />
           </td>
           <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
@@ -158,9 +158,9 @@ const hasLastUpdateTracking = computed(() => {
     </div>
     <div class="float-right mt-5 text-gray-900 whitespace-nowrap dark:text-white">
       Inventario actualizado: <span class="font-bold">
-      <MpRelativeTime
-        :date-string="products?.lastUpdateProducts || null"
-        is-table-quantity
+      <TvRelativeTime
+        lang="es"
+        :date="products?.lastUpdateProducts"
       />
     </span>
     </div>
