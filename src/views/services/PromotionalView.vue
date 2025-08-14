@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="mx-auto py-2 xs:py-4 lg:py-8 xl:py-12 2xl:py-16 w-11/12">
+  <div class="mx-auto py-2 xs:py-4 lg:py-8 xl:py-12 2xl:py-16 max-w-5xl">
     <div class="relative">
       <div class="flex flex-col items-end text-right text-blue-mp dark:text-white-mp leading-tight text-xl md:text-2xl lg:text-3xl">
         <p>PROMOCIONALES</p>
@@ -49,7 +49,7 @@
       </p>
       <p class="text-center mt-6 font-extrabold">¡Haz que todos la vean y la recuerden!</p>
     </div>
-
+    <div class="h-2 w-full fixed top-0 bg-transparent xs:bg-gray-700 sm:bg-red-400 md:bg-green-500 lg:bg-yellow-300 xl:bg-blue-500"></div>
     <div class="relative mt-10 md:mt-20 overflow-hidden">
       <div
         class="absolute z-20 top-0 xs:top-0 hidden sm:inline-block sm:top-0 md:top-0 leading-none font-extrabold pointer-events-none select-none text-4xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl">
