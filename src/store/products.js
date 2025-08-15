@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { normalizeAndFilterProducts, normalizeProductsMP } from '@/utils'
+import { normalizeAndFilterProducts, normalizeProductsMP, sanitizeForFirestore } from '@/utils'
 import { useProductHelpers } from '@/composables/useProduct.js'
 import { getProductId } from '@/api/apiMarpico.js'
 import { getProductStock } from '@/api/apiPromos.js'
@@ -203,10 +203,11 @@ export const useProductsStore = defineStore('products', {
               ...productData,
               lastUpdate: new Date().toISOString()
             }
-            docData.products[productIndex] = updatedProduct
-            
-            await updateDoc(docSnapshot.ref, { products: docData.products })
-            this._updateProductInStore(updatedProduct)
+            const sanitizedUpdated = sanitizeForFirestore(updatedProduct)
+            docData.products[productIndex] = sanitizedUpdated
+            const sanitizedProducts = docData.products.map((p) => sanitizeForFirestore(p))
+            await updateDoc(docSnapshot.ref, { products: sanitizedProducts })
+            this._updateProductInStore(sanitizedUpdated)
           }
         }
       }
