@@ -89,4 +89,16 @@ router.beforeEach((to, from, next) => {
     }
 })
 
+router.afterEach(() => {
+    if (typeof document !== 'undefined') {
+        // Esperar un frame para que el DOM se actualice y luego limpiar el foco
+        requestAnimationFrame(() => {
+            const ae = document.activeElement
+            if (ae && typeof ae.blur === 'function') {
+                ae.blur()
+            }
+        })
+    }
+})
+
 export default router

@@ -129,16 +129,22 @@ const hasLastUpdateTracking = computed(() => {
             {{ item.statusTracking ?? '-' }}
           </td>
           <td v-if="hasDataTracking" class="px-6 py-4">
-            <TvRelativeTime
-              lang="es"
-              :date="item.dataTracking"
-            />
+            <template v-if="item?.dataTracking">
+              <TvRelativeTime
+                lang="es"
+                :date="item.dataTracking"
+              />
+            </template>
+            <span v-else>-</span>
           </td>
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
-            <TvRelativeTime
-              lang="es"
-              :date="item.lastUpdateTracking"
-            />
+            <template v-if="item?.lastUpdateTracking">
+              <TvRelativeTime
+                lang="es"
+                :date="item.lastUpdateTracking"
+              />
+            </template>
+            <span v-else>-</span>
           </td>
           <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
@@ -158,10 +164,13 @@ const hasLastUpdateTracking = computed(() => {
     </div>
     <div class="float-right mt-5 text-gray-900 whitespace-nowrap dark:text-white">
       Inventario actualizado: <span class="font-bold">
-      <TvRelativeTime
-        lang="es"
-        :date="products?.lastUpdateProducts"
-      />
+      <template v-if="products?.lastUpdateProducts">
+        <TvRelativeTime
+          lang="es"
+          :date="products.lastUpdateProducts"
+        />
+      </template>
+      <span v-else>-</span>
     </span>
     </div>
   </div>
