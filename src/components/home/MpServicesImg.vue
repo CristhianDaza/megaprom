@@ -54,16 +54,15 @@ const images = [
         :viewFirstButton="true"
         v-if="viewFirstButton"
       />
-      <RouterLink :to="{ name: 'service', params: { serviceId } }" v-else>
-        <MpService
-          :src="src"
-          :alt="alt"
-          :title="title"
-          :description="description"
-          :color="color"
-          :serviceId="serviceId"
-        />
-      </RouterLink>
+      <MpService
+        v-else
+        :src="src"
+        :alt="alt"
+        :title="title"
+        :description="description"
+        :color="color"
+        :serviceId="serviceId"
+      />
     </div>
   </div>
 </template>

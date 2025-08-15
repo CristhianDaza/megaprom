@@ -1,7 +1,7 @@
 <script setup>
 // import { useFeatureFlagsStore } from '@/store/featureFlags.js'
 import { ref } from 'vue';
-import TvButton from '@todovue/tv-button';
+// import TvButton from '@todovue/tv-button';
 
 const props = defineProps({
   title: String,
@@ -52,19 +52,20 @@ const customStyleButtonServices = ref({
         v-if="isActiveServices"
       >
 <!--        <Chip label="Productos" />-->
-        <TvButton
-          label="Productos"
-          outlined
-          rounded
-          small
-          :custom-style="customStyleButtonProducts"
-        >Productos</TvButton>
+<!--        <TvButton-->
+<!--          label="Productos"-->
+<!--          outlined-->
+<!--          rounded-->
+<!--          small-->
+<!--          :custom-style="customStyleButtonProducts"-->
+<!--        >Productos</TvButton>-->
       </RouterLink>
+      <!-- Ruta 'service' deshabilitada temporalmente para evitar navegación -->
+      <!--
       <RouterLink
         :to="{ name: 'service', params: { serviceId } }"
         v-if="isActiveServices"
       >
-<!--        <Chip label="Servicios" />-->
         <TvButton
           label="Servicios"
           outlined
@@ -73,6 +74,16 @@ const customStyleButtonServices = ref({
           :custom-style="customStyleButtonServices"
         >Servicios</TvButton>
       </RouterLink>
+      -->
+<!--      <span v-if="isActiveServices">-->
+<!--        <TvButton-->
+<!--          label="Servicios"-->
+<!--          outlined-->
+<!--          rounded-->
+<!--          small-->
+<!--          :custom-style="customStyleButtonServices"-->
+<!--        >Servicios</TvButton>-->
+<!--      </span>-->
     </div>
   </div>
 </template>

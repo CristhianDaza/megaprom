@@ -210,6 +210,11 @@ body {
     background-color: #f3f4f6;
 }
 
+.dark body {
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
 h1 {
     font-family: 'Arial', sans-serif;
 }
