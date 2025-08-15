@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unrelease]
+## [1.9.0] - 14/8/2025
 
 ### Added
 - Added `TvRelativeTime` component to display time along with its tooltip
@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Handle null date strings in the `TvRelativeTime` component and update product metadata handling
+- Fixed call services
 
 ### Dependencies
 - Updated version `@vitejs/plugin-vue` to `5.2.3`
@@ -25,8 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated version `vite` to `6.2.6`
 - Updated version `vue-router` to `4.5.1`
 - Updated version `vue3-carousel` to `0.15.0`
-- Change dependency `@todovue/tvbutton` to `@todovue/tv-button`
-- Change dependency `@todovue/tvlabel` to `@todovue/tv-label`
+- Change dependency `@todovue/tvbutton` to `@todovue/tv-button` in version `^1.0.0`
+- Change dependency `@todovue/tvlabel` to `@todovue/tv-label` in version `^1.0.0`
+- Change dependency `@github/relative-time-element` to `@todovue/tv-relative-time` in version `^1.0.0`
 
 ## [1.8.3] - 10/03/2025
 
@@ -321,6 +323,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add a new version of the project. With products and services.
 
+[1.8.4]: https://github.com/CristhianDaza/megaprom/pull/33/files
 [1.8.3]: https://github.com/CristhianDaza/megaprom/pull/32/files
 [1.8.2]: https://github.com/CristhianDaza/megaprom/pull/31/files
 [1.8.1]: https://github.com/CristhianDaza/megaprom/pull/30/files
