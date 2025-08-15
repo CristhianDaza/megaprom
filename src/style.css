@@ -2,6 +2,183 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Declaraciones de fuentes personalizadas */
+/* Primera fuente */
+@font-face {
+    font-family: 'creamy';
+    src: url('@/assets/fonts/creamy/Creamy-Smiley.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'creamy';
+    src: url('@/assets/fonts/creamy/Creamy-Smiley.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'futura';
+    src: url('@/assets/fonts/futura/FuturaCyrillicBold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'futura';
+    src: url('@/assets/fonts/futura/FuturaCyrillicBook.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'futura';
+    src: url('@/assets/fonts/futura/FuturaCyrillicDemi.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'futura';
+    src: url('@/assets/fonts/futura/FuturaCyrillicExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'futura';
+    src: url('@/assets/fonts/futura/FuturaCyrillicHeavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'futura';
+    src: url('@/assets/fonts/futura/FuturaCyrillicLight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'futura';
+    src: url('@/assets/fonts/futura/FuturaCyrillicMedium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('@/assets/fonts/roboto/Roboto-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@layer utilities {
+    .stroke-outline {
+        -webkit-text-stroke: 2px #fff;
+        color: transparent;
+    }
+}
+
 :root {
     --primary-50: 236 253 245;
     --primary-100: 209 250 229;
@@ -33,6 +210,11 @@ body {
     background-color: #f3f4f6;
 }
 
+.dark body {
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
 h1 {
     font-family: 'Arial', sans-serif;
 }
@@ -46,7 +228,8 @@ h1 {
     opacity: 0.8 !important;
 }
 
-.carousel__next, .carousel__prev {
+.carousel__next,
+.carousel__prev {
     transition: all .3s !important;
     color: white !important;
 }
@@ -55,11 +238,13 @@ h1 {
     right: -40px !important;
 }
 
-.product.carousel__prev, .product.carousel__next {
+.product.carousel__prev,
+.product.carousel__next {
     color: black !important;
 }
 
-.dark .product.carousel__next, .dark .product.carousel__prev {
+.dark .product.carousel__next,
+.dark .product.carousel__prev {
     color: white !important;
 }
 
@@ -67,7 +252,8 @@ h1 {
     left: -40px !important;
 }
 
-.carousel__next:hover, .carousel__prev:hover {
+.carousel__next:hover,
+.carousel__prev:hover {
     color: black !important;
 }
 
@@ -79,7 +265,7 @@ h1 {
     background-color: #111827 !important;
 }
 
-.before\:border-surface-200::before{
+.before\:border-surface-200::before {
     border-color: gray !important;
 }
 
@@ -92,7 +278,12 @@ h1 {
         left: -10px !important;
     }
 
-    .carousel__prev, .carousel__next, .product .carousel__prev, .product .carousel__next, .dark .product.carousel__next, .dark .product.carousel__prev {
+    .carousel__prev,
+    .carousel__next,
+    .product .carousel__prev,
+    .product .carousel__next,
+    .dark .product.carousel__next,
+    .dark .product.carousel__prev {
         color: #111827 !important;
     }
 }

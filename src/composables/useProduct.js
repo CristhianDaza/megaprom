@@ -3,7 +3,7 @@ import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
 import { searchProduct } from '@/api/apiMarpico.js'
 import { getAllProducts, getAllStock } from '@/api/apiPromos.js'
 import { db } from '../../firebase.js'
-import { combineProducts, normalizeProductsCA, normalizeProductsMP } from '@/utils'
+import { combineProducts, normalizeProductsCA, normalizeProductsMP, sanitizeForFirestore } from '@/utils'
 
 export function useProductHelpers() {
   const isLoadingMp = ref(true)
@@ -44,6 +44,8 @@ export function useProductHelpers() {
         statusMp.value = 'success'
         
         const allNormalizedProducts = [...normalizedPromosResults, ...normalizedSearchResults]
+          .filter((p) => p && typeof p === 'object' && p.id)
+          .map((p) => sanitizeForFirestore(p))
 
         const batchSize = 450
         isLoadingFirebase.value = true
@@ -53,7 +55,8 @@ export function useProductHelpers() {
         
         for (let i = 0; i < allNormalizedProducts.length; i += batchSize) {
           const batch = allNormalizedProducts.slice(i, i + batchSize)
-          await addDoc(collection(db, 'allProducts'), { products: batch })
+          const batchSanitized = batch.map((item) => sanitizeForFirestore(item))
+          await addDoc(collection(db, 'allProducts'), { products: batchSanitized })
         }
         
         statusFirebase.value = 'success'

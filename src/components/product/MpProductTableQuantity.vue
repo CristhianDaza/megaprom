@@ -1,5 +1,6 @@
 <script setup>
-import TvButton from "@todovue/tvbutton";
+import TvButton from "@todovue/tv-button";
+import TvRelativeTime from '@todovue/tv-relative-time';
 import { computed, ref, defineAsyncComponent } from 'vue'
 import { formatNumber, formatPrice } from '@/utils'
 
@@ -122,16 +123,28 @@ const hasLastUpdateTracking = computed(() => {
             {{ formatNumber(item.quantity, true) }}
           </td>
           <td v-if="hasInTracking" class="px-6 py-4">
-            {{ formatNumber(item.inTracking, true) }}
+            {{ formatNumber(item.inTracking, true)}}
           </td>
           <td v-if="hasStatusTracking" class="px-6 py-4">
-            {{ item.statusTracking }}
+            {{ item.statusTracking ?? '-' }}
           </td>
           <td v-if="hasDataTracking" class="px-6 py-4">
-            <relative-time :datetime="item.dataTracking" tense="future" formatStyle="long"></relative-time>
+            <template v-if="item?.dataTracking">
+              <TvRelativeTime
+                lang="es"
+                :date="item.dataTracking"
+              />
+            </template>
+            <span v-else>-</span>
           </td>
           <td v-if="hasLastUpdateTracking" class="px-6 py-4">
-            <relative-time :datetime="item.lastUpdateTracking" tense="auto"></relative-time>
+            <template v-if="item?.lastUpdateTracking">
+              <TvRelativeTime
+                lang="es"
+                :date="item.lastUpdateTracking"
+              />
+            </template>
+            <span v-else>-</span>
           </td>
           <td v-if="userStore.isLogged" class="px-6 py-4 flex items-center gap-2">
             {{ formatPrice(Math.ceil(item.price), includeIva) }}
@@ -150,7 +163,15 @@ const hasLastUpdateTracking = computed(() => {
       </table>
     </div>
     <div class="float-right mt-5 text-gray-900 whitespace-nowrap dark:text-white">
-      Inventario actualizado: <span class="font-bold"><relative-time :datetime="product?.lastUpdate ?? products.lastUpdateProducts"></relative-time></span>.
+      Inventario actualizado: <span class="font-bold">
+      <template v-if="products?.lastUpdateProducts">
+        <TvRelativeTime
+          lang="es"
+          :date="products.lastUpdateProducts"
+        />
+      </template>
+      <span v-else>-</span>
+    </span>
     </div>
   </div>
 </template>

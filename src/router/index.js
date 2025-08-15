@@ -53,10 +53,15 @@ const routes = [
         component: () => import(/* webpackChunkName: "services" */ '@/views/Services.vue'),
         name: 'services'
     },
+    // {
+    //     path: '/servicios/:serviceId',
+    //     component: () => import(/* webpackChunkName: "service" */ '@/views/Service.vue'),
+    //     name: 'service'
+    // },
     {
-        path: '/servicios/:serviceId',
-        component: () => import(/* webpackChunkName: "service" */ '@/views/Service.vue'),
-        name: 'service'
+        path: '/servicios/promocionales',
+        component: () => import(/* webpackChunkName: "promotional-services" */ '@/views/services/PromotionalView.vue'),
+        name: 'promotional-services'
     }
 ]
 
@@ -81,6 +86,18 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         next()
+    }
+})
+
+router.afterEach(() => {
+    if (typeof document !== 'undefined') {
+        // Esperar un frame para que el DOM se actualice y luego limpiar el foco
+        requestAnimationFrame(() => {
+            const ae = document.activeElement
+            if (ae && typeof ae.blur === 'function') {
+                ae.blur()
+            }
+        })
     }
 })
 

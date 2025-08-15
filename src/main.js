@@ -6,7 +6,6 @@ import './style.css'
 import App from './App.vue'
 import Wind from '@/presets/wind'
 import 'primeicons/primeicons.css'
-import '@github/relative-time-element'
 import { VueHeadMixin, createHead } from '@unhead/vue'
 const app = createApp(App)
 

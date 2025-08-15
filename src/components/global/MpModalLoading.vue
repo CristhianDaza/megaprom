@@ -1,5 +1,5 @@
 <script setup>
-import TvButton from "@todovue/tvbutton";
+import TvButton from "@todovue/tv-button";
 import { onMounted, ref } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 

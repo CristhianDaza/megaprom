@@ -13,8 +13,26 @@ import {
   getDiscounts
 } from '../helpers'
 
+export const  sanitizeForFirestore = (input) => {
+  if (Array.isArray(input)) {
+    return input
+      .filter((v) => v !== undefined)
+      .map((v) => sanitizeForFirestore(v))
+  } else if (input && typeof input === 'object') {
+    const out = {}
+    for (const [k, v] of Object.entries(input)) {
+      if (v !== undefined) {
+        const sanitized = sanitizeForFirestore(v)
+        if (sanitized !== undefined) out[k] = sanitized
+      }
+    }
+    return out
+  }
+  return input === undefined ? undefined : input
+}
+
 export const formatNumber = (value, isTable = false) => {
-  if (value == null) return ''
+  if (value == null) return `${isTable ? '-' : ''}`
   if (value < 0) return '0'
   if (value > 10) {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + `${isTable ? '' : ' unds.'}`

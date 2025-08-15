@@ -30,11 +30,26 @@ export default {
         'surface-700': 'rgb(var(--surface-700))',
         'surface-800': 'rgb(var(--surface-800))',
         'surface-900': 'rgb(var(--surface-900))',
-        'surface-950': 'rgb(var(--surface-950))'
+        'surface-950': 'rgb(var(--surface-950))',
+        'blue-mp': '#0e2050',
+        'pink-mp': '#EB1E79',
+        'light-blue-mp': '#5BC5F2',
+        'fuchsia-mp': '#ff00c8',
+        'yellow-mp': '#FFCC00',
+        'black-mp': '#1D1D1B',
+        'white-mp': '#E7E7E7',
       },
       minHeight: {
         'screen-60': 'calc(100vh - 64px)',
-      }
+      },
+      fontFamily: {
+        creamy: ['creamy', 'sans-serif'],
+        futura: ['futura', 'sans-serif'],
+        roboto: ['roboto', 'sans-serif'],
+      },
+      screens: {
+        xs: '425px',
+      },
     }
   },
   plugins: [],
