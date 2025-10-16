@@ -26,14 +26,22 @@ const version = import.meta.env.VITE_VERSION
         </div>
       </div>
     </div>
-    <div class="py-3 font-medium flex justify-center bg-white">
-      Design by
-      <a href="https://co.linkedin.com/in/cristhiandaza" target="_blank">
-        <strong class="px-1 text-emerald-600 hover:underline">
+    <div class="border-t border-gray-200 bg-gray-50 py-4 text-center text-sm text-gray-500">
+      <p>
+        Design by
+        <a
+          href="https://cris-dev.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 font-medium text-gray-700 hover:text-indigo-600 transition-colors duration-300 underline underline-offset-2 decoration-gray-400 hover:decoration-indigo-600"
+        >
           Cristhian Daza
-        </strong>
-      </a>
-      With 💙
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5H19.5V10.5M10.5 13.5L19.5 4.5M19.5 4.5L4.5 19.5" />
+          </svg>
+        </a>
+        <span class="ml-1 text-blue-500">💙</span>
+      </p>
     </div>
   </footer>
 </template>
