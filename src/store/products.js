@@ -48,6 +48,8 @@ export const useProductsStore = defineStore('products', {
       } = useProductHelpers()
       try {
         if (isLogin === 'true') {
+          await this.loadAttemptsFromFirebase()
+          
           this.isLoadingAllProducts = isLoadingAllProducts
           this.isLoadingMp = isLoadingMp
           this.isLoadingPromos = isLoadingPromos

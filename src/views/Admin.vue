@@ -52,7 +52,17 @@ const _updateProducts = async () => {
   if (products.isLocked()) {
     const remaining = products.getRemainingLockTime()
     const minutes = Math.ceil(remaining / 60)
-    toast.add({ severity: 'error', summary: 'Error llamando los servicios', detail: `Debes esperar ${minutes} minutos antes de poder actualizar nuevamente.`, life: 3000 })
+    const hours = Math.floor(remaining / 3600)
+
+    let message
+    if (hours > 0) {
+      const mins = Math.ceil((remaining % 3600) / 60)
+      message = `Debes esperar ${hours} hora${hours > 1 ? 's' : ''} y ${mins} minuto${mins > 1 ? 's' : ''} antes de poder actualizar nuevamente.`
+    } else {
+      message = `Debes esperar ${minutes} minuto${minutes > 1 ? 's' : ''} antes de poder actualizar nuevamente.`
+    }
+
+    toast.add({ severity: 'error', summary: 'Error llamando los servicios', detail: message, life: 5000 })
     return
   }
 

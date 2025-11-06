@@ -24,16 +24,13 @@ export function useProductHelpers() {
           return await getProductsFirebase()
         }
         
-        if (productsStore && updated) {
-          await productsStore.loadAttemptsFromFirebase()
-          if (productsStore.isLocked()) {
-            isLoadingMp.value = false
-            isLoadingPromos.value = false
-            isLoadingAllProducts.value = false
-            statusMp.value = 'failed'
-            statusPromos.value = 'failed'
-            throw new Error('Sistema bloqueado temporalmente. Por favor espera antes de reintentar.')
-          }
+        if (productsStore && productsStore.isLocked()) {
+          isLoadingMp.value = false
+          isLoadingPromos.value = false
+          isLoadingAllProducts.value = false
+          statusMp.value = null
+          statusPromos.value = null
+          return await getProductsFirebase()
         }
         
         isLoadingAllProducts.value = true
