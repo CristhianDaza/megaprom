@@ -119,7 +119,7 @@ onMounted(() => {
             info
             full
             @click="updateProducts"
-          ></tv-button>
+          >Reintentar</tv-button>
           <template v-else>
             <p class="font-semibold text-red-500 dark:text-red-400">
               <ProgressBar :value="progress" />

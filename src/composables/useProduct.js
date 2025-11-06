@@ -77,6 +77,20 @@ export function useProductHelpers() {
     }
   }
   
+  const _isMaintenanceMode = async () => {
+    try {
+      const docRef = await getDocs(collection(db, 'status'))
+      if (!docRef.docs || docRef.docs.length === 0) {
+        return false
+      }
+      const { isMaintenance } = docRef.docs[0].data()
+      return isMaintenance
+    } catch (error) {
+      console.error('Error getting maintenance status:', error)
+      return false
+    }
+  }
+  
   const getProductsFirebase = async () => {
     const docRef = await getDocs(collection(db, 'allProducts'))
 
@@ -125,6 +139,10 @@ export function useProductHelpers() {
   }
   
   const _updatedFirebase = async () => {
+    const isMaintenance = await _isMaintenanceMode()
+    if (isMaintenance) {
+      throw new Error('El sistema está en mantenimiento. No se pueden actualizar los productos.')
+    }
     try {
       await _deleteAllProducts()
       await addDoc(collection(db, 'lastedUpdated'), { lastUpdate: new Date().toISOString() })
