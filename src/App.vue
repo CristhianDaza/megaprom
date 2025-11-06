@@ -49,6 +49,24 @@ watch(
 onMounted(async () => {
   await featureFlags.getFeatureFlags()
   await products.loadAttemptsFromFirebase()
+
+  const isLogin = localStorage.getItem('isLogin')
+  if (isLogin === 'true' && products.isLocked()) {
+    const remaining = products.getRemainingLockTime()
+    const minutes = Math.ceil(remaining / 60)
+    const hours = Math.floor(remaining / 3600)
+
+    let message
+    if (hours > 0) {
+      const mins = Math.ceil((remaining % 3600) / 60)
+      message = `Sistema bloqueado. Debes esperar ${hours} hora${hours > 1 ? 's' : ''} y ${mins} minuto${mins > 1 ? 's' : ''} antes de poder actualizar.`
+    } else {
+      message = `Sistema bloqueado. Debes esperar ${minutes} minuto${minutes > 1 ? 's' : ''} antes de poder actualizar.`
+    }
+
+    showToast('warn', 'Sistema temporalmente bloqueado', message)
+  }
+
   await products.initProducts()
   await menuStore.getMenu()
 })
