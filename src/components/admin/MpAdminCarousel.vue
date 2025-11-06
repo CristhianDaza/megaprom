@@ -1,5 +1,5 @@
 <script setup>
-import  TvButton from '@todovue/tv-button'
+import { TvButton } from "@todovue/tv-button";
 
 import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'

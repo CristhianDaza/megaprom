@@ -1,5 +1,5 @@
 <script setup>
-import TvButton from "@todovue/tv-button";
+import { TvButton } from "@todovue/tv-button";
 import {ref, onMounted, watch} from 'vue'
 import { useToast } from 'primevue/usetoast'
 

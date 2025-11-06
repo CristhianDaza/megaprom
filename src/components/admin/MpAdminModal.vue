@@ -1,5 +1,5 @@
 <script setup>
-import TvButton from "@todovue/tv-button";
+import { TvButton } from "@todovue/tv-button";
 import { ref, watch, computed } from 'vue'
 import { useCatalogsStore } from '@/store/catalogs.js'
 import { useCarouselStore } from '@/store/carousel.js'

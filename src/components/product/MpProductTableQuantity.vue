@@ -1,5 +1,5 @@
 <script setup>
-import TvButton from "@todovue/tv-button";
+import { TvButton } from "@todovue/tv-button";
 import TvRelativeTime from '@todovue/tv-relative-time';
 import { computed, ref, defineAsyncComponent } from 'vue'
 import { formatNumber, formatPrice } from '@/utils'
