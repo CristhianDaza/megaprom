@@ -16,13 +16,26 @@ export function useProductHelpers() {
   const isUpdatedFirebase = ref(false)
   const statusFirebase = ref()
   
-  const setAllProductsAndPromos = async (isAdmin, updated = false) => {
+  const setAllProductsAndPromos = async (isAdmin, updated = false, productsStore = null) => {
     try {
       if (isAdmin) {
         const isUpdated = await _isUpdated()
         if (isUpdated && !updated) {
           return await getProductsFirebase()
         }
+        
+        if (productsStore && updated) {
+          await productsStore.loadAttemptsFromFirebase()
+          if (productsStore.isLocked()) {
+            isLoadingMp.value = false
+            isLoadingPromos.value = false
+            isLoadingAllProducts.value = false
+            statusMp.value = 'failed'
+            statusPromos.value = 'failed'
+            throw new Error('Sistema bloqueado temporalmente. Por favor espera antes de reintentar.')
+          }
+        }
+        
         isLoadingAllProducts.value = true
 
         const [{ data: productsData }, { data: stockData }] = await Promise.all([

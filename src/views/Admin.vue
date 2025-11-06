@@ -5,6 +5,8 @@ import { useHead } from '@unhead/vue'
 import { useConfirm } from 'primevue/useconfirm'
 
 import { useProductsStore } from '@/store/products.js'
+import { useToast } from 'primevue/usetoast'
+const toast = useToast()
 
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user.js'
@@ -46,6 +48,14 @@ const confirmUpdated = () => {
 }
 
 const _updateProducts = async () => {
+  await products.loadAttemptsFromFirebase()
+  if (products.isLocked()) {
+    const remaining = products.getRemainingLockTime()
+    const minutes = Math.ceil(remaining / 60)
+    toast.add({ severity: 'error', summary: 'Error llamando los servicios', detail: `Debes esperar ${minutes} minutos antes de poder actualizar nuevamente.`, life: 3000 })
+    return
+  }
+
   await products.initProducts(true)
 }
 </script>

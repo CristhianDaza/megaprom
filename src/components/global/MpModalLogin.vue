@@ -21,6 +21,7 @@ const user = ref({})
 const login = async () => {
   await userStore.login(user.value)
   if (userStore.isLogged) {
+    await products.loadAttemptsFromFirebase()
     await products.initProducts(false)
     await router.push({ name: 'admin' })
   }

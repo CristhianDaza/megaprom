@@ -48,6 +48,7 @@ watch(
 
 onMounted(async () => {
   await featureFlags.getFeatureFlags()
+  await products.loadAttemptsFromFirebase()
   await products.initProducts()
   await menuStore.getMenu()
 })

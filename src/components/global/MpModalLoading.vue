@@ -1,43 +1,94 @@
 <script setup>
 import { TvButton } from "@todovue/tv-button";
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useProductsStore } from '@/store/products.js'
 
 const products = useProductsStore()
 
 const countdown = ref(60)
 const progress = ref(0)
+const totalWaitTime = ref(60)
 let timer
 
 const startCountdown = () => {
-  countdown.value = 60
-  progress.value = 0
-  timer = setInterval(() => {
-    if (countdown.value > 0) {
-      countdown.value -= 1
-      progress.value = Math.floor(((60 - countdown.value) / 60) * 100)
-    } else {
-      clearInterval(timer)
-    }
-  }, 1000)
+  if (timer) {
+    clearInterval(timer)
+  }
+
+  const remaining = products.getRemainingLockTime()
+  if (remaining > 0) {
+    countdown.value = remaining
+    totalWaitTime.value = remaining
+    progress.value = 0
+
+    timer = setInterval(() => {
+      const newRemaining = products.getRemainingLockTime()
+      if (newRemaining > 0) {
+        countdown.value = newRemaining
+        progress.value = Math.floor(((totalWaitTime.value - newRemaining) / totalWaitTime.value) * 100)
+      } else {
+        clearInterval(timer)
+        countdown.value = 0
+        progress.value = 100
+        if (products.attempts >= 6) {
+          products.resetAttempts()
+        }
+      }
+    }, 1000)
+  }
+}
+
+const formatTime = (seconds) => {
+  if (seconds >= 3600) {
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const secs = seconds % 60
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+  } else {
+    const minutes = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${minutes}:${secs.toString().padStart(2, '0')}`
+  }
 }
 
 const updateProducts = async () => {
-  products.updateAttempts()
-  await products.initProducts(true)
-  if (products.statusMp === 'success' && products.statusPromos === 'success') {
-    products.resetAttempts()
-  }
-  if (products.attempts === 3) {
-    setTimeout(() => {
-      products.resetAttempts()
-    }, 60000)
+  await products.loadAttemptsFromFirebase()
+
+  if (products.isLocked()) {
     startCountdown()
+    return
+  }
+
+  await products.updateAttempts()
+
+  await products.initProducts(true)
+
+  if (products.statusMp === 'success' && products.statusPromos === 'success') {
+    await products.resetAttempts()
+  } else {
+    if (products.isLocked()) {
+      startCountdown()
+    }
   }
 }
 
-onMounted(() => {
-  clearInterval(timer)
+watch(() => products.lockUntil, (newVal) => {
+  if (newVal && products.isLocked()) {
+    startCountdown()
+  }
+})
+
+onMounted(async () => {
+  await products.loadAttemptsFromFirebase()
+  if (products.isLocked()) {
+    startCountdown()
+  }
+})
+
+onUnmounted(() => {
+  if (timer) {
+    clearInterval(timer)
+  }
 })
 </script>
 
@@ -109,23 +160,30 @@ onMounted(() => {
           </div>
         </div>
         <template v-if="products.statusMp === 'failed' || products.statusPromos === 'failed'">
-          <p v-if="products.attempts < 3" class="font-semibold text-red-500 dark:text-red-400 pt-5">
-            Hubo un error al actualizar la base de datos, por favor intenta de nuevo.
-          </p>
-          <tv-button
-            v-if="products.attempts < 3"
-            rounded
-            outlined
-            info
-            full
-            @click="updateProducts"
-          >Reintentar</tv-button>
-          <template v-else>
-            <p class="font-semibold text-red-500 dark:text-red-400">
+          <template v-if="products.isLocked()">
+            <p class="font-semibold text-red-500 dark:text-red-400 text-center">
               <ProgressBar :value="progress" />
               <br>
-              Se ha excedido el número de intentos, por favor intenta más tarde.
+              <span v-if="products.attempts === 3">
+                Se ha excedido el número de intentos. Debes esperar <strong>{{ formatTime(countdown) }}</strong> para volver a intentar.
+              </span>
+              <span v-else-if="products.attempts >= 6">
+                Se ha excedido el número máximo de intentos. Debes esperar <strong>{{ formatTime(countdown) }}</strong> para volver a intentar.
+              </span>
             </p>
+          </template>
+
+          <template v-else>
+            <p class="font-semibold text-red-500 dark:text-red-400 pt-5">
+              Hubo un error al actualizar la base de datos, por favor intenta de nuevo.
+            </p>
+            <tv-button
+              rounded
+              outlined
+              info
+              full
+              @click="updateProducts"
+            >Reintentar</tv-button>
           </template>
         </template>
       </div>

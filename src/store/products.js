@@ -3,7 +3,7 @@ import { normalizeAndFilterProducts, normalizeProductsMP, sanitizeForFirestore }
 import { useProductHelpers } from '@/composables/useProduct.js'
 import { getProductId } from '@/api/apiMarpico.js'
 import { getProductStock } from '@/api/apiPromos.js'
-import { collection, getDocs, updateDoc } from 'firebase/firestore'
+import { collection, getDocs, updateDoc, doc, getDoc, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase.js'
 import { constructUpdatedTableQuantityCA } from '@/helpers/index.js'
 
@@ -29,6 +29,7 @@ export const useProductsStore = defineStore('products', {
     attempts: 0,
     statusFirebase: null,
     isUpdatedTable: false,
+    lockUntil: null,
   }),
   actions: {
     async initProducts(update = false) {
@@ -56,7 +57,7 @@ export const useProductsStore = defineStore('products', {
           this.statusMp = statusMp
           this.statusPromos = statusPromos
           this.statusFirebase = statusFirebase
-          this.products = await setAllProductsAndPromos(true, update)
+          this.products = await setAllProductsAndPromos(true, update, this)
         } else {
           this.lastUpdateProducts = lastUpdateProducts
           this.products = await setAllProductsAndPromos(false)
@@ -142,11 +143,89 @@ export const useProductsStore = defineStore('products', {
       return [...array].sort(() => Math.random() - 0.5).slice(0, num)
     },
     
-    updateAttempts() {
-      this.attempts++
+    async loadAttemptsFromFirebase() {
+      try {
+        const attemptsRef = doc(db, 'systemConfig', 'updateAttempts')
+        const attemptsDoc = await getDoc(attemptsRef)
+        
+        if (attemptsDoc.exists()) {
+          const data = attemptsDoc.data()
+          this.attempts = data.attempts || 0
+          this.lockUntil = data.lockUntil || null
+          
+          if (this.lockUntil) {
+            const now = new Date().getTime()
+            const lockTime = new Date(this.lockUntil).getTime()
+            
+            if (now >= lockTime) {
+              if (this.attempts >= 6) {
+                await this.resetAttempts()
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error loading attempts from Firebase:', error)
+      }
     },
-    resetAttempts() {
+    
+    async updateAttempts() {
+      this.attempts++
+      
+      let lockUntil = null
+      if (this.attempts === 3) {
+        lockUntil = new Date(Date.now() + 60000).toISOString() // 1 minuto
+      }
+      if (this.attempts === 6) {
+        lockUntil = new Date(Date.now() + 3600000).toISOString() // 1 hora
+      }
+      
+      this.lockUntil = lockUntil
+      
+      try {
+        const attemptsRef = doc(db, 'systemConfig', 'updateAttempts')
+        await setDoc(attemptsRef, {
+          attempts: this.attempts,
+          lockUntil: lockUntil,
+          lastUpdate: new Date().toISOString()
+        })
+      } catch (error) {
+        console.error('Error updating attempts in Firebase:', error)
+      }
+    },
+    
+    async resetAttempts() {
       this.attempts = 0
+      this.lockUntil = null
+      
+      try {
+        const attemptsRef = doc(db, 'systemConfig', 'updateAttempts')
+        await setDoc(attemptsRef, {
+          attempts: 0,
+          lockUntil: null,
+          lastUpdate: new Date().toISOString()
+        })
+      } catch (error) {
+        console.error('Error resetting attempts in Firebase:', error)
+      }
+    },
+    
+    isLocked() {
+      if (!this.lockUntil) return false
+      
+      const now = new Date().getTime()
+      const lockTime = new Date(this.lockUntil).getTime()
+      
+      return now < lockTime
+    },
+    
+    getRemainingLockTime() {
+      if (!this.isLocked()) return 0
+      
+      const now = new Date().getTime()
+      const lockTime = new Date(this.lockUntil).getTime()
+      
+      return Math.max(0, Math.ceil((lockTime - now) / 1000))
     },
     
     async updateProduct(api, id, product) {
