@@ -9,6 +9,9 @@ import 'primeicons/primeicons.css'
 import { VueHeadMixin, createHead } from '@unhead/vue'
 const app = createApp(App)
 
+import '@todovue/tv-button/style.css'
+import '@todovue/tv-label/style.css'
+
 import { useUserStore } from '@/store/user.js'
 
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
